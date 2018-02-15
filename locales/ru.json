@@ -1,0 +1,20 @@
+{
+  "navbar_about.nav": "О нас",
+  "navbar_movies.nav": "Фильмы",
+  "navbar_series.nav": "Сериалы",
+  "navbar_home.nav": "Главная",
+  "footer.copyright": "2018 Max Media. Все права защищены.",
+  "searchMovie.horiz_mov_heading": "Сейчас смотрят",
+  "searchResults.imdbRating": "IMDB рейтинг",
+  "searchResults.director": "Режиссер",
+  "searchResults.genre": "Жанр",
+  "searchResults.country": "Страна",
+  "searchResults.runtime": "Продолжительность",
+  "searchResults.released": "Релиз",
+  "searchResults.actors": "В ролях",
+  "searchResults.plot": "Сюжет",
+  "searchResults.movie_not_found": "Ничего не найдено...",
+  "searchResults.try_another": "Попробуйте что-то другое...",
+  "searchResults.lets_heading": "Будем искать?",
+  "sidebar.recent": "Просмотренное"
+}

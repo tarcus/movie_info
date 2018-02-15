@@ -1,0 +1,12 @@
+{ "en": {
+  "searchResults.director": "Director",
+  "searchResults.genre": "Genre",
+  "searchResults.country": "Country",
+  "searchResults.runtime": "Runtime",
+  "searchResults.released": "Released",
+  "searchResults.actors": "Actors",
+  "searchResults.plot": "Plot",
+  "searchResults.movie_not_found": "Movie Not Found, Sorry...",
+  "searchResults.try_another": "Try Another One",
+  "searchResults.lets_heading": "Let's Find Something Interesting!"
+} }

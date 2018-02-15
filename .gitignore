@@ -1,0 +1,4 @@
+*.txt
+/options/apiOptions.js
+/dist
+/node_modules
