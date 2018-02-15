@@ -1,0 +1,251 @@
+4147a97e
+http://www.omdbapi.com/?apikey=4147a97e&t=terminator%20salvation
+
+//параметры запроса
+t ищем фильм по названию
+y Year of release
+plot Вернет короткое описание сюжета
+
+
+s ищем все фильмы по названию
+type тип фильм сериал и т.д вместе с s параметром
+page 1-100 количество страниц результатов поиска
+
+i по imdb ID
+
+
+
+api key themoviedb.org (v3 auth)
+c1fad56e0574e61854cae2298d7093c4
+
+
+API Read Access Token (v4 auth)
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMWZhZDU2ZTA1NzRlNjE4NTRjYWUyMjk4ZDcwOTNjNCIsInN1YiI6IjVhNjc4NGEyMGUwYTI2MTk1YjAxMTIxNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0SKwbTgk9y43Y0KpC5S_j6212U5WyVe09VxgrOcUljs
+
+Example API Request
+https://api.themoviedb.org/3/movie/550?api_key=c1fad56e0574e61854cae2298d7093c4
+
+______________IMAGES_______________
+хеш в конце из ответа берешь
+//БОЛЬШОЙ ПОСТЕР
+https://image.tmdb.org/t/p/w300_and_h450_bestv2/xYK2sS6duOAen24TKHpwKNXFvte.jpg
+
+//МАЛЕНЬКИЙ
+https://image.tmdb.org/t/p/w185_and_h278_bestv2/cGOPbv9wA5gEejkUN892JrveARt.jpg 1x, https://image.tmdb.org/t/p/w370_and_h556_bestv2/cGOPbv9wA5gEejkUN892JrveARt.jpg 2x
+
+Достаточно указать только ширину в запросе w185 
+<img src={`https://image.tmdb.org/t/p/w92/${movie.poster_path}`}/>
+
+ВСЕ доступные разрешения
+"backdrop_sizes": [
+  "w300",
+  "w780",
+  "w1280",
+  "original"
+],
+"logo_sizes": [
+  "w45",
+  "w92",
+  "w154",
+  "w185",
+  "w300",
+  "w500",
+  "original"
+],
+"poster_sizes": [
+  "w92",
+  "w154",
+  "w185",
+  "w342",
+  "w500",
+  "w780",
+  "original"
+],
+"profile_sizes": [
+  "w45",
+  "w185",
+  "h632",
+  "original"
+],
+"still_sizes": [
+  "w92",
+  "w185",
+  "w300",
+  "original"
+]
+
+Жанры(вернет жанры и их id)
+https://api.themoviedb.org/3/genre/movie/list?api_key=c1fad56e0574e61854cae2298d7093c4&language=en-US
+
+DISCOVER
+https://api.themoviedb.org/3/discover/tv?api_key=c1fad56e0574e61854cae2298d7093c4&language&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false
+
+MOVIE (Получить главное инфо о фильме по ID)
+https://api.themoviedb.org/3/movie/tt0462499?api_key=c1fad56e0574e61854cae2298d7093c4&language=en-US
+Получить изображения принадлеж фильму
+https://api.themoviedb.org/3/movie/tt0462499/images?api_key=c1fad56e0574e61854cae2298d7093c4&language=en-US
+Последний фильм(постоянно обновляется)
+https://api.themoviedb.org/3/movie/latest?api_key=c1fad56e0574e61854cae2298d7093c4&language=en-US
+
+
+Finding Data
+There are 3 ways to search for and find movies, TV shows and people on TMDb. They're outlined below.
+
+/search - Text based search is the most common way. You provide a query string and we provide the closest match. Searching by text takes into account all original, translated, alternative names and titles.
+
+/discover - Sometimes it useful to search for movies and TV shows based on filters or definable values like ratings, certifications or release dates. The discover method make this easy. For some example queries, and to get an idea about the things you can do with discover, take a look here.
+
+/find - The last but still very useful way to find data is with existing external IDs. For example, if you know the IMDB ID of a movie, TV show or person, you can plug that value into this method and we'll return anything that matches. This can be very useful when you have an existing tool and are adding our service to the mix.
+
+SEARCH (query=то что ищем) обязательно
+Ищем актера
+https://api.themoviedb.org/3/search/person?api_key=c1fad56e0574e61854cae2298d7093c4&language=en-US&page=1&include_adult=false&query=will smith
+
+Ищем фильм 
+/search/movie
+
+
+https://api.themoviedb.org/3/search/movie?api_key=c1fad56e0574e61854cae2298d7093c4&language=ru-RU&page=1&include_adult=false&query=solaris
+кирилицу в поиске понимает
+
+Ищем сериал
+/search/tv
+
+Ищет среди всего что выше
+/search/multi
+
+По ключевым словам
+/search/keyword
+
+FIND 
+Ищем фильм по imdb id
+https://api.themoviedb.org/3/find/{external_id}?api_key=c1fad56e0574e61854cae2298d7093c4&language=en-US&external_source=imdb_id
+
+
+DISCOVER
+/discover/movie
+/discover/tv Это сериалы
+
+
+САМЫЕ ПОП 
+https://api.themoviedb.org/3/discover/movie?api_key=c1fad56e0574e61854cae2298d7093c4&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
+
+параметры:
+include_adult
+with_cast
+with_genres  string Comma separated value of genre ids that you want to include in the results.
+
+
+MOVIE ПО ID
+https://api.themoviedb.org/3/movie/198663?api_key=c1fad56e0574e61854cae2298d7093c4&language=en-US
+
+ACTORS ПО ID фильма
+https://api.themoviedb.org/3/movie/240832/credits?api_key=c1fad56e0574e61854cae2298d7093c4
+
+with_people
+year
+without_genres
+with_keywords
+и еще дохуя...
+
+//параметры сортировки
+
+string
+Choose from one of the many available sort options.
+
+Allowed Values: , popularity.asc, popularity.desc, release_date.asc, release_date.desc, revenue.asc, revenue.desc, primary_release_date.asc, primary_release_date.desc, original_title.asc, original_title.desc, vote_average.asc, vote_average.desc, vote_count.asc, vote_count.desc
+default: popularity.desc
+
+Жанры
+
+{
+  "genres": [
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 12,
+      "name": "Adventure"
+    },
+    {
+      "id": 16,
+      "name": "Animation"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    },
+    {
+      "id": 80,
+      "name": "Crime"
+    },
+    {
+      "id": 99,
+      "name": "Documentary"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    },
+    {
+      "id": 14,
+      "name": "Fantasy"
+    },
+    {
+      "id": 36,
+      "name": "History"
+    },
+    {
+      "id": 27,
+      "name": "Horror"
+    },
+    {
+      "id": 10402,
+      "name": "Music"
+    },
+    {
+      "id": 9648,
+      "name": "Mystery"
+    },
+    {
+      "id": 10749,
+      "name": "Romance"
+    },
+    {
+      "id": 878,
+      "name": "Science Fiction"
+    },
+    {
+      "id": 10770,
+      "name": "TV Movie"
+    },
+    {
+      "id": 53,
+      "name": "Thriller"
+    },
+    {
+      "id": 10752,
+      "name": "War"
+    },
+    {
+      "id": 37,
+      "name": "Western"
+    }
+  ]
+}
+
+
+//ПОХОЖИЕ ФИЛЬМЫ
+
+https://api.themoviedb.org/3/movie/{movie_id}/similar?api_key=c1fad56e0574e61854cae2298d7093c4&language=en-US&page=1
+
+//ТРЕЙЛЕРЫ К ФИЛЬМУ
+https://api.themoviedb.org/3/movie/198663/videos?api_key=c1fad56e0574e61854cae2298d7093c4&language=en-US
+
+//ФИЛЬМЫ ПО АКТЕРУ ID 
+https://api.themoviedb.org/3/person/287?api_key=c1fad56e0574e61854cae2298d7093c4&append_to_response=movie_credits&language=ru
