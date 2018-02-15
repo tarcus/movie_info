@@ -2,6 +2,7 @@
 *.txt
 =======
 imdb_api_keys.txt
+imdb_api_key.txt
 genres.txt
 >>>>>>> 821b63d7906e3ab84fb29127b994acc74f89dcd3
 /options/apiOptions.js
