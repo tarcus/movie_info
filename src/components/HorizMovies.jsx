@@ -3,6 +3,8 @@ import axios from 'axios';
 import HorizMovItem from './HorizMovItem'
 import Slider from 'react-slick'
 import {injectIntl} from 'react-intl'
+import {api_key, baseUrl} from '../options/apiOptions'
+import {Link} from 'react-router-dom'
 
 class HorizMovies extends Component {
 	constructor(props){
@@ -11,19 +13,19 @@ class HorizMovies extends Component {
 		this.state = {movies: []}
 	}
 
-	//Тянем  самые популярные фильмы с API
+	//Тянем  самые популярные фильмы с API рандомную страницу из сотни
 	componentDidMount(){
 		const options = {
 			method: 'get',
-			timeout: 3000,
-			url: 'https://api.themoviedb.org/3/discover/movie',
+			timeout: 4000,
+			url: `${baseUrl}/discover/movie`,
 			params: {
 				language: this.props.intl.locale,
-				api_key: 'c1fad56e0574e61854cae2298d7093c4',
+				api_key: api_key,
 				sort_by: 'popularity.desc',
 				include_adult: false,
 				include_video: false,
-				page: 1
+				page: Math.floor((Math.random() * 100) + 1)
 
 			}
 		}
@@ -63,17 +65,14 @@ class HorizMovies extends Component {
 				{movies.map((item)=>{
 					return  <div key={item.id} className="horiz-mov-item-carousel">
 								<div className="horiz-mov-item-carousel-inner">
+									<Link to={`/movies/${item.id}`}>
 									<img src={`https://image.tmdb.org/t/p/w92/${item.poster_path}`}/>
+									</Link>
 								</div>
 								
 							</div>
 					})}
-        		{/*
-					<div className="horiz-mov-container">
-				{movies.map((item)=>{
-					return <HorizMovItem key={item.id} movie={item} />
-					})}
-				</div>*/}
+        		
       			</Slider>
 
 					

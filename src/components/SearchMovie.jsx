@@ -11,13 +11,12 @@ class SearchMovie extends Component {
 	constructor(props){
 		super(props);
 		this.state = {data: {Runtime:'initial'}, isLoading: false};
-		//this.handleSubmit = this.handleSubmit.bind(this);
+		
 	}
 
 	handleSubmit=(e)=>{
 		e.preventDefault();
-		//Делаем запрос к OMDB API
-		console.log('request to api')
+		
 		//делаем задержку перед включением isLoading
 		//чтобы не показывать спиннер на коротких запросах
 		//начало запроса
@@ -30,8 +29,8 @@ class SearchMovie extends Component {
 			}
 			
 		}, 200)
-		//this.setState({isLoading: true});
-		let movieName = this.MovieSearchInput.value;
+		
+		// let movieName = this.MovieSearchInput.value;
 		axios(`http://www.omdbapi.com/?apikey=4147a97e&t=${movieName}&plot=full`,{timeout: 2000})
 		.then((response)=>{
 			console.log(response.data)
@@ -53,12 +52,14 @@ class SearchMovie extends Component {
 	render(){
 		return(
 			<div>
+				{/*
 				<div className="form-container">
 					<form onSubmit={this.handleSubmit} className="search-movie-form row-nowrap">
 						<input type="text" placeholder="Search for Movie..." autoFocus ref={(input)=>{this.MovieSearchInput=input}}/>
 						<button type="submit"><FontAwesome name='search' size='2x' /></button>
 					</form>
 				</div>
+				*/}
 				<h2 className="horiz-mov-heading">
 				<FormattedMessage
 					id='searchMovie.horiz_mov_heading'

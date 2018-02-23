@@ -5,6 +5,8 @@ import SpinnerMovie from './SpinnerMovie'
 import Similar from './Similar'
 import Trailers from './Trailers'
 import {Link} from 'react-router-dom'
+import Img from 'react-image'
+import dummyImg_92 from '../images/dummy_92.png'
 
 
 
@@ -22,10 +24,12 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 		return actor.name
 	})
 
+	const director = crew[0] ? crew[0].name : "n/d";
+
 	const actorsImages = cast.slice(0,7).map((actor)=>{
 		return <div className="actor-w92-wrap" key={actor.id + Math.random()}>
 		<Link to={`/actors/${actor.id}`}>
-		<img src={`https://image.tmdb.org/t/p/w92/${actor.profile_path}`}/>
+		<Img src={[`https://image.tmdb.org/t/p/w92/${actor.profile_path}`, dummyImg_92]} />
 		</Link>
 		<div className="actor-w92-name">{actor.name}</div>
 		</div>
@@ -73,7 +77,7 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 						<b>Vote Count:</b> {movie.vote_count}
 					</div>*/}
 					<div className="movie-page-info-item">
-						<b>Director:</b> {crew[0].name}
+						<b>Director:</b> {director}
 					</div> 
 					
 					<div className="movie-page-info-item">
@@ -100,7 +104,10 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 				</div>
 				<div className="movie-page-overview">
 					<h2>Overview</h2>
-					{movie.overview}
+					<p>{movie.overview}</p>
+				</div>
+				<div className="movie-page-backdrop">	
+					<img src={movie.backdrop_path ? `https://image.tmdb.org/t/p/w780/${movie.backdrop_path}` : ""}/>
 				</div>
 				<Trailers 
 					movieId={movie.id}

@@ -77,7 +77,8 @@ class Movies extends Component{
 	scrollPageToBegining = ()=>{
 		//setTimeout(()=>{const firstMov = document.querySelector('.movies-view-container :first-child')
 		setTimeout(()=>{const firstMov = document.querySelector('.movie-filter-container')	
-		scrollIntoViewIfNeeded(firstMov, { duration: 500, easing: 'easeOut' })}, 300)
+			scrollIntoViewIfNeeded(firstMov, { duration: 500, easing: 'easeOut', offset: {top: -5}})
+		}, 300)
 		
 	}
 

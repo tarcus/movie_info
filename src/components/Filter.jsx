@@ -83,7 +83,7 @@ class Filter extends Component {
 						<h3>Genres</h3>
 						<Select
 				        name="genre"
-				       	placeholder="Select genres"
+				       	placeholder="Genres"
 				        value={this.state.with_genres}
 				        onChange={this.handleGenre}
 				        options={genresOptions}
@@ -96,7 +96,7 @@ class Filter extends Component {
 						<h3>Year</h3>
 						<Select
 				        name="year"
-				        placeholder="Select year"
+				        placeholder="Year"
 				        value={this.state.year}
 				        onChange={this.handleYear}
 				        options={getYearOptions(1975)}
@@ -122,10 +122,10 @@ class Filter extends Component {
 					</div>
 
 					<div className="movie-filter-item">
-						<h3>Since Year</h3>
+						<h3>From Year</h3>
 						<Select
 				        name="fromYear"
-				        placeholder="Type Year"
+				        placeholder="From Year"
 				        value={this.state['primary_release_date.gte'].slice(0,4)}
 				        onChange={this.handleFromYear}
 				        options={getYearOptions(1970)}

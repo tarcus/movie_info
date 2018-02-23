@@ -8,7 +8,7 @@ class Actors extends Component {
 	constructor(props){
 		super(props)
 
-		this.state = {data: {}}
+		this.state = {data: {movie_credits: {cast: []}}}
 	}
 
 	getActor = (id)=>{
