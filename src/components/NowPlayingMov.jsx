@@ -45,8 +45,27 @@ class NowPlayingMov extends Component {
 			 return [begin, end]	
 		}
 
+		const commonRand = getRand();
+		console.log('COMMONRAND: ',commonRand)
 
-		const bigImg = this.state.data.slice(...getRand()).map((item)=>{
+
+		//HOLY SHIT, FORGIVE ME OH LORD FOR THIS SHITTY CODE
+		const sliceParamsForSmallImg = () =>{
+			if(commonRand[0]<=16){
+				const smBegin = commonRand[0] + 1;
+				return [smBegin, smBegin + 3]
+			} else {
+				return [commonRand[0] - 3, (commonRand[0] - 3) + 3]
+			}	
+		}
+
+		
+		
+
+		console.log('SLICE: ',sliceParamsForSmallImg())
+
+
+		const bigImg = this.state.data.slice(...commonRand).map((item)=>{
 					return <div className="big-img" key={item.id}>
 								<img src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`}/>
 								<div className="inside-wrap">
@@ -54,9 +73,14 @@ class NowPlayingMov extends Component {
 										<img src={`https://image.tmdb.org/t/p/w92/${item.poster_path}`}/>
 									</div>
 									<span>{item.title}</span>
-								</div>
-								
+								</div>		
 						  </div>
+		})
+
+		const smallImages = this.state.data.slice(...sliceParamsForSmallImg()).map((item)=>{
+			return <div className="small-img" key={item.id}>
+						<img src={`https://image.tmdb.org/t/p/w154/${item.backdrop_path}`}/>
+					</div>
 		})
 
 
@@ -70,18 +94,7 @@ class NowPlayingMov extends Component {
 				
 				<div className="now-playing-card row-no-justify">
 					{bigImg}
-
-
-
-					<div className="small-img">
-						<img src="" />
-					</div>
-					<div className="small-img">
-						<img src="" />
-					</div>
-					<div className="small-img">
-						<img src="" />
-					</div>
+					{smallImages}
 				</div>
 				
 				
