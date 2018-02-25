@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {sliceDate} from '../utils/helpers'
 import Img from 'react-image'
 import dummyImg from '../images/dummy_185.png'
-import SpinnerMovie from './SpinnerMovie'
+import Spinner from './Spinner'
 
 
 
@@ -13,7 +13,7 @@ const ActorsView = ({actor})=>{
 		return <div className="filmography-item" key={item.id + Math.random().toString().slice(-3)}>
 					<Link to={`/movies/${item.id}`}>
 						<Img src={[`https://image.tmdb.org/t/p/w185/${item.poster_path}`, dummyImg]}
-							loader={<SpinnerMovie />}
+							loader={<Spinner />}
 						 />
 					</Link>
 					<span className="rating">{item.vote_average}</span>
@@ -32,7 +32,7 @@ const ActorsView = ({actor})=>{
 			<h1>{actor.name}</h1>
 			<div className="actor-info-wrap">
 				<div className="actor-img-wrap">
-				<Img src={[`https://image.tmdb.org/t/p/w185/${actor.profile_path}`]} loader={<SpinnerMovie />} />
+				<Img src={[`https://image.tmdb.org/t/p/w185/${actor.profile_path}`]} loader={<Spinner />} />
 				</div>
 				<div className="actor-biography-wrap">
 				

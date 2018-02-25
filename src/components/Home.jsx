@@ -15,7 +15,12 @@ class Home extends Component {
 					<HorizMovies />
 				</div>
 				
-				<NowPlayingMov />
+				<NowPlayingMov 
+					movie={true}
+				/>
+				<NowPlayingMov 
+					movie={false}
+				/>
 			</div>
 		)
 	}

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactStars from 'react-stars'
-import SpinnerMovie from './SpinnerMovie'
+import Spinner from './Spinner'
 import Similar from './Similar'
 import Trailers from './Trailers'
 import {Link} from 'react-router-dom'
@@ -41,7 +41,7 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 		return(
 			<div className="movie-page-main">
 				<div className="movie-page-col-1">
-				<SpinnerMovie />
+				<Spinner />
 				</div>
 				<div className="movie-page-col-2">
 				<h1>Sidebar</h1>

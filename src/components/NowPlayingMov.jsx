@@ -2,23 +2,33 @@ import React, {Component} from 'react'
 import {api_key, baseUrl} from '../options/apiOptions'
 import {injectIntl} from 'react-intl'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
+import TextTruncate from 'react-text-truncate'
+
+//FOR TV SHOW....
+//TV has name  instead  title
+//page 1 instead  rand
+//tv/on_the_air instead  movie/now_playing
+
 
 class NowPlayingMov extends Component {
-	constructor(){
-		super()
+	constructor(props){
+		super(props);
 
 		this.state = {data: []}
 	}
+	
 
 	getNowPlaying = ()=>{
 		const options = {
 			method: 'get',
 			timeout: 4000,
-			url: `${baseUrl}/movie/now_playing`,
+			url: `${baseUrl}/${this.props.movie ? 'movie/now_playing' : 'tv/on_the_air'}`, //`${baseUrl}/tv/on_the_air`, movie/now_playing
 			params: {
 				language: this.props.intl.locale,
 				api_key: api_key,
-				page: 1//Math.floor((Math.random() * 10) + 1)
+				//region: 'US',
+				page:  this.props.movie ? Math.floor((Math.random() * 3) + 1) : 1 //генерит от 1-3
 			}
 		}
 
@@ -39,9 +49,11 @@ class NowPlayingMov extends Component {
 	}
 
 	render(){
+		const movie = this.props.movie;
+
 		const getRand = () =>{
 			 const begin = Math.floor(Math.random() * 20);
-			 const end = begin + 1;
+			 const end = begin + 2;
 			 return [begin, end]	
 		}
 
@@ -49,52 +61,69 @@ class NowPlayingMov extends Component {
 		console.log('COMMONRAND: ',commonRand)
 
 
-		//HOLY SHIT, FORGIVE ME OH LORD FOR THIS SHITTY CODE
+		//Чтобы не было повторов 
 		const sliceParamsForSmallImg = () =>{
-			if(commonRand[0]<=16){
+			if(commonRand[0]<=14){
 				const smBegin = commonRand[0] + 1;
-				return [smBegin, smBegin + 3]
+				return [smBegin, smBegin + 5]
 			} else {
-				return [commonRand[0] - 3, (commonRand[0] - 3) + 3]
+				return [commonRand[0] - 5, (commonRand[0] - 5) + 5]
 			}	
 		}
 
 		
-		
-
 		console.log('SLICE: ',sliceParamsForSmallImg())
 
 
 		const bigImg = this.state.data.slice(...commonRand).map((item)=>{
+				if(item.backdrop_path !==null){ 
 					return <div className="big-img" key={item.id}>
 								<img src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`}/>
 								<div className="inside-wrap">
 									<div className="poster-inside">
-										<img src={`https://image.tmdb.org/t/p/w92/${item.poster_path}`}/>
+										<Link to={movie ? `/movies/${item.id}` : `/series/${item.id}`}>
+											<img src={`https://image.tmdb.org/t/p/w92/${item.poster_path}`}/>
+										</Link>
 									</div>
-									<span>{item.title}</span>
+									<span>{movie ? item.title : item.name}</span>
 								</div>		
 						  </div>
+				}		  
 		})
 
 		const smallImages = this.state.data.slice(...sliceParamsForSmallImg()).map((item)=>{
-			return <div className="small-img" key={item.id}>
-						<img src={`https://image.tmdb.org/t/p/w154/${item.backdrop_path}`}/>
-					</div>
+			  if(item.backdrop_path !==null){ 
+			  	return <div className="small-img" key={item.id}>
+						<img src={`https://image.tmdb.org/t/p/w185/${item.backdrop_path}`}/>
+						<span className="small-img-title">
+							<TextTruncate
+							    line={1}
+							    truncateText="…"
+							    text={movie ? item.title : item.name}
+							/>
+						</span>
+				  </div>
+			}
 		})
-
-
-		
 
 
 		return(
 			<div className="now-playing-mov">
-				<h2>Now Playing Movie</h2>
+				<h2>{movie ? 'New Movies In Theaters' : 'TV On The Air'}</h2>
 
 				
 				<div className="now-playing-card row-no-justify">
-					{bigImg}
-					{smallImages}
+					{bigImg.filter((item)=>{
+							return item !==undefined
+						}).slice(0, 1)}
+
+					<div className="sm-images-wrap">
+						{console.log(smallImages)}
+						{smallImages.filter((item)=>{
+							return item !==undefined
+						}).slice(0, 3)}
+					</div>
+					
 				</div>
 				
 				

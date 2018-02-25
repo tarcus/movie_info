@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import Img from 'react-image'
 import dummyImg_92 from '../images/dummy_92.png'
-import SpinnerMovie from './SpinnerMovie'
+import Spinner from './Spinner'
 import Truncate from 'react-truncate'
 
 const SearchItem = ({data})=>{
@@ -29,7 +29,7 @@ const SearchItem = ({data})=>{
 			<div className="search-item-img-wrap">
 				<Link to={`/${urlPart[data.media_type]}/${data.id}`}>
 					<Img src={[`https://image.tmdb.org/t/p/w92/${data.poster_path ? data.poster_path : data.profile_path}`,dummyImg_92]}
-						 loader={<SpinnerMovie />}
+						 loader={<Spinner />}
 					/>
 				</Link>
 			</div>
