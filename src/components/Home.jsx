@@ -14,13 +14,15 @@ class Home extends Component {
 					<h2>Interesting</h2>
 					<HorizMovies />
 				</div>
-				
-				<NowPlayingMov 
+				<div className="row now-playing-wrap">
+					<NowPlayingMov 
 					movie={true}
 				/>
 				<NowPlayingMov 
 					movie={false}
 				/>
+				</div>
+				
 			</div>
 		)
 	}

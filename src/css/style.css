@@ -33,6 +33,10 @@ h1 {
 	font-size: 2.5em;	
 }
 
+h2 {
+	margin-top: 0;
+}
+
 .main {
 	min-height: 50vh;
 }
@@ -1145,6 +1149,10 @@ h1.search {
 
 
 /*****HOME PAGE*****/
+.now-playing-wrap {
+
+}
+
 .carousel-wrap {
 	height: 230px
 }
@@ -1153,10 +1161,11 @@ h1.search {
 .now-playing-mov {
 	max-height: 430px;
 	max-width: 500px;
+	margin: 35px 0 0 0;
 }
 
 .now-playing-card {
-	
+
 }
 
 
@@ -1166,7 +1175,9 @@ h1.search {
 	height: auto;
 }
 
+.big-img {
 
+}
 
 .big-img img {
 	max-width: 100%;
@@ -1290,9 +1301,15 @@ h1.search {
 	.fa-search {
 		font-size: 18px;
 	}
-	
+		
+}
 
-	
+/*ОТ 600 и выше */
+
+@media screen and (min-width: 600px){
+	.now-playing-wrap {
+		flex-wrap: nowrap;
+	}
 }
 
 
@@ -1310,6 +1327,8 @@ h1.search {
 	.navbar-expand {
 	border-top: 1px solid var(--menu-item-border-dark);
 	}
+
+	
 }
 
 
