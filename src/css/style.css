@@ -738,6 +738,7 @@ h2 {
 }
 .movie-page-poster img {
 	max-width: 100%;
+	border: 1px solid var(--light-gray);
 }
 .movie-page-info {
 	/*border: 1px solid black;*/
@@ -910,9 +911,9 @@ h2 {
 }
 
 .filmography-container {
-	display: flex;
+	/*display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: center;*/
 	
 }
 
@@ -1232,6 +1233,20 @@ h1.search {
 
 
 /*****Media Queries*****/
+@media screen and (max-width: 414px){
+	/*ACTOR PAGE*/
+	.filmography-item {
+	flex-basis: 158px;
+	height: auto;
+	}
+
+	.filmography-item img {
+	width: 100%;
+	height: auto;	
+	}
+
+}
+
 
 
 @media screen and (max-width: 480px){
@@ -1301,6 +1316,26 @@ h1.search {
 	.fa-search {
 		font-size: 18px;
 	}
+
+	/*MOVIE PAGE ON SM*/
+	.movie-page-col-1 {
+		flex-basis :95%;
+	}
+
+	.movie-page-col-2 {
+		flex-basis :95%;
+		margin-left: 0px;
+	}
+
+	.movie-page-poster img {
+		width: 100%;
+	}
+
+	.actors-main-wrap {
+
+	}
+
+	
 		
 }
 

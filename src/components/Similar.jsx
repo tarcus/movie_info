@@ -13,7 +13,7 @@ class Similar extends Component {
 
 	getSimilar = (movieId)=>{
 		const options = {
-			url: `${baseUrl}/movie/${movieId}/similar`,
+			url: `${baseUrl}/movie/${movieId}/recommendations`, //or can use similar instead
 			params: {
 				api_key,
 				language: this.props.language,

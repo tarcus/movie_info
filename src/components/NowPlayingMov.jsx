@@ -4,6 +4,7 @@ import {injectIntl} from 'react-intl'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import TextTruncate from 'react-text-truncate'
+import NextTVAirDate from './NextTVAirDate'
 
 //FOR TV SHOW....
 //TV has name  instead  title
@@ -15,27 +16,32 @@ class NowPlayingMov extends Component {
 	constructor(props){
 		super(props);
 
-		this.state = {data: []}
+		this.state = {data: [] }
 	}
 	
 
 	getNowPlaying = ()=>{
-		const options = {
-			method: 'get',
-			timeout: 4000,
-			url: `${baseUrl}/${this.props.movie ? 'movie/now_playing' : 'tv/on_the_air'}`, 
-			params: {
-				language: this.props.intl.locale,
-				api_key: api_key,
-				//region: 'US',
-				page:  this.props.movie ? Math.floor((Math.random() * 3) + 1) : 1 //генерит от 1-3
+			const options = {
+				method: 'get',
+				timeout: 4000,
+				url: `${baseUrl}/${this.props.movie ? 'movie/now_playing' : 'tv/on_the_air'}`, 
+				params: {
+					language: this.props.intl.locale,
+					api_key: api_key,
+					//region: 'US',
+					page:  this.props.movie ? Math.floor((Math.random() * 3) + 1) : 1 //генерит от 1-3
+				}
 			}
-		}
 
 
 		axios(options)
 		.then((response)=>{
-			console.log(response.data);
+			console.log('MAIN: ',response.data);
+			//добавим
+			//const nextAir = response.data.results.map((item)=>{
+			//	return {id: item.id, next_air_date: getTVStuff(item.id) }
+			//})
+
 			this.setState({data: response.data.results})})
 		.catch((error)=>{
 			console.log(error)
@@ -43,77 +49,10 @@ class NowPlayingMov extends Component {
 	
 	}
 
-	getTVStuff = ()=>{
-		const tvID = null; //Это тоже нахуй потом убери
-		const seasonNum = 8; //это должен быть результат предыдущего запроса
-		//получаем текущую дату в iso формате и отрезаем лишнее
-		const currentDate = new Date().toISOString().slice(0, 10);
-		console.log(currentDate, Date.now())
 
-
-
-		var date = new Date(2010,10,30)
-		console.log('DATE: ', date)
-		console.log('DATE PARSE: ', Date.parse('2018-02-25'))
-		//количество сезонов и т.д
-
-		//нужно получить последний сезон(текущий)
-			const optionsTVInfo = {
-				method: 'get',
-				timeout: 4000,
-				url: `${baseUrl}/tv/${tvID ? tvID : '1402'}`, //заглушка, допили позже
-				params: {
-					language: this.props.intl.locale,
-					api_key: api_key,
-					//region: 'US',
-					//page:  this.props.movie ? Math.floor((Math.random() * 3) + 1) : 1 //генерит от 1-3
-				}
-			}
-
-			const optionsForSeasonNum = {
-				method: 'get',
-				timeout: 4000,
-				url: `${baseUrl}/tv/${tvID ? tvID : '1402'}/season/${seasonNum}`, //заглушка, допили позже
-				params: {
-					language: this.props.intl.locale,
-					api_key: api_key,
-				}
-			}
-		
-		//получаем номер сезона
-		axios(optionsTVInfo)
-		.then((response)=>{
-			console.log('TV: ',response.data);
-			//this.setState({data: response.data.results})
-		})
-		.catch((error)=>{
-			console.log(error)
-		})
-
-		//получаем инфу о сезоне
-		axios(optionsForSeasonNum)
-		.then((response)=>{
-			console.log('TV SEASON: ',response.data);
-			//нужно перебрать response.data.episodes[air_date] сравнить с текущей датой и выбрать ближайший следующий
-			//this.setState({data: response.data.results})
-			const difference = response.data.episodes.filter((item)=>{
-				return item.air_date >= currentDate
-			})
-
-			console.log('DIF: ',difference)
-
-		})
-		.catch((error)=>{
-			console.log(error)
-		})
-
-
-	}
-
-
+	 
 	componentDidMount(){
 		this.getNowPlaying();
-		this.getTVStuff();
 	}
 
 	render(){
@@ -171,7 +110,7 @@ class NowPlayingMov extends Component {
 								    truncateText="…"
 								    text={movie ? item.title : item.name}
 								/>
-								{item.first_air_date}
+								{movie ? item.release_date : <NextTVAirDate tvID={item.id}/>}
 							</span>
 					  </div>
 			}

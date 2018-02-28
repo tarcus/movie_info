@@ -57,7 +57,7 @@ const ActorsView = ({actor})=>{
 
 			
 			
-			<div className="filmography-container">
+			<div className="filmography-container row">
 				<h2>Filmography</h2>
 				{filmography}
 			</div>
