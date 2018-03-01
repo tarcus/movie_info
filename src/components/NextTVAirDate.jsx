@@ -42,16 +42,25 @@ class NextTVAirDate extends Component {
 			});
 		})
 		.then((response)=>{
+			console.log('NEXXXT: ', response.data.episodes )
 			const nextEpisodes = response.data.episodes.filter((item)=>{
 					return item.air_date >= currentDate
 			});
 
-			const nextAir = nextEpisodes.map((item)=>{
-				return {id: item.id, next_air_date: item.air_date }
-			});
-
-			//console.log("NEXT AIR" ,nextEpisodes[0].air_date) 	
+			// const nextAir = nextEpisodes.map((item)=>{
+			// 	return {id: item.id, next_air_date: item.air_date }
+			// });
+			if(nextEpisodes.length == 0){
+				console.log('NO NEXT EPISODES')
+				this.setState({nextAir: 'Season End'})
+			} else {
 				this.setState({nextAir: nextEpisodes[0].air_date})
+			}
+
+
+			//console.log("NEXT AIR" ,nextEpisodes[0].air_date) 
+				
+				
 			 		
 		})
 		.catch((error)=>{
@@ -71,8 +80,8 @@ class NextTVAirDate extends Component {
 
 	render(){
 		return(
-			<div className="next-air-date">
-				{this.state.nextAir}
+			<div className="next-air-date font-md">
+				{this.state.nextAir=='Season End' ? this.state.nextAir : `Next Air: ${this.state.nextAir}`}
 			</div>
 		)
 	}

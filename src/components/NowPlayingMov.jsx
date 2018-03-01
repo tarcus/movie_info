@@ -92,7 +92,18 @@ class NowPlayingMov extends Component {
 											<img src={`https://image.tmdb.org/t/p/w92/${item.poster_path}`}/>
 										</Link>
 									</div>
-									<span>{movie ? item.title : item.name}</span>
+									<div className="title-rel-wrap">
+										<span className="translucent-bg font-bg">
+											{movie ? item.title : item.name}
+										</span>
+										<div>
+										<span className="next-episode-big font-md translucent-bg">
+											{movie ? `Released: ${item.release_date}` : <NextTVAirDate tvID={item.id}/>}
+										</span>
+										</div>
+									</div>
+									
+
 								</div>		
 						  </div>
 				}		  
@@ -105,12 +116,18 @@ class NowPlayingMov extends Component {
 								<img src={`https://image.tmdb.org/t/p/w185/${item.backdrop_path}`}/>
 							</Link>
 							<span className="small-img-title">
-								<TextTruncate
+								<div className="text-shad">
+									<TextTruncate
 								    line={1}
 								    truncateText="…"
 								    text={movie ? item.title : item.name}
-								/>
-								{movie ? item.release_date : <NextTVAirDate tvID={item.id}/>}
+									/>
+								</div>	
+									
+								<span className="translucent-bg">
+									{movie ? item.release_date : <NextTVAirDate tvID={item.id}/>}
+								</span>
+								
 							</span>
 					  </div>
 			}
