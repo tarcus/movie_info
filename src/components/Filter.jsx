@@ -6,6 +6,7 @@ import Select from 'react-select'
 import 'react-select/dist/react-select.css';
 import {genresOptionsMovie, genresOptionsTV, getYearOptions, sortByTV, sortByMovies} from '../options/filterOptions'
 
+
 class Filter extends Component {
 	constructor(props){
 		super(props);
