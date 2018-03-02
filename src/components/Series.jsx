@@ -1,4 +1,6 @@
 import React,{Component} from 'react'
+import Filter from './Filter'
+import Movies from './Movies'
 
 class Series extends Component {
 	constructor(props){
@@ -8,8 +10,8 @@ class Series extends Component {
 
 	render(){
 		return(
-			<div className="movies-container">
-				Series Component
+			<div className="movies-container">	
+				<Movies tv={this.props.tv}/>
 			</div>
 		)
 	}

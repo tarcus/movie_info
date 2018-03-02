@@ -52,7 +52,7 @@ class NextTVAirDate extends Component {
 			// });
 			if(nextEpisodes.length == 0){
 				console.log('NO NEXT EPISODES')
-				this.setState({nextAir: 'Season End'})
+				this.setState({nextAir: 'Season Ended'})
 			} else {
 				this.setState({nextAir: nextEpisodes[0].air_date})
 			}
@@ -81,7 +81,7 @@ class NextTVAirDate extends Component {
 	render(){
 		return(
 			<div className="next-air-date font-md">
-				{this.state.nextAir=='Season End' ? this.state.nextAir : `Next Air: ${this.state.nextAir}`}
+				{this.state.nextAir=='Season Ended' ? this.state.nextAir : `Next Air: ${this.state.nextAir}`}
 			</div>
 		)
 	}

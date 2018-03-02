@@ -236,7 +236,7 @@ h2 {
 	display: block;
 	background-color: var(--secondary-bg-color);
 	overflow: hidden;
-	transition: max-height .75s ease-in;	
+	transition: max-height .5s ease-in;	
 }
 
 
@@ -1007,6 +1007,10 @@ h2 {
 
 
 /*****SEARCH*****/
+.search-view-col-1 {
+	flex-basis: 80%;
+}
+
 .search-results-container {
 
 }
@@ -1020,8 +1024,9 @@ h2 {
 
 .search-item-info {
 	position: relative;
-	width: 650px;
+	width: 100%;
 	padding: 0 15px;
+	/*min-width: 250px;*/
 }
 
 .search-item-info h4 {
@@ -1042,11 +1047,12 @@ h2 {
 .search-item-overview {
 	font-size: 16px;
 	line-height: 1.2em;
+	/*max-height: 40px;*/
 }
 
 .search-media-type {
 	position: absolute;
-	top: 5px;
+	bottom: 5px;
 	right: 5px;
 	font-size: 12px;
 	text-align: center;
@@ -1185,7 +1191,7 @@ h1.search {
 }
 
 .now-playing-card {
-
+	border: 1px solid var(--light-gray);
 }
 
 
@@ -1247,6 +1253,7 @@ h1.search {
 }
 
 .small-img img {
+	display: block;
 	width: 100%;
 	height: auto;
 }
@@ -1359,6 +1366,10 @@ h1.search {
 		font-size: 18px;
 	}
 
+	.search-view-col-1 {
+	flex-basis: 98%;
+	}
+
 	/*MOVIE PAGE ON SM*/
 	.movie-page-col-1 {
 		flex-basis :95%;
@@ -1377,6 +1388,9 @@ h1.search {
 
 	}
 
+	.carousel-wrap h2 {
+		text-align: center;
+	}
 	
 		
 }
