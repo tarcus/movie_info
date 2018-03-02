@@ -6,7 +6,7 @@ const MoviesView = ({movies})=>{
 	return(
 		<div className="movies-view-container">
 			{movies.map((movie)=>{
-				return <MoviesSingleItem key={movie.id} data={movie} />
+				return <MoviesSingleItem key={movie.id}  data={movie} />
 			})} 
 		</div>
 	)

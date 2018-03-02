@@ -10,8 +10,8 @@ const MoviesSingleItem = ({data})=>{
 				<img src={`https://image.tmdb.org/t/p/w185/${data.poster_path}`}/>
 			</div>
 			<div className="single-movie-card-info">
-				<h2>{data.title}</h2>
-				<div><b>Year:</b> {data.release_date.slice(0, 4)}</div>
+				<h2>{data.title ? data.title : data.name}</h2>
+				<div><b>Year:</b> {data.release_date ? data.release_date.slice(0, 4) : data.first_air_date}</div>
 				<div className="single-movie-card-rating">
 					<b>Rating:</b> {data.vote_average}
 					<ReactStars

@@ -93,7 +93,7 @@ class NowPlayingMov extends Component {
 										</Link>
 									</div>
 									<div className="title-rel-wrap">
-										<span className="translucent-bg font-bg">
+										<span className="font-bg text-shad">
 											{movie ? item.title : item.name}
 										</span>
 										<div>

@@ -19,7 +19,7 @@ class Movies extends Component{
 			movies: [],
 		 	totalResults: '',
 			defaultOptions: {
-				url: `${baseUrl}/discover/movie`,
+				url: `${baseUrl}/discover/${this.props.tv ? 'tv' : 'movie'}`,
 				method: 'get',
 				params: {
 					api_key,
@@ -102,7 +102,7 @@ class Movies extends Component{
 		console.log('Movies component render fire')
 		return(
 			<div className="movies-container">
-				<Filter loadFiltered={this.loadFiltered}/>
+				<Filter tv={this.props.tv}  loadFiltered={this.loadFiltered}/>
 				<MoviesView movies={this.state.movies} />
 				<div className="pagination-wrapper">
 					<Pagination
