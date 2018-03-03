@@ -20,6 +20,7 @@ const Main = ()=>{
 				<Route exact path='/movies' render={()=>{ return <Movies tv={false} />}} />
 				<Route path='/movies/:id' component={Movie} />
 				<Route exact path='/series' render={()=>{ return <Series tv={true} />}} />
+				<Route path='/series/:id' component={Movie} />
 				<Route path='/title' component={Title} />
 				<Route path='/actors/:id' component={Actors} />
 				<Route component={NotFound} />

@@ -140,7 +140,7 @@ class Filter extends Component {
 						<h3>From Year</h3>
 						<Select
 				        name="fromYear"
-				        placeholder="From Year"
+				        placeholder="Since"
 				        value={ tv ? this.state['first_air_date.gte'].slice(0,4) : this.state['primary_release_date.gte'].slice(0,4)}
 				        onChange={this.handleFromYear}
 				        options={getYearOptions(1970)}

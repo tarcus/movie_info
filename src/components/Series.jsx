@@ -1,20 +1,12 @@
-import React,{Component} from 'react'
-import Filter from './Filter'
+import React from 'react'
 import Movies from './Movies'
 
-class Series extends Component {
-	constructor(props){
-		super(props);
-
-	}
-
-	render(){
+const Series = ({tv})=> {		
 		return(
-			<div className="movies-container">	
-				<Movies tv={this.props.tv}/>
+			<div>
+				<Movies tv={tv}/>
 			</div>
 		)
-	}
 }
 
 export default Series;

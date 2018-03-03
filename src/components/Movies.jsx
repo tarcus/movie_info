@@ -75,10 +75,9 @@ class Movies extends Component{
 	}
 
 	scrollPageToBegining = ()=>{
-		//setTimeout(()=>{const firstMov = document.querySelector('.movies-view-container :first-child')
 		setTimeout(()=>{const firstMov = document.querySelector('.movie-filter-container')	
-			scrollIntoViewIfNeeded(firstMov, { duration: 500, easing: 'easeOut', offset: {top: -5}})
-		}, 300)
+			scrollIntoViewIfNeeded(firstMov, { duration: 500, easing: 'ease', offset: {top: -5}})
+		}, 350)
 		
 	}
 
@@ -92,17 +91,18 @@ class Movies extends Component{
   	}
 
 	componentDidMount(){
-		console.log('MOVIES DID MOUNT')
 		this.loadFiltered()
 	}
 
 	
 
 	render(){
+		const tv = this.props.tv;
 		console.log('Movies component render fire')
 		return(
 			<div className="movies-container">
-				<Filter tv={this.props.tv}  loadFiltered={this.loadFiltered}/>
+				<h1>{tv ? 'Series' : 'Movies'}</h1>
+				<Filter tv={tv}  loadFiltered={this.loadFiltered}/>
 				<MoviesView movies={this.state.movies} />
 				<div className="pagination-wrapper">
 					<Pagination

@@ -14,6 +14,7 @@ const MoviesSingleItem = ({data})=>{
 				<div><b>Year:</b> {data.release_date ? data.release_date.slice(0, 4) : data.first_air_date}</div>
 				<div className="single-movie-card-rating">
 					<b>Rating:</b> {data.vote_average}
+					<div className="stars-rating">
 					<ReactStars
 					  count={10}
 					  value={data.vote_average}
@@ -21,6 +22,7 @@ const MoviesSingleItem = ({data})=>{
 					  size={24}
 					  color2={'#E6CF34'} 
 					 />
+					</div>	
 				</div>
 				<div className="single-movie-card-plot">
 					<Truncate lines={3} ellipsis={<span>...</span>}>
@@ -28,7 +30,7 @@ const MoviesSingleItem = ({data})=>{
 					</Truncate>
 				</div>
 				<div className="single-movie-card-read-more">
-					<Link to={`/movies/${data.id}`}>Read More</Link>
+					<Link to={`/${data.title ? 'movies' : 'series'}/${data.id}`}>Read More</Link>
 				</div>
 			</div>
 		</div>
