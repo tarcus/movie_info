@@ -53,6 +53,7 @@ class HorizMovies extends Component {
 		      touchMove: true,
 		      swipeToSlide: false,
 		      responsive: [ 
+		      	  { breakpoint: 321, settings: { slidesToShow: 3, slidesToScroll: 3 } },
 			      { breakpoint: 481, settings: { slidesToShow: 4, slidesToScroll: 4 } },
 			      { breakpoint: 800, settings: { slidesToShow: 7, slidesToScroll: 7 } },
 			      { breakpoint: 1025, settings: { slidesToShow: 8, slidesToScroll: 8} },

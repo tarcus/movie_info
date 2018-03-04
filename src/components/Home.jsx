@@ -9,20 +9,21 @@ class Home extends Component {
 
 	render(){
 		return(
-			<div className="home">
-				<div className="carousel-wrap">
-					<h2>Interesting</h2>
-					<HorizMovies />
-				</div>
-				<div className="row now-playing-wrap">
+			<div className="home row">
+				<div className="home-col-1">
+					<div className="carousel-wrap">
+						<h2>Interesting</h2>
+						<HorizMovies />
+					</div>
+					<div className="row now-playing-wrap">
+						<NowPlayingMov 
+						movie={true}
+					/>
 					<NowPlayingMov 
-					movie={true}
-				/>
-				<NowPlayingMov 
-					movie={false}
-				/>
-				</div>
-				
+						movie={false}
+					/>
+					</div>
+				</div>	
 			</div>
 		)
 	}

@@ -19,7 +19,11 @@ const SearchItem = ({data})=>{
 
 	//Movies for the person
 	if(data.media_type=='person'){
-		var knownAs = data.known_for.map((item, i, arr)=>{
+		//если в массиве один из элементов null то все идет по пизде, отфильтруем сперва
+		const filtered = data.known_for.filter((item)=>{
+			return  item 
+		})
+		var knownAs = filtered.map((item, i, arr)=>{
 		return <p key={item.id}>{`${item.title} ${arr.length>(i+1) ? ", " : "." }`} </p>
 		})
 		
@@ -43,7 +47,7 @@ const SearchItem = ({data})=>{
 					<b>{data.vote_average ? 'Rating:' : 'Popularity'}</b> {data.vote_average ? data.vote_average : popularity}	
 				</div>
 				
-				<span className="search-media-type"><b>{data.media_type}</b></span>
+				
 				<div className="search-item-overview">
 					<Truncate lines={2} ellipsis={<span>..</span>}>
 						{(data.media_type=='person') ? knownAs : data.overview} 
@@ -56,7 +60,7 @@ const SearchItem = ({data})=>{
 					  basedOn='letters'
 					/>	*/}				
 				</div>
-				
+				<span className="search-media-type"><b>{data.media_type}</b></span>
 				<div className="search-item-more">
 					<Link to={`/${urlPart[data.media_type]}/${data.id}`}>Read More</Link>
 				</div>

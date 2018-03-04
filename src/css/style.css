@@ -2,12 +2,14 @@
 
 :root{
 	--light-bg-color: #F3F3F2;
+	--light-gray-bg: #ececec;
 	--secondary-bg-color: #2A2A2A;
 	--bright-yellow: #FBEA0A;
 	--yellow-bg-color: #d5bd17;
 	--yellow-bg-hover: #C5B12A;
 	--orange-bg-color: #F26402;
 	--small-card-shadow: 0 0 8px 0px rgba(0,0,0, 0.4);
+	--tiny-card-shadow: 0 0 4px 0px rgba(0,0,0, 0.3);
 	--med-card-shadow: 0 0 12px 0px rgba(0,0,0, 0.4);
 	--overlay-background: rgba(0,0,0, 0.7);
 	--light-gray: #e1e8ed;
@@ -28,6 +30,7 @@ body {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   margin:0;
   font-size: 16px;
+ /* background-color: var(--light-gray-bg);*/
 }
 
 h1 {
@@ -41,6 +44,7 @@ h2 {
 .main {
 	width: 100%;
 	min-height: 50vh;
+	/*background-color: var(--light-gray-bg);*/
 }
 
 .heading-main {
@@ -505,14 +509,16 @@ h2 {
 	display: flex;
 	justify-content: center;
 	width: 100px;
-	height: 152px;
-	box-shadow: var(--small-card-shadow);
+	height: 146px;
+	/*border: 1px solid var(--border-gray);*/
+	/*box-shadow: var(--small-card-shadow);*/
 }
 
 .horiz-mov-item-carousel-inner img {
 	width: 92px;
 	height: 138px;
 	margin-top: 4px;
+	box-shadow: var(--small-card-shadow);
 	
 }
 
@@ -539,8 +545,8 @@ h2 {
 
 .single-movie-card {
 	display: flex;
-	margin: 10px;
-	flex-basis: 460px;
+	margin: 4px;
+	flex-basis: 484px;
 	min-width: 367px;
 	height: 290px;
 	box-shadow: var(--small-card-shadow);
@@ -559,7 +565,7 @@ h2 {
 
 .single-movie-card-info {
 	position: relative;
-	flex-basis: 270px;
+	flex-basis: 370px;
 	padding: 0 10px;
 }
 
@@ -999,7 +1005,8 @@ h2 {
 }
 
 .search-item-wrap {
-	width: 100%;
+	
+	flex-basis: 100%;
 	height: 146px;
 	box-shadow: var(--small-card-shadow);
 	margin-bottom: 8px;
@@ -1017,13 +1024,14 @@ h2 {
 }
 
 .search-item-img-wrap {
-	width: 92px;
+	flex-basis: 92px;
+	min-width: 92px;
 	height: 138px;
 	margin: 4px;
 }
 
 .search-item-img-wrap img {
-	width: 92px;
+	max-width: 100%;
 	height: 138px;
 }
 
@@ -1158,13 +1166,27 @@ h1.search {
 
 
 /*****HOME PAGE*****/
+.home {
+	/*display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	justify-content: center;*/
+}
+
+.home-col-1 {
+	/*flex-basis: 90%;*/
+	overflow: hidden;
+	background-color: var(--light-gray-bg);
+}
+
+
 .now-playing-wrap {
 	justify-content: space-evenly;
 	width: 100%;
 }
 
 .carousel-wrap {
-	height: 230px
+	height: 230px;
 }
 
 /**NOW PLAYING**/
@@ -1272,17 +1294,47 @@ h1.search {
 }
 
 
+
+
+
 /*****Media Queries*****/
+
+@media screen and (max-width: 320px) {
+	.single-movie-card-info {
+    font-size: 14px;
+	}
+
+}
+
+
 @media (min-width: 320px) and (max-width: 480px) {
 	/*ACTOR PAGE*/
+	.filmography-container h2 {
+		text-align: center;
+	}
+
+
 	.filmography-item {
-	flex-basis: 158px;
-	height: auto;
+		flex-basis: 154px;
+		height: auto;
 	}
 
 	.filmography-item img {
-	width: 100%;
-	height: auto;	
+		width: 100%;
+		height: 231px;	
+	}
+
+	.actor-biography-wrap {
+		min-width: 310px;
+	}
+
+	.actors-view-container {
+	    width: 100%;
+	    margin-top: 35px;
+	}
+
+	.actor-info-wrap {
+	    padding: 5px;
 	}
 
 	.single-movie-card {
@@ -1312,7 +1364,7 @@ h1.search {
 		display: none;
 	}
 
-	/*ALL FROM 480 below*/
+	
 	/*Main column*/
 	.col-1{
 		flex-basis: 95%;
@@ -1373,6 +1425,44 @@ h1.search {
 	flex-basis: 98%;
 	}
 
+	.search-item-overview {
+	    font-size: 0.8rem;
+	    min-width: 200px; 
+	}
+
+	.search-item-wrap {
+	    flex-basis: 470px;
+	    height: 146px;
+	}
+
+	.search-item-info {    
+	    padding: 0 5px;
+	    min-width: 210px; 
+	    flex-basis: 350px; 
+	}
+
+	.search-item-info h4 {
+	    font-size: 0.9rem;
+	}
+
+	.search-item-img-wrap {
+	    flex-basis: 92px;
+	    min-width: 92px;
+	    /*height: 138px;*/
+	   /* margin: 4px;*/
+	}
+
+	.search-item-img-wrap img {
+	    max-width: 100%;
+	    /*height: 138px;*/
+	}
+
+	h1.search {
+    	/*margin-top: 15px;*/
+    	margin: 15px;
+    	text-align: center;
+	}	
+
 	/*MOVIE PAGE ON SM*/
 	.movie-page-col-1 {
 		flex-basis :95%;
@@ -1396,37 +1486,52 @@ h1.search {
 	}
 
 
-	/**/
 	.single-movie-card {
-	/*display: flex;
-	margin: 10px;
-	flex-basis: 460px;
-	min-width: 367px;*/
-	height: auto;
-	
+		height: auto;
 	}
 
 	.single-movie-card-info h2 {
 	margin-top: 3px;
 	margin-bottom: 5px;
 	font-size: 1.0em;
-
-	
 	}
 
 	.pagination-wrapper {
 		font-size: .75rem;
 	}
 
+	.movie-page-overview {
+		padding-right: 0;
+	}
+
+
+	/*SIMILAR*/
+	.similar-wrap {
+		justify-content: space-evenly;
+	}
+
+	.similar-item {
+	    width: 152px;
+	    height: 233px;
+	    box-shadow: var(--tiny-card-shadow);
+	}
+
+	.similar-item img {
+		max-width: 100%;
+		height: 100%;
+    	margin: 0;
+    	padding: 4px;
+	}
+
+	.actors-container {
+		justify-content: space-evenly;
+	}
+
+	.single-movie-card-read-more {
+	    bottom: 15px;
+	}
 }
 
-
-
-/*@media screen and (max-width: 480px){
-	
-	
-		
-}*/
 
 
 
@@ -1448,21 +1553,37 @@ h1.search {
 @media (min-width: 768px) and (max-width: 1023px) {
   
   	.single-movie-card {
-		flex-basis: 370px;
-		margin-left: 1px;
-		margin-right: 1px;		
+		flex-basis: 590px;
+		height: auto;
+		/*margin-left: 1px;
+		margin-right: 1px;	*/	
+	}
+
+	/*.stars-rating {
+		display: none;
+	}*/
+
+	.single-movie-card-info h2 {
+		margin-top: 3px;
+		margin-bottom: 5px;
+		font-size: 1.2em;
 	}
   
 }
 
 
-@media (min-width: 1024px) and (max-width: 1280px) {
+@media (min-width: 1025px) and (max-width: 1280px) {
   
   	.single-movie-card {
 		flex-basis: 492px;	
-		margin-left: 4px;
-		margin-right: 4px;
+		margin-left: 3px;
+		margin-right: 3px;
 		box-shadow: var(--small-card-shadow);	
+	}
+
+	.home-col-1 {
+		flex-basis: 90%;	
+		background-color: var(--light-gray-bg);
 	}
   
 }
