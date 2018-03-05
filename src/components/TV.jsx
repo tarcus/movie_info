@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {injectIntl} from 'react-intl'
 import axios from 'axios'
-//import MovieView from './MovieView'
+import TVView from './TVView'
 import {api_key, baseUrl} from '../options/apiOptions'
 
 
@@ -10,10 +10,11 @@ class TV extends Component {
 	constructor(props){
 		super(props);
 
-		this.state = {movie:{genres: [],
-		 production_countries: []}, 
+		this.state = {tv:{genres: [],
+		 origin_country: [],
+		 created_by: []
+		}, 
 		 cast: [], 
-		 crew: [], 
 		 isLoading: true, 
 		 tvId: '' 
 		}
@@ -66,7 +67,7 @@ class TV extends Component {
 		.then(axios.spread((mov, credits)=>{
 			reqInProgress = false;
 			console.log('TV: ', mov.data, 'TV Cast: ', credits.data)
-			this.setState({movie: mov.data, 
+			this.setState({tv: mov.data, 
 				cast: credits.data.cast, 
 				crew: credits.data.crew, 
 				isLoading: false, 
@@ -97,12 +98,11 @@ class TV extends Component {
 	render(){
 		return(
 			<div className="movie-page-container">
-				{/*<MovieView isLoading={this.state.isLoading}
-				 cast={this.state.cast} 
-				 movie={this.state.movie}
-				 crew={this.state.crew}
-				 language={this.props.intl.locale}
-				 /> 	*/}
+				<TVView isLoading={this.state.isLoading}
+					 cast={this.state.cast} 
+					 tv={this.state.tv}
+					 language={this.props.intl.locale}
+				 /> 
 			</div>
 		)
 	}

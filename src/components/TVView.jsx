@@ -10,20 +10,24 @@ import dummyImg_92 from '../images/dummy_92.png'
 
 
 
-const MovieView = ({movie, cast, crew, isLoading, language})=>{
-	const genres = movie.genres.map((item)=>{
+const TVView = ({tv, cast, isLoading, language})=>{
+	const genres = tv.genres.map((item)=>{
 				return item.name
 	})
 
-	const countries = movie.production_countries.map((country)=>{
-		return country.name
+	const countries = tv.origin_country.map((country)=>{
+		return country
 	})
 
 	const actorsFull = cast.map((actor)=>{
 		return actor.name
 	})
 
-	const director = crew[0] ? crew[0].name : "n/d";
+	//const director = crew[0] ? crew[0].name : "n/d";
+	const director = tv.created_by.map((item)=>{
+		return item.name
+	})
+	//const director = "MAX"
 
 	const actorsImages = cast.slice(0,7).map((actor)=>{
 		return <div className="actor-w92-wrap" key={actor.id + Math.random()}>
@@ -54,19 +58,19 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 		<div className="movie-page-main">
 			<div className="movie-page-col-1">
 
-				<h1>{movie.title}</h1>
+				<h1>{tv.name}</h1>
 				<div className="movie-page-poster">
-					<img src={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}/>
+					<img src={`https://image.tmdb.org/t/p/w342/${tv.poster_path}`}/>
 				</div>
 
 				<div className="movie-page-info">
 					
 					 
 					<div className="movie-page-info-item">
-						<b>Rating:</b> {movie.vote_average}
+						<b>Rating:</b> {tv.vote_average}
 						<ReactStars
 						  count={10}
-						  value={movie.vote_average}
+						  value={tv.vote_average}
 						  edit={false}
 						  size={24}
 						  color2={'#E6CF34'} 
@@ -76,11 +80,11 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 						<b>Vote Count:</b> {movie.vote_count}
 					</div>*/}
 					<div className="movie-page-info-item">
-						<b>Director:</b> {director}
+						<b>Created by:</b> {director}
 					</div> 
 					
 					<div className="movie-page-info-item">
-						<b>Release Date:</b> {movie.release_date}
+						<b>Release Date:</b> {tv.first_air_date}
 					</div>
 					<div className="movie-page-info-item">
 						<b>Country:</b> {countries.join(', ')}
@@ -90,10 +94,10 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 						<b>Actors:</b> {actors.join(', ')}
 					</div> 
 					<div className="movie-page-info-item">
-						<b>Runtime:</b> {movie.runtime} min
+						<b>Runtime:</b> {tv.episode_run_time[0]} min
 					</div>
 					<div className="search-outside">
-						<a href={`https://solarmoviex.to/search?keyword=${movie.original_title}`} target="_blank">Search The Movie</a>
+						<a href={`https://solarmoviex.to/search?keyword=${tv.original_name}`} target="_blank">Search The Show</a>
 					</div>
 					 
 				</div>
@@ -103,20 +107,20 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 				</div>
 				<div className="movie-page-overview">
 					<h2>Overview</h2>
-					<p>{movie.overview}</p>
+					<p>{tv.overview}</p>
 				</div>
 				<div className="movie-page-backdrop">	
-					<img src={movie.backdrop_path ? `https://image.tmdb.org/t/p/w780/${movie.backdrop_path}` : ""}/>
+					<img src={tv.backdrop_path ? `https://image.tmdb.org/t/p/w780/${tv.backdrop_path}` : ""}/>
 				</div>
 				<Trailers 
-					movieId={movie.id}
+					movieId={tv.id}
 					language={language}
 				/>
 			</div>
 			<div className="movie-page-col-2">
 					<h1>Similar</h1>
 					<Similar 
-						movieId={movie.id}
+						movieId={tv.id}
 						language={language}
 					/>
 			</div>		
@@ -127,4 +131,4 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 
 
 
-export default MovieView;
+export default TVView;
