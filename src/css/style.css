@@ -1,9 +1,13 @@
 /*Объявляем переменные*/
 
 :root{
+	--text-contrast: #131516;
+	--text-lighter: #555F61;
+	--text-muted: #707C80;
 	--light-bg-color: #F3F3F2;
 	--light-gray-bg: #ececec;
 	--secondary-bg-color: #2A2A2A;
+	--dark-bg-color: #242424;
 	--bright-yellow: #FBEA0A;
 	--yellow-bg-color: #d5bd17;
 	--yellow-bg-hover: #C5B12A;
@@ -18,6 +22,9 @@
 	--menu-item-border-dark: #222222;
 	--nav-link-hover-bg: #131313;
 	--nav-link-active-bg: #040101;
+	--search-form-bg: #2A2A2A;
+	--search-form-border-color: #2A2A2A;
+	--search-form-text-color: #F3F3F2;
 }
 
 
@@ -226,11 +233,6 @@ h2 {
 	flex-wrap: nowrap;
 }
 
-.navbar-right-section {
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-}
 
 .navbar-expand {
 	position: absolute;
@@ -254,7 +256,7 @@ h2 {
 	100% {height: 80px;}
 }
 
-.navbar-expand a {
+/*.navbar-expand a {
 	display: block;
 	text-decoration: none;
 	color: #fff;
@@ -262,27 +264,29 @@ h2 {
 	padding: .5rem;
 	text-align: center;
 
-}
+}*/
 
-.navbar-expand a:hover {
+/*.navbar-expand a:hover {
 	color:#8F8F8F;
 	
 }
 
 .navbar-expand .active {
 	background-color: var(--nav-link-hover-bg);
-}
+}*/
 
 .navigation {
 	display: flex;
 }
 
 .navigation a {
+	position: relative;
 	display: inline-block;
 	line-height: 65px;
 	padding: 0 15px;
 	text-decoration: none;
 	color: #fff;
+	/*overflow: hidden;*/
 }
 
 
@@ -293,6 +297,21 @@ h2 {
 .navigation .active {
 	background-color: var(--nav-link-active-bg);
 	/*border-bottom: 2px solid #D7BE18;*/
+
+}
+
+/*уголок внизу активного эл. меню. Можно удалить позже*/
+.navigation .active::after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 16px;
+	height: 16px;
+	transform-origin: left top;
+	transform: rotate(45deg);
+	background-color: var(--nav-link-active-bg);
 }
 
 .navbar-logo{
@@ -559,13 +578,13 @@ h2 {
 
 .single-movie-card-poster img {
 	max-width: 100%;
-	/*width: 185px;*/
+	flex-basis: 185px;
 	height: auto;
 }
 
 .single-movie-card-info {
 	position: relative;
-	flex-basis: 370px;
+	flex-basis: 290px;
 	padding: 0 10px;
 }
 
@@ -1004,8 +1023,7 @@ h2 {
 
 }
 
-.search-item-wrap {
-	
+.search-item-wrap {	
 	flex-basis: 100%;
 	height: 146px;
 	box-shadow: var(--small-card-shadow);
@@ -1084,35 +1102,45 @@ h1.search {
 	margin-top: 35px;
 }
 
-/*SEARCH FORM*/
+/*SEARCH FORM COMMON*/
+
+/*FORM CONTAINER*/ 
+.navbar-right-section {
+    position: absolute;
+    top: 19px;
+    right: 35px;
+}
+
 .search-form {
 	display: flex;
-	justify-content: flex-end;
-	width: 280px;
+	justify-content: flex-start;
+	width: 265px;
 	position: relative;
 }
 
 .search-form form {
 	display: flex;
-	background-color: #fff;
+	background-color: var(--search-form-bg);
 	border-radius: 3px;
-	border: 1px solid #fff;
+	border: 1px solid var(--search-form-border-color);
 	/*max-width: 280px;*/
-
 }
 
 
 .search-form input[type="text"]{
-	width: 160px;
-	line-height: 20px;
+	width: 62px;
+	line-height: 24px;
 	padding: 0 5px;
 	border: none;
-	font-size: 16px;
+	/*font-size: 16px;*/
+	z-index: 5;
 	transition: width 0.5s ease-out;
+	background-color: var(--search-form-bg);
+	color: var(--search-form-text-color);
 }
 
 .search-form input[type="text"]:focus {
-	width:270px;
+	width:265px;
 	outline-color: transparent;
 
 }
@@ -1128,6 +1156,9 @@ h1.search {
 
 .fa-search {
 	font-size: 18px;
+	/*color: var(--search-form-text-color);*/
+	color: var(--yellow-bg-color);
+	
 }
 
 /**DROPDOWN SEARCH**/
@@ -1138,13 +1169,16 @@ h1.search {
 
 /****ReGISTER LOGIN LINKS****/
 .login{
-	display: flex;
+	/*display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: flex-start;
-	margin: 0 15px 0 20px;
-	width: 180px;
-	min-width: 93px;
+	justify-content: flex-start;*/
+	position: absolute;
+	top: 24px;
+	right: 10px;
+	/*margin: 0 15px 0 20px;*/
+	/*width: 180px;
+	min-width: 93px;*/
 }
 
 .login .item {
@@ -1176,7 +1210,7 @@ h1.search {
 .home-col-1 {
 	/*flex-basis: 90%;*/
 	overflow: hidden;
-	background-color: var(--light-gray-bg);
+	/*background-color: var(--light-gray-bg);*/
 }
 
 
@@ -1187,6 +1221,11 @@ h1.search {
 
 .carousel-wrap {
 	height: 230px;
+}
+
+.carousel-wrap h2 {
+	margin-top: 20px;
+	text-align: center;
 }
 
 /**NOW PLAYING**/
@@ -1416,6 +1455,11 @@ h1.search {
 		width:100%;
 	}
 
+	.search-form button {
+		/*put search button in the end of form*/
+		/*order: 1;*/
+	}
+
 	
 	.fa-search {
 		font-size: 18px;
@@ -1530,6 +1574,11 @@ h1.search {
 	.single-movie-card-read-more {
 	    bottom: 15px;
 	}
+
+	/*HIDE REG LOGIN*/
+	.login {
+		display: none;
+	}
 }
 
 
@@ -1545,6 +1594,33 @@ h1.search {
 		flex-basis: 590px;
 		margin-left: 4px;
 		margin-right: 4px;		
+	}
+
+	.single-movie-card-info {
+		flex-basis: 360px;
+	}
+
+	/*HIDE REG LOGIN*/
+	/*.login {
+		display: none;
+	}*/
+
+	/*BURGER TOGGLER AND COORDS*/
+	.drawer-toggler-btn {
+    	display: inline-block;
+	}
+
+	.drawer-toggler-btn {
+	    /*display: block;*/
+	    /*position: absolute;*/
+	    /*top: 12.5px;*/
+	    left: 100px;
+	   /* width: 40px;
+	    display: none;
+	    line-height: 40px;
+	    text-align: center;
+	    border-radius: 50%;
+	    transition: all .3s ease;*/
 	}
  
 }
@@ -1563,17 +1639,35 @@ h1.search {
 		display: none;
 	}*/
 
+	.single-movie-card-info {
+		flex-basis: 360px;
+	}
+
+
 	.single-movie-card-info h2 {
 		margin-top: 3px;
 		margin-bottom: 5px;
 		font-size: 1.2em;
+	}
+
+	/*SEARCH FORM*/
+	.navbar-right-section {
+    	right: 15px;
+	}
+
+	.search-form {
+		width: 265px;
+	}
+
+	.search-form input[type="text"]:focus {
+		width:245px;
 	}
   
 }
 
 
 @media (min-width: 1025px) and (max-width: 1280px) {
-  
+
   	.single-movie-card {
 		flex-basis: 492px;	
 		margin-left: 3px;
@@ -1581,14 +1675,22 @@ h1.search {
 		box-shadow: var(--small-card-shadow);	
 	}
 
-	.home-col-1 {
-		flex-basis: 90%;	
-		background-color: var(--light-gray-bg);
-	}
+	/*SEARCH FORM*/
+	.navbar-right-section {
+    	right: 55px;
+	}	
   
 }
 
 
+
+@media (min-width: 1280px) {
+
+	.home-col-1 {
+		flex-basis: 80%;	
+		/*background-color: var(--light-gray-bg);*/
+	}
+}
 
 
 
@@ -1598,13 +1700,8 @@ h1.search {
 		display: none;
 	}
 	
-
-	/*.search-form {
-		display: none;
-	}*/
-
 	.navbar-expand {
-	border-top: 1px solid var(--menu-item-border-dark);
+		border-top: 1px solid var(--menu-item-border-dark);
 	}
 
 	
@@ -1614,9 +1711,8 @@ h1.search {
 @media screen and (max-width: 1024px){
 	/*Small info*/
 	.small-info-container {
-	margin-top: 25px;	
-	flex-basis: 100%;
-
+		margin-top: 25px;	
+		flex-basis: 100%;
 	}
 }
 

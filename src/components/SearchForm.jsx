@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
-//import queryString from 'query-string'
 
 class SearchForm extends Component {
 	constructor(props){
@@ -29,8 +28,9 @@ class SearchForm extends Component {
 		return(
 			<div className="search-form">
 				<form onSubmit={this.handleSubmit}>
-					<input type="text" ref={(input)=>{this.searchInput=input}} placeholder="Search..." />
 					<button type="submit"><FontAwesome name='search' className="fa-search" /></button>
+					<input type="text" ref={(input)=>{this.searchInput=input}} placeholder="Search..." />
+					
 				</form>
 			</div>
 		)

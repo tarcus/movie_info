@@ -12,7 +12,7 @@ class Home extends Component {
 			<div className="home row">
 				<div className="home-col-1">
 					<div className="carousel-wrap">
-						<h2>Interesting</h2>
+						<h2>Worth Watching Movies</h2>
 						<HorizMovies />
 					</div>
 					<div className="row now-playing-wrap">

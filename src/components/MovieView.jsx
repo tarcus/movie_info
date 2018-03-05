@@ -99,7 +99,7 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 					 
 				</div>
 				<div className="actors-container">
-					{/*<h2>Starring</h2>*/}
+					<h2>Starring</h2>
 					{actorsImages}
 				</div>
 				<div className="movie-page-overview">

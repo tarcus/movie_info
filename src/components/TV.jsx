@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {injectIntl} from 'react-intl'
 import axios from 'axios'
-import MovieView from './MovieView'
+//import MovieView from './MovieView'
 import {api_key, baseUrl} from '../options/apiOptions'
 
 
 
-class Movie extends Component {
+class TV extends Component {
 	constructor(props){
 		super(props);
 
@@ -15,31 +15,30 @@ class Movie extends Component {
 		 cast: [], 
 		 crew: [], 
 		 isLoading: true, 
-		 movId: '' 
+		 tvId: '' 
 		}
 	}
 
-	getData = (movId)=>{
-		//нужно сделать два запроса, сам фильм и список актеров
+	getData = (tvId)=>{
+		//get TV and actors
 		const language = this.props.intl.locale;
+		const timeout = 3000;
 
-		const optionsMain = {
-			method: 'get',
-			timeout: 3000,
-			url: `${baseUrl}/movie/${movId}`,
+		const optionsMain = {	
+			timeout,
+			url: `${baseUrl}/tv/${tvId}`,
 			params: {
 				api_key,
 				language,	
 			}
 		}
 
-		const optionsCredits = {
-			method: 'get',
-			timeout: 3000,
-			url: `${baseUrl}/movie/${movId}/credits`,
+		const optionsCredits = {	
+			timeout,
+			url: `${baseUrl}/tv/${tvId}/credits`,
 			params: {
-				language,
 				api_key,
+				language,
 			}
 		}
 
@@ -66,12 +65,12 @@ class Movie extends Component {
 		axios.all([getMovie(), getCredits()])
 		.then(axios.spread((mov, credits)=>{
 			reqInProgress = false;
-			console.log('Mov: ', mov.data, 'Cast: ', credits.data)
+			console.log('TV: ', mov.data, 'TV Cast: ', credits.data)
 			this.setState({movie: mov.data, 
 				cast: credits.data.cast, 
 				crew: credits.data.crew, 
 				isLoading: false, 
-				movId: this.props.match.params.id
+				tvId: this.props.match.params.id
 			})
 		}))
 		.catch((error)=>{
@@ -87,7 +86,7 @@ class Movie extends Component {
 
 	componentWillReceiveProps(nextProps){
 		
-		if(nextProps.match.params.id !==this.state.movId){
+		if(nextProps.match.params.id !==this.state.tvId){
 			this.getData(nextProps.match.params.id)
 		}
 		
@@ -98,15 +97,15 @@ class Movie extends Component {
 	render(){
 		return(
 			<div className="movie-page-container">
-				<MovieView isLoading={this.state.isLoading}
+				{/*<MovieView isLoading={this.state.isLoading}
 				 cast={this.state.cast} 
 				 movie={this.state.movie}
 				 crew={this.state.crew}
 				 language={this.props.intl.locale}
-				 /> 	
+				 /> 	*/}
 			</div>
 		)
 	}
 }
 
-export default injectIntl(Movie);
+export default injectIntl(TV);

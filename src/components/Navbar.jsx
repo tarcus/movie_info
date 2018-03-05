@@ -42,16 +42,15 @@ class Navbar extends Component {
 							{this.props.children}
 						</nav>
 						<div className="navbar-right-section">
-							<SearchForm />
-							<div className="login">
-							<a href="#"><FontAwesome name='pencil-square' style={{color: '#D5BD17'}} /> Register</a>
-							<a href="#"><FontAwesome name='sign-in' style={{color: '#D5BD17'}} /> Login</a>
-							</div>
+							<SearchForm />	
 						</div>
 						
 					</div>
 					
-					
+					<div className="login">
+							<a href="#"><FontAwesome name='pencil-square' style={{color: '#D5BD17'}} /> Register</a>
+							<a href="#"><FontAwesome name='sign-in' style={{color: '#D5BD17'}} /> Login</a>
+					</div>
 					<LangSelector />
 					<span className="navbar-toggler-search-btn" onClick={this.navbarToggle}>
 						<FontAwesome name='search' style={{color: '#D5BD17', fontSize: '18px'}} />
