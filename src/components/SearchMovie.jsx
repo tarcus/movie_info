@@ -52,14 +52,7 @@ class SearchMovie extends Component {
 	render(){
 		return(
 			<div>
-				{/*
-				<div className="form-container">
-					<form onSubmit={this.handleSubmit} className="search-movie-form row-nowrap">
-						<input type="text" placeholder="Search for Movie..." autoFocus ref={(input)=>{this.MovieSearchInput=input}}/>
-						<button type="submit"><FontAwesome name='search' size='2x' /></button>
-					</form>
-				</div>
-				*/}
+				
 				<h2 className="horiz-mov-heading">
 				<FormattedMessage
 					id='searchMovie.horiz_mov_heading'

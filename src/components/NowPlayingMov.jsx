@@ -5,6 +5,8 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import TextTruncate from 'react-text-truncate'
 import NextTVAirDate from './NextTVAirDate'
+import Spinner from './Spinner'
+//import Img from 'react-image'
 
 //FOR TV SHOW....
 //TV has name  instead  title
@@ -16,13 +18,12 @@ class NowPlayingMov extends Component {
 	constructor(props){
 		super(props);
 
-		this.state = {data: [] }
+		this.state = {data: [], isLoading: true }
 	}
 	
 
 	getNowPlaying = ()=>{
 			const options = {
-				method: 'get',
 				timeout: 4000,
 				url: `${baseUrl}/${this.props.movie ? 'movie/now_playing' : 'tv/on_the_air'}`, 
 				params: {
@@ -42,8 +43,9 @@ class NowPlayingMov extends Component {
 			//	return {id: item.id, next_air_date: getTVStuff(item.id) }
 			//})
 
-			this.setState({data: response.data.results})})
+			this.setState({data: response.data.results, isLoading: false})})
 		.catch((error)=>{
+			this.setState({isLoading: false})
 			console.log(error)
 		})
 	
@@ -85,7 +87,7 @@ class NowPlayingMov extends Component {
 		const bigImg = this.state.data.slice(...commonRand).map((item)=>{
 				if(item.backdrop_path !==null){ 
 					return <div className="big-img" key={item.id}>
-								<img src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`}/>
+								<img src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`} />
 								<div className="inside-wrap">
 									<div className="poster-inside">
 										<Link to={movie ? `/movies/${item.id}` : `/series/${item.id}`}>
@@ -113,7 +115,7 @@ class NowPlayingMov extends Component {
 			  if(item.backdrop_path !==null){ 
 			  	return <div className="small-img" key={item.id}>
 				  			<Link to={movie ? `/movies/${item.id}` : `/series/${item.id}`}>
-								<img src={`https://image.tmdb.org/t/p/w185/${item.backdrop_path}`}/>
+								<img src={`https://image.tmdb.org/t/p/w185/${item.backdrop_path}`} />
 							</Link>
 							<span className="small-img-title">
 								<div className="text-shad">
@@ -133,6 +135,19 @@ class NowPlayingMov extends Component {
 			}
 		})
 
+
+
+
+		if(this.state.isLoading){
+			return(
+				<div className="now-playing-mov">
+					<h2>{movie ? 'New Movies In Theaters' : 'TV On The Air'}</h2>
+					<div className="now-playing-card row-no-justify">
+						<Spinner />
+					</div>
+				</div>
+			)
+		}
 
 		return(
 			<div className="now-playing-mov">

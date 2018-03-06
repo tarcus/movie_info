@@ -8,8 +8,6 @@ import Img from 'react-image'
 import dummyImg_92 from '../images/dummy_92.png'
 
 
-
-
 const TVView = ({tv, cast, isLoading, language})=>{
 	const genres = tv.genres.map((item)=>{
 				return item.name
@@ -23,11 +21,11 @@ const TVView = ({tv, cast, isLoading, language})=>{
 		return actor.name
 	})
 
-	//const director = crew[0] ? crew[0].name : "n/d";
-	const director = tv.created_by.map((item)=>{
+	
+	const createdBy = tv.created_by.map((item)=>{
 		return item.name
 	})
-	//const director = "MAX"
+	
 
 	const actorsImages = cast.slice(0,7).map((actor)=>{
 		return <div className="actor-w92-wrap" key={actor.id + Math.random()}>
@@ -39,7 +37,6 @@ const TVView = ({tv, cast, isLoading, language})=>{
 	})
 
 	const actors = actorsFull.slice(0,6)
-	console.log('Genres: ', genres)
 	if(isLoading){
 		return(
 			<div className="movie-page-main">
@@ -47,8 +44,8 @@ const TVView = ({tv, cast, isLoading, language})=>{
 				<Spinner />
 				</div>
 				<div className="movie-page-col-2">
-				<h1>Sidebar</h1>
-				Sidebar will be here or not...
+				<h1>Similar</h1>
+				
 				</div>	
 			</div>
 		)
@@ -76,11 +73,8 @@ const TVView = ({tv, cast, isLoading, language})=>{
 						  color2={'#E6CF34'} 
 						 />
 					</div>
-					{/*<div className="movie-page-info-item">
-						<b>Vote Count:</b> {movie.vote_count}
-					</div>*/}
 					<div className="movie-page-info-item">
-						<b>Created by:</b> {director}
+						<b>Created by:</b> {createdBy.join(', ')}
 					</div> 
 					
 					<div className="movie-page-info-item">
@@ -90,6 +84,18 @@ const TVView = ({tv, cast, isLoading, language})=>{
 						<b>Country:</b> {countries.join(', ')}
 					</div> 
 					<p><b>Genre:</b> {genres.join(', ')}</p>
+					<div className="movie-page-info-item">
+						<b>Number of Seasons:</b> {tv.number_of_seasons}
+					</div>
+					<div className="movie-page-info-item">
+						<b>Number of Episodes:</b> {tv.number_of_episodes}
+					</div>
+					<div className="movie-page-info-item">
+						<b>Last Air Date:</b> {tv.last_air_date}
+					</div>
+					<div className="movie-page-info-item">
+						<b>Status:</b> {tv.status}
+					</div>
 					<div className="movie-page-info-item">
 						<b>Actors:</b> {actors.join(', ')}
 					</div> 
@@ -112,7 +118,8 @@ const TVView = ({tv, cast, isLoading, language})=>{
 				<div className="movie-page-backdrop">	
 					<img src={tv.backdrop_path ? `https://image.tmdb.org/t/p/w780/${tv.backdrop_path}` : ""}/>
 				</div>
-				<Trailers 
+				<Trailers
+					mediaType={'tv'} 
 					movieId={tv.id}
 					language={language}
 				/>
@@ -120,6 +127,7 @@ const TVView = ({tv, cast, isLoading, language})=>{
 			<div className="movie-page-col-2">
 					<h1>Similar</h1>
 					<Similar 
+						mediaType={'tv'}
 						movieId={tv.id}
 						language={language}
 					/>

@@ -13,7 +13,7 @@ class Trailers extends Component {
 	
 	getTrailers = (movieId)=>{
 		const options = {
-			url: `${baseUrl}/movie/${movieId}/videos`,
+			url: `${baseUrl}/${this.props.mediaType}/${movieId}/videos`,
 			params: {
 				api_key,
 				language: this.props.language

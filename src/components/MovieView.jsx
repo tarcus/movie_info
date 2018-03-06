@@ -43,8 +43,8 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 				<Spinner />
 				</div>
 				<div className="movie-page-col-2">
-				<h1>Sidebar</h1>
-				Sidebar will be here or not...
+				<h1>Similar</h1>
+				
 				</div>	
 			</div>
 		)
@@ -72,9 +72,6 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 						  color2={'#E6CF34'} 
 						 />
 					</div>
-					{/*<div className="movie-page-info-item">
-						<b>Vote Count:</b> {movie.vote_count}
-					</div>*/}
 					<div className="movie-page-info-item">
 						<b>Director:</b> {director}
 					</div> 
@@ -109,6 +106,7 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 					<img src={movie.backdrop_path ? `https://image.tmdb.org/t/p/w780/${movie.backdrop_path}` : ""}/>
 				</div>
 				<Trailers 
+					mediaType={'movie'}
 					movieId={movie.id}
 					language={language}
 				/>
@@ -116,6 +114,7 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 			<div className="movie-page-col-2">
 					<h1>Similar</h1>
 					<Similar 
+						mediaType={'movie'}
 						movieId={movie.id}
 						language={language}
 					/>

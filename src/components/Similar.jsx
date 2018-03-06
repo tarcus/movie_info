@@ -12,8 +12,9 @@ class Similar extends Component {
 
 
 	getSimilar = (movieId)=>{
+		
 		const options = {
-			url: `${baseUrl}/movie/${movieId}/recommendations`, //or can use similar instead
+			url: `${baseUrl}/${this.props.mediaType}/${movieId}/recommendations`, //or can use similar instead
 			params: {
 				api_key,
 				language: this.props.language,
@@ -42,11 +43,12 @@ class Similar extends Component {
 	}
 
 	render(){
+		const urlPart = this.props.mediaType=='tv' ? 'series' : 'movies' ;
 		return(
 			<div className="similar-wrap">
 				{this.state.data.slice(0, 6).map((item)=>{
 					return <div className="similar-item" key={item.id}>
-						<Link to={`/movies/${item.id}`}>
+						<Link to={`/${urlPart}/${item.id}`}>
 							<img src={`https://image.tmdb.org/t/p/w154/${item.poster_path}`}/>
 						</Link>
 						

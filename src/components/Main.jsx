@@ -5,7 +5,6 @@ import Home from './Home'
 import Movies from './Movies'
 import Movie from './Movie'
 import Series from './Series'
-import Title from './Title'
 import NotFound from './NotFound'
 import Actors from './Actors'
 import Search from './Search'
@@ -22,7 +21,6 @@ const Main = ()=>{
 				<Route path='/movies/:id' component={Movie} />
 				<Route exact path='/series' render={()=>{ return <Series tv={true} />}} />
 				<Route path='/series/:id' component={TV} />
-				<Route path='/title' component={Title} />
 				<Route path='/actors/:id' component={Actors} />
 				<Route component={NotFound} />
 			</Switch>

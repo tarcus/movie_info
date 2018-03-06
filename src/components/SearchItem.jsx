@@ -4,10 +4,7 @@ import Img from 'react-image'
 import dummyImg_92 from '../images/dummy_92.png'
 import Spinner from './Spinner'
 import Truncate from 'react-truncate'
-//import LinesEllipsis from 'react-lines-ellipsis'
-//import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'
 
-//const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis)
 
 const SearchItem = ({data})=>{
 
@@ -52,13 +49,7 @@ const SearchItem = ({data})=>{
 					<Truncate lines={2} ellipsis={<span>..</span>}>
 						{(data.media_type=='person') ? knownAs : data.overview} 
 					</Truncate>
-					{/*<ResponsiveEllipsis
-					  text={(data.media_type=='person') ? knownAs : data.overview}
-					  maxLine='2'
-					  ellipsis='...'
-					  trimRight
-					  basedOn='letters'
-					/>	*/}				
+						
 				</div>
 				<span className="search-media-type"><b>{data.media_type}</b></span>
 				<div className="search-item-more">
