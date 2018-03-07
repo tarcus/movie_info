@@ -42,7 +42,6 @@ class NextTVAirDate extends Component {
 			});
 		})
 		.then((response)=>{
-			console.log('NEXXXT: ', response.data.episodes )
 			const nextEpisodes = response.data.episodes.filter((item)=>{
 					return item.air_date >= currentDate
 			});
@@ -58,9 +57,7 @@ class NextTVAirDate extends Component {
 			}
 
 
-			//console.log("NEXT AIR" ,nextEpisodes[0].air_date) 
-				
-				
+										
 			 		
 		})
 		.catch((error)=>{

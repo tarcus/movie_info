@@ -28,7 +28,7 @@ class NowPlayingMov extends Component {
 				url: `${baseUrl}/${this.props.movie ? 'movie/now_playing' : 'tv/on_the_air'}`, 
 				params: {
 					language: this.props.intl.locale,
-					api_key: api_key,
+					api_key,
 					//region: 'US',
 					page:  this.props.movie ? Math.floor((Math.random() * 3) + 1) : 1 //генерит от 1-3
 				}
@@ -38,11 +38,7 @@ class NowPlayingMov extends Component {
 		axios(options)
 		.then((response)=>{
 			console.log('MAIN: ',response.data);
-			//добавим
-			//const nextAir = response.data.results.map((item)=>{
-			//	return {id: item.id, next_air_date: getTVStuff(item.id) }
-			//})
-
+			
 			this.setState({data: response.data.results, isLoading: false})})
 		.catch((error)=>{
 			this.setState({isLoading: false})
@@ -67,7 +63,7 @@ class NowPlayingMov extends Component {
 		}
 
 		const commonRand = getRand();
-		console.log('COMMONRAND: ',commonRand)
+		
 
 
 		//Чтобы не было повторов 
@@ -81,7 +77,7 @@ class NowPlayingMov extends Component {
 		}
 
 		
-		console.log('SLICE: ',sliceParamsForSmallImg())
+		//console.log('SLICE: ',sliceParamsForSmallImg())
 
 
 		const bigImg = this.state.data.slice(...commonRand).map((item)=>{
@@ -160,7 +156,7 @@ class NowPlayingMov extends Component {
 						}).slice(0, 1)}
 
 					<div className="sm-images-wrap">
-						{console.log(smallImages)}
+						
 						{smallImages.filter((item)=>{
 							return item !==undefined
 						}).slice(0, 3)}

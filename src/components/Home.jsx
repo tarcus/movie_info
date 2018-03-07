@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import HorizMovies from './HorizMovies'
 import NowPlayingMov from './NowPlayingMov'
+import PeoplePop from './PeoplePop'
 
 class Home extends Component {
 	constructor(props){
@@ -23,6 +24,7 @@ class Home extends Component {
 						movie={false}
 					/>
 					</div>
+					<PeoplePop />
 				</div>	
 			</div>
 		)

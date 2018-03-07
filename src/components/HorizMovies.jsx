@@ -16,12 +16,11 @@ class HorizMovies extends Component {
 	//Тянем  самые популярные фильмы с API рандомную страницу из сотни
 	componentDidMount(){
 		const options = {
-			method: 'get',
 			timeout: 4000,
 			url: `${baseUrl}/discover/movie`,
 			params: {
 				language: this.props.intl.locale,
-				api_key: api_key,
+				api_key,
 				sort_by: 'popularity.desc',
 				include_adult: false,
 				include_video: false,
@@ -31,7 +30,6 @@ class HorizMovies extends Component {
 		}
 		axios(options)
 		.then((response)=>{
-			console.log(response.data)
 			this.setState({movies: response.data.results})
 		})
 		.catch((error)=>{
@@ -76,9 +74,7 @@ class HorizMovies extends Component {
         		
       			</Slider>
 
-					
-			
-				
+		
 		)
 	}
 }
