@@ -4,18 +4,18 @@ import {api_key, baseUrl} from '../options/apiOptions'
 import {injectIntl} from 'react-intl'
 import {Link} from 'react-router-dom'
 
-class PeoplePop extends Component {
+class AiringTodayTv extends Component {
 	constructor(props){
 		super(props);
 
-		this.state = {people: []}
+		this.state = {results: []}
 
 	}
 
-	getPopularPeople = ()=>{
+	getAiringToday = ()=>{
 		const options = {	
 			timeout: 3000,
-			url: `${baseUrl}/person/popular`,
+			url: `${baseUrl}/tv/airing_today`,
 			params: {
 				api_key,
 				language: this.props.intl.locale,
@@ -25,8 +25,8 @@ class PeoplePop extends Component {
 
 		axios(options)
 		.then((response)=>{
-			console.log('POPULAR PEOPLE: ',response.data)
-			this.setState({people: response.data.results})
+			console.log('Airing Today: ',response.data)
+			this.setState({results: response.data.results})
 		})
 		.catch((error)=>{
 			console.log(error)
@@ -36,14 +36,19 @@ class PeoplePop extends Component {
 
 	
 	componentDidMount(){
-		this.getPopularPeople();
+		this.getAiringToday();
 	}
 
 	render(){
-		const people = this.state.people.map((item)=>{
+		//сортируем по original language
+		const sorted = this.state.results.filter((item)=>{
+			return item.original_language=="en";
+		})
+
+		const today = sorted.map((item)=>{
 			return <div className="actor-w92-wrap" key={item.id}>
-				<Link to={`/actors/${item.id}`}>
-				<img src={`https://image.tmdb.org/t/p/w92/${item.profile_path}`}/>
+				<Link to={`/series/${item.id}`}>
+					<img src={`https://image.tmdb.org/t/p/w92/${item.poster_path}`}/>
 				</Link>
 				<div className="actor-w92-name">
 					{item.name}
@@ -52,10 +57,10 @@ class PeoplePop extends Component {
 		})
 		return(
 			<div className="people-pop-wrap row">
-				{people}
+				{today}
 			</div>
 		)
 	}
 }
 
-export default injectIntl(PeoplePop);
+export default injectIntl(AiringTodayTv);

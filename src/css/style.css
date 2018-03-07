@@ -577,7 +577,7 @@ h2 {
 .single-movie-card-poster img {
 	max-width: 100%;
 	flex-basis: 185px;
-	height: auto;
+	height: 278px;
 }
 
 .single-movie-card-info {
@@ -1641,7 +1641,7 @@ h1.search {
   
   	.single-movie-card {
 		flex-basis: 590px;
-		height: auto;
+		height: 290px;
 		/*margin-left: 1px;
 		margin-right: 1px;	*/	
 	}

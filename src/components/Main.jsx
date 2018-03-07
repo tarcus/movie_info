@@ -9,18 +9,19 @@ import NotFound from './NotFound'
 import Actors from './Actors'
 import Search from './Search'
 import TV from './TV'
+import ActorsAll from './ActorsAll'
  
 const Main = ()=>{
 	return(
 		<main className="main">
 			<Switch>
 				<Route exact path='/' component={Home} />
-				<Route path='/about' component={About} />
 				<Route path='/search' component={Search} />
 				<Route exact path='/movies' render={()=>{ return <Movies tv={false} />}} />
 				<Route path='/movies/:id' component={Movie} />
 				<Route exact path='/series' render={()=>{ return <Series tv={true} />}} />
 				<Route path='/series/:id' component={TV} />
+				<Route exact path='/actors' component={ActorsAll} />
 				<Route path='/actors/:id' component={Actors} />
 				<Route component={NotFound} />
 			</Switch>

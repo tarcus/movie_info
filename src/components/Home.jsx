@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import HorizMovies from './HorizMovies'
 import NowPlayingMov from './NowPlayingMov'
 import PeoplePop from './PeoplePop'
+import AiringTodayTv from './AiringTodayTv'
 
 class Home extends Component {
 	constructor(props){
@@ -25,6 +26,7 @@ class Home extends Component {
 					/>
 					</div>
 					<PeoplePop />
+					<AiringTodayTv />
 				</div>	
 			</div>
 		)

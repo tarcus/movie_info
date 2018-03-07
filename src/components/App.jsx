@@ -12,7 +12,7 @@ import Main from './Main'
 const messages = defineMessages({
 	nav_about: {
 		id: 'navbar_about.nav',
-		defaultMessage: 'About'
+		defaultMessage: 'Actors'
 	},
 	nav_movies: {
 		id: 'navbar_movies.nav',
@@ -37,7 +37,7 @@ class App extends Component {
 					<NavLink exact to="/">{this.props.intl.formatMessage(messages.nav_home)}</NavLink>
 					<NavLink to="/movies">{this.props.intl.formatMessage(messages.nav_movies)}</NavLink>
 					<NavLink to="/series">{this.props.intl.formatMessage(messages.nav_series)}</NavLink>
-					<NavLink to="/about">{this.props.intl.formatMessage(messages.nav_about)}</NavLink>
+					<NavLink to="/actors">{this.props.intl.formatMessage(messages.nav_about)}</NavLink>
 				</Navbar>
 				<Header />
 				<Main />
