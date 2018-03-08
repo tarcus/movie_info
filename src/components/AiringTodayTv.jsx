@@ -3,6 +3,7 @@ import axios from 'axios'
 import {api_key, baseUrl} from '../options/apiOptions'
 import {injectIntl} from 'react-intl'
 import {Link} from 'react-router-dom'
+import {sliceDate} from '../utils/helpers'
 
 class AiringTodayTv extends Component {
 	constructor(props){
@@ -45,18 +46,23 @@ class AiringTodayTv extends Component {
 			return item.original_language=="en";
 		})
 
-		const today = sorted.map((item)=>{
-			return <div className="actor-w92-wrap" key={item.id}>
+		const today = sorted.slice(0, 10).map((item)=>{
+			return <div className="filmography-item" key={item.id}>
 				<Link to={`/series/${item.id}`}>
-					<img src={`https://image.tmdb.org/t/p/w92/${item.poster_path}`}/>
+					<img src={`https://image.tmdb.org/t/p/w185/${item.poster_path}`}/>
 				</Link>
-				<div className="actor-w92-name">
-					{item.name}
-				</div>
+				<span className="rating">{item.vote_average}</span>
+					<span className="release">{sliceDate(item.first_air_date)}</span>
+					<div className="overlay">
+						<span className="overlay-title">{item.name}</span>
+						
+					</div>
+				
 			</div>
 		})
 		return(
-			<div className="people-pop-wrap row">
+			<div className="airing-today-wrap row">
+				<h2 className="w-100">Airing Today</h2>
 				{today}
 			</div>
 		)

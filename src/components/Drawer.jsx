@@ -1,5 +1,5 @@
 import React,{ Component } from 'react'
-import FontAwesome from 'react-fontawesome'
+//import FontAwesome from 'react-fontawesome'
 import classNames from 'classnames'
 
 const Drawer = (props)=> {
@@ -18,7 +18,7 @@ const Drawer = (props)=> {
 					</span>
 				</div>
 				
-				<div className="inner-wrap">
+				<div className="inner-wrap" onClick={props.drawerToggle}>
 					{props.navElems}
 				</div>
 				

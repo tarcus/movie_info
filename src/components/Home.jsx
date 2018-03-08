@@ -14,7 +14,7 @@ class Home extends Component {
 			<div className="home row">
 				<div className="home-col-1">
 					<div className="carousel-wrap">
-						<h2>Worth Watching Movies</h2>
+						<h1>Worth Watching</h1>
 						<HorizMovies />
 					</div>
 					<div className="row now-playing-wrap">
@@ -25,8 +25,9 @@ class Home extends Component {
 						movie={false}
 					/>
 					</div>
-					<PeoplePop />
+					
 					<AiringTodayTv />
+					{/*<PeoplePop />*/}
 				</div>	
 			</div>
 		)
