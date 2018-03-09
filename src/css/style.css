@@ -107,6 +107,10 @@ body {
 	flex-basis: 100%;
 }
 
+.text-center {
+	text-align: center;
+}
+
 
 .big-info-container {
 	flex-basis: 300px;
@@ -749,7 +753,7 @@ body {
 }
 .movie-page-poster img {
 	max-width: 100%;
-	border: 1px solid var(--light-gray);
+	box-shadow: var(--tiny-card-shadow);
 }
 .movie-page-info {
 	flex: 2 1 235px;
@@ -1359,7 +1363,6 @@ h1.search {
 	position: relative;
 	width: 100%;
 	padding: 0 15px;
-	/*min-width: 250px;*/
 }
 
 .actor-card-info h4 {
@@ -1379,27 +1382,33 @@ h1.search {
 }
 
 .actor-card-overview {
-	font-size: 16px;
 	line-height: 1.2em;
-	/*max-height: 40px;*/
 }
 
 .actor-card-rating {
 	margin: 5px 0;
-	font-size: 12px;
+	font-size: .75rem;
+}
+
+.known-for {
+	display: block;
+	font-weight: bold;
+	font-size: .9rem;
 }
 
 .actor-card-more {
+	position: absolute;
+	bottom: 5px;
 	margin-top: 6px;
-	width: 120px;
+	/*width: 120px;*/
 }
 
 .actor-card-more a {
 	text-decoration: none;
 	display: inline-block;
-	padding: 0.3em;
+	padding: .3rem;
 	border: 1px solid var(--secondary-bg-color);
-	border-radius: 2px;
+	border-radius: 1px;
 	/*background-color: var(--secondary-bg-color);*/
 	color: black;
 }
@@ -1672,6 +1681,19 @@ h1.search {
 
 	.actors-container {
 		justify-content: space-evenly;
+	}
+
+
+	.actor-card-overview {
+		line-height: 1.1em;
+		font-size: .8rem;
+	}
+	.known-for {
+		font-size: .8rem;
+	}
+
+	.actor-card-info {
+		padding: 0 5px;
 	}
 
 	.single-movie-card-read-more {

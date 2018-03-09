@@ -5,7 +5,7 @@ const ActorsAll = ()=>{
 	return(
 			<div className="home row">
 				<div className="home-col-1">				
-						<h1>Top Rated Actors</h1>
+						<h1 className="text-center">Top Rated Actors</h1>
 					<PeoplePop />			
 				</div>	
 			</div>

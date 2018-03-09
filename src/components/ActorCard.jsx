@@ -11,11 +11,11 @@ const ActorCard = ({data})=>{
 			return  item 
 		})
 		var knownAs = filtered.map((item, i, arr)=>{
-		return <p key={item.id}>{`${item.title} ${arr.length>(i+1) ? ", " : "." }`} </p>
+		return <p key={item.id}>{`${item.title ? item.title : item.name+" (TV)"} ${arr.length>(i+1) ? ", " : "." }`} </p>
 		})
-			
 
-	const popularity = data.popularity.toString().slice(0, 3);
+		
+	const popularity = data.popularity.toString().slice(0, 4);
 	
 	return(
 		<div className="actor-card-wrap row-nowrap">
@@ -34,10 +34,10 @@ const ActorCard = ({data})=>{
 				
 				
 				<div className="actor-card-overview">
+					<span className="known-for">Known For: </span>
 					<Truncate lines={2} ellipsis={<span>..</span>}>
 						{knownAs} 
-					</Truncate>
-						
+					</Truncate>	
 				</div>
 				
 				<div className="actor-card-more">
