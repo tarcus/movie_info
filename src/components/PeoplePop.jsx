@@ -2,14 +2,14 @@ import React,{Component} from 'react'
 import axios from 'axios'
 import {api_key, baseUrl} from '../options/apiOptions'
 import {injectIntl} from 'react-intl'
-import {Link} from 'react-router-dom'
+import ActorCardW154 from './ActorCardW154'
+import ActorCard from './ActorCard'
 
 class PeoplePop extends Component {
 	constructor(props){
 		super(props);
 
 		this.state = {people: []}
-
 	}
 
 	getPopularPeople = ()=>{
@@ -19,7 +19,7 @@ class PeoplePop extends Component {
 			params: {
 				api_key,
 				language: this.props.intl.locale,
-				page: 1	
+				page: 7	
 			}
 		}
 
@@ -41,14 +41,7 @@ class PeoplePop extends Component {
 
 	render(){
 		const people = this.state.people.map((item)=>{
-			return <div className="actor-w92-wrap" key={item.id}>
-				<Link to={`/actors/${item.id}`}>
-				<img src={`https://image.tmdb.org/t/p/w92/${item.profile_path}`}/>
-				</Link>
-				<div className="actor-w92-name">
-					{item.name}
-				</div>
-			</div>
+			return <ActorCard  data={item} key={item.id} />			
 		})
 		return(
 			<div className="people-pop-wrap row">

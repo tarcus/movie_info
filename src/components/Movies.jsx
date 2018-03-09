@@ -100,7 +100,7 @@ class Movies extends Component{
 		const tv = this.props.tv;
 		console.log('Movies component render fire')
 		return(
-			<div className="movies-container">
+			<div className="movies-container row">
 				<h1>{tv ? 'Series' : 'Movies'}</h1>
 				<Filter tv={tv}  loadFiltered={this.loadFiltered}/>
 				<MoviesView movies={this.state.movies} />
