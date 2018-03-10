@@ -13,10 +13,8 @@ class Filter extends Component {
 	
 		this.state = {	
 				sort_by: 'popularity.desc',
-				include_adult: false,
-				include_video: false,
 				page: 1,
-				'vote_count.gte': 100,
+				'vote_count.gte': 10,
 				with_original_language: 'en',
 				'primary_release_date.gte': '', // for Movies
 				'first_air_date.gte': '',       //for TV first_air_date.gte 
@@ -86,9 +84,11 @@ class Filter extends Component {
 		const paramsFromUrl = queryString.parse(location.search)
 		console.log('PARAMS: ',paramsFromUrl)
 		if(Object.keys(paramsFromUrl).length!==0){
-			this.setState({paramsFromUrl})
+			this.setState({...paramsFromUrl}, ()=>{
+				this.props.loadFiltered({params: paramsFromUrl})
+			})
 			console.log('STATE: ', this.state)
-			this.props.loadFiltered({params: paramsFromUrl})
+			//this.props.loadFiltered({params: paramsFromUrl})
 		}
 
 

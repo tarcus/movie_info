@@ -921,6 +921,7 @@ body {
 
 .actor-img-wrap img {
 	max-width: 100%;
+	box-shadow: var(--tiny-card-shadow);
 }
 
 .actor-biography-wrap {
@@ -1203,10 +1204,7 @@ h1.search {
 
 /*****HOME PAGE*****/
 .home {
-	/*display: flex;
-	flex-wrap: nowrap;
-	flex-direction: row;
-	justify-content: center;*/
+
 }
 
 .home-col-1 {
@@ -1242,7 +1240,7 @@ h1.search {
 }
 
 .now-playing-card {
-	/*border: 1px solid var(--light-gray);*/
+	box-shadow: var(--tiny-card-shadow);
 }
 
 
@@ -1253,11 +1251,6 @@ h1.search {
 }
 
 .big-img .title-rel-wrap {
-	/*display: flex;
-	flex-wrap: wrap;
-	
-	align-content: flex-end;
-	justify-content: start;*/
 	padding-top: 50px;
 }
 
@@ -1265,8 +1258,6 @@ h1.search {
 	max-width: 100%;
 	display: block;
 }
-
-
 
 .inside-wrap {
 	display: flex;
@@ -1824,7 +1815,7 @@ h1.search {
 	}
 
 	.airing-today-wrap {
-		height: 700px;
+		min-height: 350px;
 	}
 
 	.home-col-1 {
@@ -1864,7 +1855,7 @@ h1.search {
 	}
 
 	.airing-today-wrap {
-		height: 700px;
+		min-height: 350px;
 	}
 
 	.home-col-1 {

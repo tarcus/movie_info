@@ -56,7 +56,7 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 
 				<h1>{movie.title}</h1>
 				<div className="movie-page-poster">
-					<img src={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}/>
+					<Img src={[`https://image.tmdb.org/t/p/w342/${movie.poster_path}`, dummyImg_92]} loader={<Spinner />} />
 				</div>
 
 				<div className="movie-page-info">

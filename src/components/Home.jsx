@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import HorizMovies from './HorizMovies'
 import NowPlayingMov from './NowPlayingMov'
-import PeoplePop from './PeoplePop'
 import AiringTodayTv from './AiringTodayTv'
 
 class Home extends Component {
@@ -27,7 +26,7 @@ class Home extends Component {
 					</div>
 					
 					<AiringTodayTv />
-					{/*<PeoplePop />*/}
+					
 				</div>	
 			</div>
 		)

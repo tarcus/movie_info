@@ -20,13 +20,10 @@ class Movies extends Component{
 		 	totalResults: '',
 			defaultOptions: {
 				url: `${baseUrl}/discover/${this.props.tv ? 'tv' : 'movie'}`,
-				method: 'get',
 				params: {
 					api_key,
 					language: 'en',
 					sort_by: 'popularity.desc',
-					include_adult: false,
-					include_video: false,
 					page: 1,
 				},
 				timeout: 2000,
@@ -37,7 +34,7 @@ class Movies extends Component{
 
 	loadFiltered = (filteredOptions={})=>{
 
-		
+		const tv = this.props.tv;
 		//получаем язык 
 		const lang = {params:{
 			language: this.props.intl.locale
@@ -54,8 +51,7 @@ class Movies extends Component{
 
 		//при первой загрузке не пушим параметры в url bar
 		if(filteredOptions.params !== undefined){
-
-			//this.props.history.push(`/movies?${stringified}`)
+			this.props.history.push(`/${tv ? 'series' : 'movies'}?${stringified}`)
 		}
 		
 		//console.log(queryString.parse(location.search))
