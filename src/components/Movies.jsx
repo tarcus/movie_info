@@ -51,7 +51,7 @@ class Movies extends Component{
 
 		//при первой загрузке не пушим параметры в url bar
 		if(filteredOptions.params !== undefined){
-			this.props.history.push(`/${tv ? 'series' : 'movies'}?${stringified}`)
+			//this.props.history.push(`/${tv ? 'series' : 'movies'}?${stringified}`)
 		}
 		
 		//console.log(queryString.parse(location.search))
