@@ -18,36 +18,64 @@ class Movies extends Component{
 		this.state = {
 			movies: [],
 		 	totalResults: '',
-			defaultOptions: {
-				url: `${baseUrl}/discover/${this.props.tv ? 'tv' : 'movie'}`,
-				params: {
-					api_key,
-					language: 'en',
-					sort_by: 'popularity.desc',
-					page: 1,
-				},
-				timeout: 2000,
-			}
+		 	page: 1,
+			// defaultOptions: {
+			// 	url: `${baseUrl}/discover/${this.props.tv ? 'tv' : 'movie'}`,
+			// 	params: {
+			// 		api_key,
+			// 		language: 'en',
+			// 		sort_by: 'popularity.desc',
+			// 		page: 1,
+			// 	},
+			// 	timeout: 2000,
+			// }
 		}
 	}
 
-
-	loadFiltered = (filteredOptions={})=>{
+	//(v1)
+	//loadFiltered = (filteredOptions={})=>{
+	//(v2)	
+	loadFiltered = ()=>{	
 
 		const tv = this.props.tv;
 		//получаем язык 
 		const lang = {params:{
 			language: this.props.intl.locale
 		}}
-		//сливаем дефолтный конфиг и полученный из фильтра
-		const mergedOptions = merge.all([this.state.defaultOptions, filteredOptions, lang])
-		this.setState({defaultOptions: mergedOptions}, ()=>{
-			console.log('DEF OPT: ',this.state.defaultOptions)
-		})
-		
+
+		//Получаем параметры из URL (v2)
+		const paramsFromUrl = queryString.parse(location.search);
+		console.log('PARAMS FROM URL: ', paramsFromUrl)
+		const filteredOptions = {params: paramsFromUrl}
+
+		const defaultOptions = {
+				url: `${baseUrl}/discover/${tv ? 'tv' : 'movie'}`,
+				params: {
+					api_key,
+					language: lang,
+					sort_by: 'popularity.desc',
+					'vote_count.gte': 50,
+					with_original_language: 'en',
+					page: 1,
+				},
+				timeout: 3000,
+		}
+
+		//сливаем дефолтный конфиг и полученный из фильтра(v1)
+		// const mergedOptions = merge.all([this.state.defaultOptions, filteredOptions, lang])
+		// this.setState({defaultOptions: mergedOptions}, ()=>{
+		// 	console.log('DEF OPT: ',this.state.defaultOptions)
+		// })
+
+		//сливаем дефолтный конфиг и полученный из фильтра(v2)
+		const mergedOptions = merge.all([defaultOptions, filteredOptions, lang])
+		// this.setState({defaultOptions: mergedOptions}, ()=>{
+		// 	console.log('DEF OPT: ',this.state.defaultOptions)
+		// })
+
 
 		//пушим строку параметров в url bar
-		const stringified = queryString.stringify(mergedOptions.params)
+		//const stringified = queryString.stringify(mergedOptions.params)
 
 		//при первой загрузке не пушим параметры в url bar
 		if(filteredOptions.params !== undefined){
@@ -62,7 +90,8 @@ class Movies extends Component{
 			console.log('RESPONSE: ', response.data)
 			this.setState({
 				movies: response.data.results, 
-				totalResults: response.data.total_results
+				totalResults: response.data.total_results,
+				page: response.data.page
 			})
 		})
 		.catch((error)=>{
@@ -78,15 +107,41 @@ class Movies extends Component{
 	}
 
 	handlePageChange = (pageNumber)=> {
-	    if(pageNumber !==this.state.defaultOptions.params.page){
 
-	    	this.loadFiltered({params: {page: pageNumber}})
-	    	this.scrollPageToBegining()
-	    }
+		//(v1)
+	    // if(pageNumber !==this.state.defaultOptions.params.page){
+
+	    // 	this.loadFiltered({params: {page: pageNumber}})
+	    // 	this.scrollPageToBegining()
+	    // }
+
+	    //(v2)
+	    //Нужно получить параметры URL и к ним добавить страницу(точнее изменить на ту что даст пагинатор)
+	    const pageNum = {page: pageNumber};
+		const paramsFromUrl = queryString.parse(location.search);
+
+		const mergedOptions = merge.all([paramsFromUrl, pageNum])
+		console.log('MERGED: ', mergedOptions)
+
+		//сериализуем объект в строку параметров
+		const stringified = queryString.stringify(mergedOptions)
+
+		//Нужно запушить измененные параметры в URL
+		this.props.history.push(`/${this.props.tv ? 'series' : 'movies'}?${stringified}`)
+
+		this.scrollPageToBegining()
+
+		//(v1)
+		//this.loadFiltered({params: {page: pageNumber}})
+
     
   	}
 
 	componentDidMount(){
+		this.loadFiltered()
+	}
+
+	componentWillReceiveProps(nextProps){
 		this.loadFiltered()
 	}
 
@@ -101,7 +156,7 @@ class Movies extends Component{
 				<MoviesView movies={this.state.movies} />
 				<div className="pagination-wrapper">
 					<Pagination
-			          activePage={this.state.defaultOptions.params.page}
+			          activePage={this.state.page}
 			          itemsCountPerPage={20}
 			          totalItemsCount={this.state.totalResults}
 			          pageRangeDisplayed={5}
