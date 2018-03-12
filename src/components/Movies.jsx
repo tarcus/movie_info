@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import {injectIntl} from 'react-intl'
+import { defineMessages,injectIntl} from 'react-intl'
 import MoviesView from './MoviesView'
 import Filter from './Filter'
 import merge from 'deepmerge'
@@ -9,6 +9,18 @@ import queryString from 'query-string'
 import Pagination from "react-js-pagination"
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed'
 import {api_key, baseUrl} from '../options/apiOptions'
+
+//i18n
+const messages = defineMessages({
+	movies_h1_movies: {
+		id: 'movies.h1_movies',
+		defaultMessage: 'Movies'
+	},
+	movies_h1_series: {
+		id: 'movies.h1_series',
+		defaultMessage: 'Series'
+	},
+}) 
 
 
 class Movies extends Component{
@@ -19,16 +31,6 @@ class Movies extends Component{
 			movies: [],
 		 	totalResults: '',
 		 	page: 1,
-			// defaultOptions: {
-			// 	url: `${baseUrl}/discover/${this.props.tv ? 'tv' : 'movie'}`,
-			// 	params: {
-			// 		api_key,
-			// 		language: 'en',
-			// 		sort_by: 'popularity.desc',
-			// 		page: 1,
-			// 	},
-			// 	timeout: 2000,
-			// }
 		}
 	}
 
@@ -151,7 +153,7 @@ class Movies extends Component{
 		const tv = this.props.tv;
 		return(
 			<div className="movies-container row">
-				<h1>{tv ? 'Series' : 'Movies'}</h1>
+				<h1>{tv ? this.props.intl.formatMessage(messages.movies_h1_series) : this.props.intl.formatMessage(messages.movies_h1_movies)}</h1>
 				<Filter tv={tv}  loadFiltered={this.loadFiltered}/>
 				<MoviesView movies={this.state.movies} />
 				<div className="pagination-wrapper">

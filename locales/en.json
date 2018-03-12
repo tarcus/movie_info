@@ -3,5 +3,11 @@
   "navbar_movies.nav": "Movies",
   "navbar_series.nav": "Series",
   "navbar_home.nav": "Home",
-  "footer.copyright": "2018 Max Media. All rights reserved."
+  "filter.genres": "Genres",
+  "filter.year": "Year",
+  "filter.sort_by": "Sort by",
+  "filter.from_year": "From Year",
+  "footer.copyright": "2018 Max Media. All rights reserved.",
+  "movies.h1_movies": "Movies",
+  "movies.h1_series": "Series"
 }
