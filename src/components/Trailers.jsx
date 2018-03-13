@@ -42,6 +42,13 @@ class Trailers extends Component {
 	}
 
 	render(){
+		//If there no trailers
+		if(this.state.trailers.length==0){
+			return(
+				<div className="trailers-wrap">
+				</div>
+			)
+		}
 		return(
 			<div className="trailers-wrap">
 				<h2>Trailer</h2>
