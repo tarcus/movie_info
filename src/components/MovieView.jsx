@@ -6,6 +6,7 @@ import Trailers from './Trailers'
 import {Link} from 'react-router-dom'
 import Img from 'react-image'
 import dummyImg_92 from '../images/dummy_92.png'
+import AddToWatchList from './AddToWatchList'
 
 
 
@@ -92,7 +93,7 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 					<div className="search-outside">
 						<a href={`https://solarmoviex.to/search?keyword=${movie.original_title}`} target="_blank">Search The Movie</a>
 					</div>
-					 
+					 <AddToWatchList movie={movie}/>
 				</div>
 				<div className="actors-container">
 					<h2>Starring</h2>
@@ -101,6 +102,7 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 				<div className="movie-page-overview">
 					<h2>Overview</h2>
 					<p>{movie.overview}</p>
+
 				</div>
 				<div className="movie-page-backdrop">	
 					<img src={movie.backdrop_path ? `https://image.tmdb.org/t/p/w780/${movie.backdrop_path}` : ""}/>

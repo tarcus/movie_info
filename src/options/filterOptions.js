@@ -89,7 +89,7 @@ const genresOptionsMovieRu = [
     },
     {
       "value": 16,
-      "label": "Animation"
+      "label": "Анимация"
     },
     {
       "value": 35,
@@ -97,63 +97,63 @@ const genresOptionsMovieRu = [
     },
     {
       "value": 80,
-      "label": "Crime"
+      "label": "Криминал"
     },
     {
       "value": 99,
-      "label": "Documentary"
+      "label": "Документальный"
     },
     {
       "value": 18,
-      "label": "Drama"
+      "label": "Драма"
     },
     {
       "value": 10751,
-      "label": "Family"
+      "label": "Симейный"
     },
     {
       "value": 14,
-      "label": "Fantasy"
+      "label": "Фентези"
     },
     {
       "value": 36,
-      "label": "History"
+      "label": "Исторический"
     },
     {
       "value": 27,
-      "label": "Horror"
+      "label": "Ужасы"
     },
     {
       "value": 10402,
-      "label": "Music"
+      "label": "Музыкальный"
     },
     {
       "value": 9648,
-      "label": "Mystery"
+      "label": "Мистика"
     },
     {
       "value": 10749,
-      "label": "Romance"
+      "label": "Романтика"
     },
     {
       "value": 878,
-      "label": "Science Fiction"
+      "label": "Фантастика"
     },
     {
       "value": 10770,
-      "label": "TV Movie"
+      "label": "ТВ Фильм"
     },
     {
       "value": 53,
-      "label": "Thriller"
+      "label": "Триллер"
     },
     {
       "value": 10752,
-      "label": "War"
+      "label": "Военный"
     },
     {
       "value": 37,
-      "label": "Western"
+      "label": "Вестерн"
     }  
 ];
 
@@ -246,7 +246,7 @@ const genresOptionsTVRu = [
     },
     {
       "value": 99,
-      "label": "Documentary"
+      "label": "Документальный"
     },
     {
       "value": 18,
@@ -262,35 +262,35 @@ const genresOptionsTVRu = [
     },
     {
       "value": 9648,
-      "label": "Mystery"
+      "label": "Мистика"
     },
     {
       "value": 10763,
-      "label": "News"
+      "label": "Новости"
     },
     {
       "value": 10764,
-      "label": "Reality"
+      "label": "Реалити"
     },
     {
       "value": 10765,
-      "label": "Sci-Fi & Fantasy"
+      "label": "Sci-Fi и Фентези"
     },
     {
       "value": 10766,
-      "label": "Soap"
+      "label": "Мыльная опера"
     },
     {
       "value": 10767,
-      "label": "Talk"
+      "label": "Ток-шоу"
     },
     {
       "value": 10768,
-      "label": "War & Politics"
+      "label": "Война и Политика"
     },
     {
       "value": 37,
-      "label": "Western"
+      "label": "Вестерн"
     }
 ];
 

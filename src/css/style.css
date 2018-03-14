@@ -1377,6 +1377,22 @@ h1.search {
 }
 
 
+/*****WATCH LIST*****/
+
+.watchlist-add {
+	margin-top: 20px;
+	display: inline-block;
+	padding: .3rem;
+	background-color: var(--orange-bg-color);
+}
+
+.watchlist-add:hover {
+	cursor: pointer;
+	background-color: var(--secondary-bg-color);
+	color: #fff;
+}
+
+
 
 
 

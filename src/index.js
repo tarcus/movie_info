@@ -22,6 +22,22 @@ const localeData = (locFromStorage==="ru") ? localeDataRu : localeDataEn;
 
 const locale = locFromStorage;
 
+//FIREBASE
+const config = {
+    apiKey: "AIzaSyByHMiwEWa-TyfVxi5evuhoXh83Xvc5iB0",
+    authDomain: "movieinfo-29a55.firebaseapp.com",
+    databaseURL: "https://movieinfo-29a55.firebaseio.com",
+    projectId: "movieinfo-29a55",
+    storageBucket: "movieinfo-29a55.appspot.com",
+    messagingSenderId: "516967630209"
+};
+
+firebase.initializeApp(config);
+
+
+//Не работает...
+//var db = firebase.database();
+
 
 
 
