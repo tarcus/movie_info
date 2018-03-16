@@ -5,6 +5,7 @@ import LangSelector from './LangSelector'
 import {Link} from 'react-router-dom'
 import SearchForm from './SearchForm'
 import Drawer from './Drawer'
+import RegLogUser from './RegLogUser'
 
 
 class Navbar extends Component {
@@ -47,10 +48,7 @@ class Navbar extends Component {
 						
 					</div>
 					
-					<div className="login">
-							<a href="#"><FontAwesome name='pencil-square' style={{color: '#D5BD17'}} /> Register</a>
-							<a href="#"><FontAwesome name='sign-in' style={{color: '#D5BD17'}} /> Login</a>
-					</div>
+					<RegLogUser />
 					<LangSelector />
 					<span className="navbar-toggler-search-btn" onClick={this.navbarToggle}>
 						<FontAwesome name='search' style={{color: '#D5BD17', fontSize: '18px'}} />

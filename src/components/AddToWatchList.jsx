@@ -23,6 +23,7 @@ class AddToWatchList extends Component {
 
 		//id текущего фильма будет нашим key
 		usersMovRef.child(movie.id).set({
+			id: movie.id,
 			title: movie.title,
 			poster: movie.poster_path
 		})
@@ -40,10 +41,11 @@ class AddToWatchList extends Component {
 
 	componentDidMount(){
 		//необходимо проверить есть ли текущий фильм в watchlist'e 
-		firebase.database().ref('watchlist_mov/' + 'uid_1').once('value')
-		.then((snap)=>{
-			console.log('FIREBASE: ', snap.val())
-		})
+		//запрос ниже вернет всю коллекцию текущего пользователя
+		// firebase.database().ref('watchlist_mov/' + 'uid_1').once('value')
+		// .then((snap)=>{
+		// 	console.log('FIREBASE: ', snap.val())
+		// })
 	}
 
 	render(){

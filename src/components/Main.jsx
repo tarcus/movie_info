@@ -10,6 +10,8 @@ import Actors from './Actors'
 import Search from './Search'
 import TV from './TV'
 import ActorsAll from './ActorsAll'
+import LoginPage from './LoginPage'
+import Register from './Register'
  
 const Main = ()=>{
 	return(
@@ -23,6 +25,8 @@ const Main = ()=>{
 				<Route path='/series/:id' component={TV} />
 				<Route exact path='/actors' component={ActorsAll} />
 				<Route path='/actors/:id' component={Actors} />
+				<Route path='/login' component={LoginPage} />
+				<Route path='/register' component={Register} />
 				<Route component={NotFound} />
 			</Switch>
 		</main>
