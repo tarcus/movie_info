@@ -51,10 +51,10 @@ class Navbar extends Component {
 					<RegLogUser />
 					<LangSelector />
 					<span className="navbar-toggler-search-btn" onClick={this.navbarToggle}>
-						<FontAwesome name='search' style={{color: '#D5BD17', fontSize: '18px'}} />
+						<FontAwesome name='search' className="fa-yellow" style={{fontSize: '18px'}} />
 					</span>
 					<span className="drawer-toggler-btn" onClick={this.drawerToggle}>
-						<FontAwesome name='bars' style={{color: '#D5BD17', fontSize: '18px' }}  />
+						<FontAwesome name='bars' className="fa-yellow" style={{fontSize: '18px'}}  />
 					</span>
 					
 

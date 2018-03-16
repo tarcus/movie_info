@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {withRouter} from 'react-router-dom'
 
 //const auth = firebase.auth();
 
@@ -6,6 +7,7 @@ class LoginPage extends Component {
 	constructor(props){
 		super(props);
 
+		this.state = {};
 	}
 
 	submitHandle = (e)=>{
@@ -14,11 +16,12 @@ class LoginPage extends Component {
 		const email = this.emailInput.value;
 		const password = this.passInput.value;
 
-
 		//залогинить юзера
 		firebase.auth().signInWithEmailAndPassword(email, password)
 		.then((user)=>{
 			console.log('sign in Login Page: ', user)
+			//Redirect after login
+			 this.props.history.goBack()
 		})
 
 		//Показать текущего юзера
@@ -56,4 +59,4 @@ class LoginPage extends Component {
 
 }
 
-export default LoginPage;
+export default withRouter(LoginPage);

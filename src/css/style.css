@@ -12,6 +12,7 @@
 	--yellow-bg-color: #d5bd17;
 	--yellow-bg-hover: #C5B12A;
 	--orange-bg-color: #F26402;
+	--yellow-warm: #FFCC00;
 	--small-card-shadow: 0 0 8px 0px rgba(0,0,0, 0.4);
 	--tiny-card-shadow: 0 0 4px 0px rgba(0,0,0, 0.3);
 	--med-card-shadow: 0 0 12px 0px rgba(0,0,0, 0.4);
@@ -25,6 +26,7 @@
 	--search-form-bg: #2A2A2A;
 	--search-form-border-color: #2A2A2A;
 	--search-form-text-color: #F3F3F2;
+	--nav-link-color: #fff;
 }
 
 
@@ -78,6 +80,10 @@ body {
 
 .text-shad {
 	text-shadow: 1px 1px 0 #000;
+}
+
+.fa-yellow {
+	color: var(--yellow-warm);
 }
 
 .row-no-justify {
@@ -1125,9 +1131,6 @@ h1.search {
 
 .fa-search {
 	font-size: 18px;
-	/*color: var(--search-form-text-color);*/
-	color: var(--yellow-bg-color);
-	
 }
 
 /**DROPDOWN SEARCH**/
@@ -1138,16 +1141,9 @@ h1.search {
 
 /****ReGISTER LOGIN LINKS****/
 .login{
-	/*display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: flex-start;*/
 	position: absolute;
 	top: 24px;
 	right: 10px;
-	/*margin: 0 15px 0 20px;*/
-	/*width: 180px;
-	min-width: 93px;*/
 }
 
 .login .item {
@@ -1160,11 +1156,59 @@ h1.search {
 	display: inline-block;
 	padding: 0 15px 0 0;
 	text-decoration: none;
-	color: #fff;
+	color: var(--nav-link-color);
 }
 
 .login a:hover {
 	color:#8F8F8F;
+}
+
+.user-navbar {
+	position: relative;
+	display: inline-block;
+	padding: 0 25px 0 0;
+	color: var(--nav-link-color);
+	cursor: pointer;
+	user-select: none;
+}
+
+.user-navbar:hover {
+	color:#8F8F8F;
+}
+
+.user-dropdown {
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	top: 45px;
+	left: -40px;
+	background-color: #fff;
+	border-radius: 3px;
+}
+
+.user-dropdown.close {
+	display: none;
+}
+
+.user-dropdown:after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 30%;
+	top: -10px;
+	width: 16px;
+	height: 16px;
+	transform-origin: left top;
+	transform: rotate(45deg);
+	background-color: #fff;
+}
+
+.user-dropdown-footer {
+	position: absolute;
+	bottom: 0;
+	height: 25px;
+	width: 100%;
+	background-color: gray;
 }
 
 

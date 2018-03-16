@@ -44,10 +44,6 @@ firebase.initializeApp(config);
 // })
 
 
-//Не работает...
-//var db = firebase.database();
-
-
 
 
 ReactDOM.render(

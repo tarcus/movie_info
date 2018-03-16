@@ -32,6 +32,8 @@ class Register extends Component {
 			    .catch(function(error) {
 			      console.log('Error Occured verification email') 
 			    });
+			//Редиректим юзера туда откуда он пришел
+			this.props.history.goBack()
 		})
 		.catch((error)=>{
 			console.log("Register error: ", error)
@@ -39,22 +41,6 @@ class Register extends Component {
 		
 		//TODO VALIDATION
 
-		//Присвоим имя юзеру
-		// firebase.auth().onAuthStateChanged(function(user) {
-  //               if (user) {
-  //                  // Updates the user attributes:
-  //                 user.updateProfile({ // <-- Update Method here
-  //                   displayName: userName  
-  //                 }).then(function() {
-  //                   // Profile updated successfully!
-  //                   var displayName = user.displayName;
-                
-  //                 }, function(error) {
-  //                   // An error happened.
-  //                 });     
-
-  //               }
-  //   	});
 
 
 

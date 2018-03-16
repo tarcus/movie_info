@@ -28,7 +28,7 @@ class SearchForm extends Component {
 		return(
 			<div className="search-form">
 				<form onSubmit={this.handleSubmit}>
-					<button type="submit"><FontAwesome name='search' className="fa-search" /></button>
+					<button type="submit"><FontAwesome name='search' className="fa-yellow" /></button>
 					<input type="text" ref={(input)=>{this.searchInput=input}} placeholder="Search..." />
 					
 				</form>
