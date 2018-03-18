@@ -52,6 +52,7 @@ class RegLogUser extends Component {
 					</span>
 					<div className={dropClasses}>
 						<div className="user-dropdown-footer">
+							<Link to="/watchlist">Watch List</Link>
 							<button className="log-out-btn" onClick={this.logOut}>Log Out</button>
 						</div>
 					</div>

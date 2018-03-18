@@ -36,7 +36,7 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 	})
 
 	const actors = actorsFull.slice(0,6)
-	console.log('Genres: ', genres)
+	
 	if(isLoading){
 		return(
 			<div className="movie-page-main">

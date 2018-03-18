@@ -22,7 +22,6 @@ class Trailers extends Component {
 
 		axios(options)
 		.then((response)=>{
-			console.log('Trailers: ', response.data)
 			this.setState({trailers: response.data.results})
 		})
 		.catch((error)=>{

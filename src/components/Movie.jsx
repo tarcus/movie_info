@@ -56,7 +56,6 @@ class Movie extends Component {
 		console.log('ReqInProgress: ',reqInProgress)
 		setTimeout(()=>{
 			if(reqInProgress){
-				console.log('ReqInProgress inside timer: ', reqInProgress)
 				this.setState({isLoading: true});
 			}
 			
@@ -66,7 +65,6 @@ class Movie extends Component {
 		axios.all([getMovie(), getCredits()])
 		.then(axios.spread((mov, credits)=>{
 			reqInProgress = false;
-			console.log('Mov: ', mov.data, 'Cast: ', credits.data)
 			this.setState({movie: mov.data, 
 				cast: credits.data.cast, 
 				crew: credits.data.crew, 

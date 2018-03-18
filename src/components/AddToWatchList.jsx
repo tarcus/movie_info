@@ -9,12 +9,7 @@ class AddToWatchList extends Component {
 
 	AddToWatchList = ()=>{
 
-		const movie = this.props.movie;
-
-		// firebase.database().ref('watchlist_mov').push({			
-		// 			title: 'I dont',
-		// 			cover: 'afsgfgfasd.jpeg'	
-		// })
+		const movie = this.props.movie;	
 		console.log('Add to watch list id: ', movie.id)
 		//ссылка на коллекцию муви
 		const watchListMovRef = firebase.database().ref('watchlist_mov')
@@ -27,18 +22,10 @@ class AddToWatchList extends Component {
 		//id текущего фильма будет нашим key
 		usersMovRef.child(movie.id).set({
 			id: movie.id,
-			title: movie.title,
-			poster: movie.poster_path
+			name: movie.title,
+			img: movie.poster_path
 		})
-
-		//образец 
-		// usersRef.child("alanisawesome").set({
-		//   date_of_birth: "June 23, 1912",
-		//   full_name: "Alan Turing"
-		// });
-
-
-
+	
 
 	}
 
@@ -48,6 +35,8 @@ class AddToWatchList extends Component {
 			//если фильм уже в watchlist'e то обновим стейт
 			if(snap.val()!==null){
 				this.setState({inWatchList: true})
+			} else {
+				this.setState({inWatchList: false})
 			}
 		})
 
@@ -55,16 +44,6 @@ class AddToWatchList extends Component {
 	}
 
 	componentDidMount(){
-		//необходимо проверить есть ли текущий фильм в watchlist'e 
-		//запрос ниже вернет всю коллекцию текущего пользователя
-		// firebase.database().ref('watchlist_mov/' + 'uid_1').once('value')
-		// .then((snap)=>{
-		// 	console.log('FIREBASE: ', snap.val())
-		// })
-		//const userUid = firebase.auth().currentUser.uid
-		//console.log('USER: ', userUid)
-		//Нужно посмотреть есть ли у юзера текущий фильм
-		//firebase.database().ref('watchlist_mov/' + userUid + '/' + this.props.movie.id)
 		firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({userUid: user.uid})
@@ -77,7 +56,6 @@ class AddToWatchList extends Component {
 				console.log('not logged in AddToWatch')
 			}
 		})
-
 
 
 	}

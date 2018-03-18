@@ -1471,7 +1471,21 @@ h1.search {
 
 
 
+/*****WATCHLIST PAGE*****/
+.watchlist-card {
+	position: relative;
+}
+.watchlist-del-btn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	padding: .75rem;
+	background-color: red;
+}
 
+.fa-del-btn {
+	color: black;
+}
 
 
 

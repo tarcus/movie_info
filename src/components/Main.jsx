@@ -12,7 +12,8 @@ import TV from './TV'
 import ActorsAll from './ActorsAll'
 import LoginPage from './LoginPage'
 import Register from './Register'
- 
+import WatchList from './WatchList'
+  
 const Main = ()=>{
 	return(
 		<main className="main">
@@ -27,6 +28,7 @@ const Main = ()=>{
 				<Route path='/actors/:id' component={Actors} />
 				<Route path='/login' component={LoginPage} />
 				<Route path='/register' component={Register} />
+				<Route path='/watchlist' component={WatchList} />
 				<Route component={NotFound} />
 			</Switch>
 		</main>

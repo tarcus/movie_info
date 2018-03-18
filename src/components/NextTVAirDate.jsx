@@ -46,11 +46,7 @@ class NextTVAirDate extends Component {
 					return item.air_date >= currentDate
 			});
 
-			// const nextAir = nextEpisodes.map((item)=>{
-			// 	return {id: item.id, next_air_date: item.air_date }
-			// });
 			if(nextEpisodes.length == 0){
-				console.log('NO NEXT EPISODES')
 				this.setState({nextAir: 'Season Ended'})
 			} else {
 				this.setState({nextAir: nextEpisodes[0].air_date})
@@ -71,9 +67,6 @@ class NextTVAirDate extends Component {
 		this.getTVStuff(this.props.tvID)
 	}
 
-	// componentWillReceiveProps(nextProps){
-	// 	this.getTVStuff(nextProps)
-	// }
 
 	render(){
 		return(

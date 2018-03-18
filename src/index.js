@@ -46,6 +46,7 @@ firebase.initializeApp(config);
 
 
 
+
 ReactDOM.render(
 	<IntlProvider locale={locale} messages={localeData}>
 		<BrowserRouter>
