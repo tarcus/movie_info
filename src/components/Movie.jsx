@@ -53,7 +53,7 @@ class Movie extends Component {
 
 		
 		let reqInProgress = true;
-		console.log('ReqInProgress: ',reqInProgress)
+		//console.log('ReqInProgress: ',reqInProgress)
 		setTimeout(()=>{
 			if(reqInProgress){
 				this.setState({isLoading: true});

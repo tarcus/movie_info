@@ -3,12 +3,13 @@ import {Link} from 'react-router-dom'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import FontAwesome from 'react-fontawesome'
+import {injectIntl} from 'react-intl'
 
 class WatchList extends Component {
 	constructor(props){
 		super(props);
 
-		this.state = {movList: [], tvList: []}
+		this.state = {movList: [], tvList: [], outerLink: ''}
 	}
 
 
@@ -43,20 +44,42 @@ class WatchList extends Component {
 
 	}
 
+	getOuterLinks = ()=>{
+		//Получаем из БД ссылку на внешний сайт в зависимости от выбранного языка
+		firebase.database().ref('outerLinks/' + this.props.intl.locale).once('value')
+		.then((snap)=>{
+			this.setState({outerLink: snap.val().link})
+		})
+		.catch((error)=>{
+			console.log('DB OuterLinks Error: ', error)
+		})
+
+		
+
+	}
+
 	componentDidMount(){
 		//получаем юзера
 		firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({uid: user.uid}, ()=>{
+					//this.getOuterLinks()
 					this.getWatchList()
 					console.log("Get Watchlist")
-
+					
 					//Слушаем удаления в списке 
 					const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid)
 					movListRef.on('child_removed', (data)=>{
 						console.log("Child Removed: ", data.val())
 						this.getWatchList();
 					})
+
+					//И добавления
+					// movListRef.on('child_added', (data)=>{
+					// 	console.log("Child Added: ", data.val())
+						//this.getWatchList();
+					// })
+
 				})
 			} else {
 				this.setState({uid: ''})
@@ -68,6 +91,7 @@ class WatchList extends Component {
 	}
 	
 	render(){
+		console.log("WATCHLIST RENDER")
 		const movList = this.state.movList.map((item)=>{
 			return  <div className="watchlist-card" key={item.id}>
 						<Link to={`/movies/${item.id}`}>
@@ -77,8 +101,21 @@ class WatchList extends Component {
 							className="watchlist-del-btn" 
 							onClick={(e)=>{this.delMovFromList(e, item.id)}}
 						>
-							<FontAwesome name='ban' className="fa-del-btn" />
+							<FontAwesome name='times' className="fa-del-btn" />
 						</span>
+						<a href={`${this.state.outerLink}${item.name}`} 
+						className="watch-outside-link" 
+						target="_blank"
+						title="Search Movie Outside"
+						>
+							<FontAwesome name='eye' className="fa-del-btn" />
+						</a>
+						<div className="watchlist-card-overlay">
+							{item.name}
+						</div>
+						{/*<div className="watchlist-card-title">
+							{item.name}
+						</div>*/}
 					</div>
 		})
 		return(
@@ -104,4 +141,4 @@ class WatchList extends Component {
 	}
 }
 
-export default WatchList;
+export default injectIntl(WatchList);
