@@ -12,7 +12,7 @@ class Navbar extends Component {
 	constructor(props){
 		super(props);
 
-		this.state = {isOpen: false, drawerOpen: true};
+		this.state = {isOpen: false, drawerOpen: true, userName: ''};
 	}
 
 	navbarToggle =()=>{
@@ -22,6 +22,28 @@ class Navbar extends Component {
 	drawerToggle = ()=>{
 		this.setState({drawerOpen: !this.state.drawerOpen})
 	}
+	
+	//USER RELATED
+	logOut = ()=>{
+		firebase.auth().signOut();
+	}
+
+
+	componentDidMount(){
+		//отслеживаем состояние юзера
+		firebase.auth().onAuthStateChanged((user)=>{
+			if(user){
+				this.setState({userName: user.displayName})
+				console.log('FirebaseUser Nav', user)
+			} else {
+				this.setState({userName: ''})
+				console.log('not logged in')
+			}
+		})
+
+	}
+
+
 
 	render(){
 		const navClasses = classNames({
@@ -48,7 +70,7 @@ class Navbar extends Component {
 						
 					</div>
 					
-					<RegLogUser />
+					<RegLogUser userName={this.state.userName} logOut={this.logOut}/>
 					<LangSelector />
 					<span className="navbar-toggler-search-btn" onClick={this.navbarToggle}>
 						<FontAwesome name='search' className="fa-yellow" style={{fontSize: '18px'}} />
@@ -66,7 +88,9 @@ class Navbar extends Component {
 					<Drawer
 					 navElems={this.props.children} 
 					 drawerToggle={this.drawerToggle}
-					 drawerOpen={this.state.drawerOpen} 
+					 drawerOpen={this.state.drawerOpen}
+					 user={this.state.userName} 
+					 logOut={this.logOut}
 					/>
 				</div>
 				

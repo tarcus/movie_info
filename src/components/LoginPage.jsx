@@ -50,7 +50,7 @@ class LoginPage extends Component {
 							</label>
 							<button type="submit">Log in</button>
 						</form>
-						<button className="log-out-btn" onClick={this.logOut}>Log Out</button>
+						<button className="" onClick={this.logOut}>Log Out</button>
 					</div>
 				
 			</div>

@@ -58,12 +58,14 @@ class WatchList extends Component {
 
 	}
 
+	
+
 	componentDidMount(){
 		//получаем юзера
 		firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({uid: user.uid}, ()=>{
-					//this.getOuterLinks()
+					this.getOuterLinks()
 					this.getWatchList()
 					console.log("Get Watchlist")
 					

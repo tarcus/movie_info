@@ -43,7 +43,7 @@ class AiringTodayTv extends Component {
 	render(){
 		//сортируем по original language
 		const sorted = this.state.results.filter((item)=>{
-			return item.original_language=="en" && item.vote_average>=4;
+			return item.original_language=="en" && item.vote_average>=4 && item.poster_path !== null;
 		})
 
 		const today = sorted.slice(0, 10).map((item)=>{

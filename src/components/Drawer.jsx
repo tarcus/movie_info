@@ -1,6 +1,7 @@
 import React,{ Component } from 'react'
 //import FontAwesome from 'react-fontawesome'
 import classNames from 'classnames'
+import RegLogUserDrawer from './RegLogUserDrawer'
 
 const Drawer = (props)=> {
 	
@@ -12,7 +13,7 @@ const Drawer = (props)=> {
 		return(
 			<div className={drawerClasses}>
 				<div className="drawer-header">
-					<h2></h2>
+					<RegLogUserDrawer user={props.user}/>
 					<span className="drawer-close-btn" onClick={props.drawerToggle}>
 						&times;
 					</span>
@@ -20,6 +21,7 @@ const Drawer = (props)=> {
 				
 				<div className="inner-wrap" onClick={props.drawerToggle}>
 					{props.navElems}
+					<span className="drawer-logout" onClick={props.logOut}>Log Out</span>
 				</div>
 				
 			</div>
