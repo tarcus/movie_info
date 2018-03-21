@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import FontAwesome from 'react-fontawesome'
 import classNames from 'classnames'
 import LangSelector from './LangSelector'
-import {Link} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 import SearchForm from './SearchForm'
 import Drawer from './Drawer'
 import RegLogUser from './RegLogUser'
@@ -63,6 +63,7 @@ class Navbar extends Component {
 					<div className="navbar-inner-wrap">
 						<nav className="navigation">
 							{this.props.children}
+							<NavLink to="/watchlist">Watchlist</NavLink>
 						</nav>
 						<div className="navbar-right-section">
 							<SearchForm />	

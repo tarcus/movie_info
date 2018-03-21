@@ -93,7 +93,8 @@ class WatchList extends Component {
 	}
 	
 	render(){
-		console.log("WATCHLIST RENDER")
+		//console.log("WATCHLIST RENDER")
+		const guest = <div>Register or sign in, then you will be able to add movies in your watchlist. And watch them later</div>
 		const movList = this.state.movList.map((item)=>{
 			return  <div className="watchlist-card" key={item.id}>
 						<Link to={`/movies/${item.id}`}>
@@ -120,6 +121,7 @@ class WatchList extends Component {
 						</div>*/}
 					</div>
 		})
+
 		return(
 			<div className="home row">
 				<div className="home-col-1">
@@ -131,7 +133,7 @@ class WatchList extends Component {
 					 
 					    <TabPanel>
 					      <h2>Any content 1</h2>
-					      <div className="row">{movList}</div>
+					      <div className="row">{this.state.uid ? movList : guest}</div>
 					    </TabPanel>
 					    <TabPanel>
 					      <h2>Any content 2</h2>

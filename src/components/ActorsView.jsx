@@ -9,7 +9,11 @@ import Spinner from './Spinner'
 
 
 const ActorsView = ({actor})=>{
-	const filmography = actor.movie_credits.cast.map((item)=>{
+	//remove items without posters
+	const filtered = actor.movie_credits.cast.filter((item)=>{
+		return item.poster_path !==null;
+	})
+	const filmography = filtered.map((item)=>{
 		return <div className="filmography-item" key={item.id + Math.random().toString().slice(-3)}>
 					<Link to={`/movies/${item.id}`}>
 						<Img src={[`https://image.tmdb.org/t/p/w185/${item.poster_path}`, dummyImg]}

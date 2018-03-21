@@ -19,7 +19,7 @@
 	--med-card-shadow: 0 0 12px 0px rgba(0,0,0, 0.4);
 	--overlay-background: rgba(0,0,0, 0.7);
 	--light-gray: #e1e8ed;
-	--border-gray: #cccccc;
+	--border-gray: #DAD8D8;
 	--menu-text-light: #F3F3F2;
 	--menu-item-border-dark: #222222;
 	--nav-link-hover-bg: #131313;
@@ -1253,9 +1253,8 @@ h1.search {
 
 .angle {
 	display: inline-block;
-	width: 18px;
 	height: 18px;
-	transition: all .5s ease;
+	transition: all .6s ease;
 }
 
 .angle.open {
@@ -1264,23 +1263,28 @@ h1.search {
 
 .user-dropdown {
 	position: absolute;
-	width: 150px;
+	width: 180px;
 	height: 150px;
 	top: 45px;
 	left: -18px;
 	background-color: #fff;
+	box-shadow: var(--med-card-shadow);
 	border-radius: 3px;
+	transition: all .6s;
+	visibility: hidden;
+  	opacity: 0;
 }
 
-.user-dropdown.close {
-	display: none;
+.user-dropdown.open {
+	visibility: visible;
+  	opacity: 1;
 }
 
 .user-dropdown:after {
 	content: '';
 	display: block;
 	position: absolute;
-	left: 30%;
+	left: 25%;
 	top: -10px;
 	width: 16px;
 	height: 16px;
@@ -1292,9 +1296,10 @@ h1.search {
 .user-dropdown-footer {
 	position: absolute;
 	bottom: 0;
-	height: 45px;
+	height: 40px;
 	width: 100%;
-	background-color: gray;
+	background-color: var(--light-bg-color);
+	border-top: 1px solid var(--border-gray);
 }
 
 
@@ -2142,11 +2147,5 @@ h1.search {
 }
 
 
-@media screen and (max-width: 1024px){
-	/*Small info*/
-	.small-info-container {
-		margin-top: 25px;	
-		flex-basis: 100%;
-	}
-}
+
 

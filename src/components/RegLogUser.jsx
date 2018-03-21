@@ -25,7 +25,7 @@ class RegLogUser extends Component {
 		const user = this.props.userName;
 		const dropClasses = classNames({
 			'user-dropdown': true,
-			'close' : !this.state.isOpen
+			'open' : this.state.isOpen
 		})
 
 		const angleClasses = classNames({
@@ -50,7 +50,7 @@ class RegLogUser extends Component {
 					
 					<div className={dropClasses}>
 						<div className="user-dropdown-footer">
-							<Link to="/watchlist">Watch List</Link>
+							
 							<span className="log-out-btn" onClick={this.props.logOut}>Log Out</span>
 						</div>
 					</div>
