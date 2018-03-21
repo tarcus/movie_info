@@ -68,8 +68,9 @@ class ActorsAll extends Component {
 				<div className="home-col-1">				
 						<h1 className="text-center">Top Rated Actors</h1>
 					<div className="people-pop-wrap row">
-						{people}
-						<div className="pagination-wrapper">
+						{people}	
+					</div>
+					<div className="pagination-wrapper">
 							<Pagination
 					          activePage={this.state.page}
 					          itemsCountPerPage={20}
@@ -84,7 +85,6 @@ class ActorsAll extends Component {
 					          nextPageText='&rarr;'
 					          prevPageText='&larr;'
 					        />
-						</div>
 					</div>			
 				</div>	
 			</div>

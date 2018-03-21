@@ -8,6 +8,7 @@
 	--light-gray-bg: #ececec;
 	--secondary-bg-color: #2A2A2A;
 	--dark-bg-color: #242424;
+	--green-bg-color: #6AB000;
 	--bright-yellow: #FBEA0A;
 	--yellow-bg-color: #d5bd17;
 	--yellow-bg-hover: #C5B12A;
@@ -161,7 +162,7 @@ body {
 .navbar-inner-wrap {
 	display: flex;
 	flex-basis: 100%;
-	justify-content: space-between;
+	/*justify-content: space-between;*/
 	flex-wrap: nowrap;
 }
 
@@ -342,8 +343,8 @@ body {
 	width: 20px;
 	line-height: 28px;
 	font-size: 28px;
-	top: 10px;
-	right: 10px;
+	top: 6px;
+	right: 6px;
 
 }
 
@@ -923,7 +924,7 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	width: 90%;
-	margin-top: 35px;
+	margin-top: 25px;
 }
 
 .actors-view-container h1 {
@@ -1129,9 +1130,12 @@ h1.search {
 
 /*FORM CONTAINER*/ 
 .navbar-right-section {
-    position: absolute;
+	display: flex;
+	align-items: center;
+	margin-left: 35px;
+    /*position: relative;
     top: 19px;
-    right: 35px;
+    right: 35px;*/
 }
 
 .search-form {
@@ -1146,18 +1150,18 @@ h1.search {
 	background-color: var(--search-form-bg);
 	border-radius: 3px;
 	border: 1px solid var(--search-form-border-color);
-	/*max-width: 280px;*/
+	width: 95%;
 }
 
 
 .search-form input[type="text"]{
 	width: 62px;
-	line-height: 24px;
+	line-height: 60px;
 	padding: 0 5px;
 	border: none;
 	/*font-size: 16px;*/
 	z-index: 5;
-	transition: width 0.5s ease-out;
+	transition: width 0.3s ease-out;
 	background-color: var(--search-form-bg);
 	color: var(--search-form-text-color);
 }
@@ -1247,6 +1251,17 @@ h1.search {
 	/*color:#8F8F8F;*/
 }
 
+.angle {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	transition: all .5s ease;
+}
+
+.angle.open {
+	transform: rotateX(180deg);
+}
+
 .user-dropdown {
 	position: absolute;
 	width: 150px;
@@ -1300,14 +1315,9 @@ h1.search {
 
 
 /*****HOME PAGE*****/
-.home {
-
-}
 
 .home-col-1 {
-	/*flex-basis: 90%;*/
 	overflow: hidden;
-	/*background-color: var(--light-gray-bg);*/
 }
 
 
@@ -1440,6 +1450,10 @@ h1.search {
 
 
 /*ACTOR CARD*/
+.people-pop-wrap {
+	min-height: 100vh;
+}
+
 .actor-card-wrap {	
 	flex-basis: 490px;
 	height: 146px;
@@ -1648,6 +1662,10 @@ h1.search {
 		text-align: center;
 	}
 
+	.filmography-container {
+		justify-content: space-evenly;
+	}
+
 	.actor-biography-wrap {
 		min-width: 310px;
 	}
@@ -1658,7 +1676,7 @@ h1.search {
 
 	.actors-view-container {
 	    width: 100%;
-	    margin-top: 35px;
+	    margin-top: 5px;
 	}
 
 	.actor-info-wrap {
@@ -1948,6 +1966,24 @@ h1.search {
 	    border-radius: 50%;
 	    transition: all .3s ease;*/
 	}
+
+	/*SEARCH FORM*/
+	.navbar-right-section {
+    	margin-left: 185px;
+    	width: 100%;
+	}
+
+	.search-form {
+		width: 90%;
+	}
+
+	.search-form input[type="text"]:focus {
+		width:100%;
+	}
+
+	.login {
+		display: none;
+	}
  
 }
 
@@ -1956,8 +1992,26 @@ h1.search {
 	h1 {
 		font-size: 2.5em;	
 	}
+
+	.search-form form {
+		width: 100%;
+	}
 }
 
+@media (min-width: 768px) and (max-width: 900px) {
+	/*SEARCH FORM*/
+	.navbar-right-section {
+    	width: 100%;
+	}
+
+	.search-form {
+		width: 100%;
+	}
+
+	.search-form input[type="text"]:focus {
+		width:100%;
+	}
+}
 
 @media (min-width: 768px) and (max-width: 1023px) {
   
@@ -1988,13 +2042,13 @@ h1.search {
     	right: 15px;
 	}
 
-	.search-form {
+	/*.search-form {
 		width: 265px;
 	}
 
 	.search-form input[type="text"]:focus {
 		width:245px;
-	}
+	}*/
   
 }
 
@@ -2025,9 +2079,9 @@ h1.search {
 	}
 
 	/*SEARCH FORM*/
-	.navbar-right-section {
+	/*.navbar-right-section {
     	right: 55px;
-	}	
+	}	*/
   
 }
 

@@ -11,10 +11,6 @@ class RegLogUser extends Component {
 		this.state = {isOpen: false};
 	}
 
-	// logOut = ()=>{
-	// 	firebase.auth().signOut();
-	// }
-
 	toggleDropdown = ()=>{
 		this.setState({isOpen: !this.state.isOpen})
 	}
@@ -24,26 +20,21 @@ class RegLogUser extends Component {
     	this.setState({isOpen: false})
   	}
 
-	// componentDidMount(){
-	// 	//отслеживаем состояние юзера
-	// 	firebase.auth().onAuthStateChanged((user)=>{
-	// 		if(user){
-	// 			this.setState({userName: user.displayName})
-	// 			console.log('FirebaseUser Nav', user)
-	// 		} else {
-	// 			this.setState({userName: ''})
-	// 			console.log('not logged in')
-	// 		}
-	// 	})
-
-	// }
-
+	
 	render(){
 		const user = this.props.userName;
 		const dropClasses = classNames({
 			'user-dropdown': true,
 			'close' : !this.state.isOpen
 		})
+
+		const angleClasses = classNames({
+			'angle': true,
+			'open': this.state.isOpen
+		})
+
+		//const angle = this.state.isOpen ? 'angle-up' : 'angle-down'
+
 
 		if(user){
 			return(
@@ -53,7 +44,7 @@ class RegLogUser extends Component {
 							<img src={userAvatar} />
 					</span>
 					<div className="user-navbar" >
-						{user}	
+						{user} <span className={angleClasses}><FontAwesome name='angle-down' className="fa-yellow" /></span> 	
 					</div>
 					</div>
 					

@@ -16,7 +16,6 @@ class SearchForm extends Component {
 		//Проверяем не пустое ли поле запроса, и если нет то...
 		if(this.searchInput.value){
 			this.setState({searchText: this.searchInput.value}, ()=>{
-				//console.log(this.state.searchText)
 				this.props.history.push(`/search?query=${this.state.searchText}`)
 			})
 		}
@@ -29,8 +28,7 @@ class SearchForm extends Component {
 			<div className="search-form">
 				<form onSubmit={this.handleSubmit}>
 					<button type="submit"><FontAwesome name='search' className="fa-yellow" /></button>
-					<input type="text" ref={(input)=>{this.searchInput=input}} placeholder="Search..." />
-					
+					<input type="text" ref={(input)=>{this.searchInput=input}} placeholder="Search" />	
 				</form>
 			</div>
 		)
