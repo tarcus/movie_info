@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Modal from 'react-modal';
 import FontAwesome from 'react-fontawesome'
+import userAvatar from '../images/avatar.png'
 
 
 Modal.setAppElement('#root');
@@ -14,7 +15,7 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     width: '320px',
-    height: '180px',
+    height: '290px',
     boxShadow: '0 0 12px 0px rgba(0,0,0, 0.4)'
   }
 };
@@ -23,7 +24,7 @@ class AvatarUpload extends Component {
 	constructor(props){
 		super(props);
 
-		this.state = {modalIsOpen: false, progress: null}
+		this.state = {modalIsOpen: false, progress: null, src: null}
 	}
 
 	openModal = ()=>{
@@ -51,7 +52,16 @@ class AvatarUpload extends Component {
 	       
     	} else {
     	//Сбрасываем сообщение too big
-    	this.setState({fileSize: false})	
+    	this.setState({fileSize: false})
+
+    	//Превью загружаемого файла
+    	const reader = new FileReader();
+	    reader.onload = (e)=> {
+	        // get loaded data and render thumbnail.
+	        this.setState({src: e.target.result})
+	    }
+		reader.readAsDataURL(file);
+
     	//Путь к файлу в firestore
 			const userImgRef = firebase.storage().ref('images/' + this.props.user.uid + '/' + file.name);
 
@@ -87,7 +97,7 @@ class AvatarUpload extends Component {
 		const fileLimit = this.state.fileSize == true ? 'File size is too big!' : '';
 		return(
 			<div>
-				<button onClick={this.openModal}>Upload Avatar</button>
+				<button onClick={this.openModal}>Change Avatar</button>
 				<Modal
 		          isOpen={this.state.modalIsOpen}
 		          onAfterOpen={this.afterOpenModal}
@@ -97,9 +107,11 @@ class AvatarUpload extends Component {
 		        >
 		 
 		          <h2 className="upload-h">Select Profile Image</h2>
+		          <div className="upload-preview"><img src={this.state.src==null ? userAvatar : this.state.src} /></div>
+		          <div className="upload-size">File size should be less than 80kb</div>
 		          <div className="upload-warning">{fileLimit}</div>
 		          <span className="close-modal" onClick={this.closeModal}>&times;</span>
-		          {this.state.progress==100 && <span className="upload-ok"><FontAwesome name='check' size="2x" className="fa-ok" />Ok</span>}
+		          {this.state.progress==100 && <span className="upload-ok"><FontAwesome name='check' size="2x" className="fa-ok" /></span>}
 		          <form>
 		             <input type="file" onChange={this.uploadImg} />
 		          </form>

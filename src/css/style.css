@@ -1691,15 +1691,36 @@ h1.search {
 }
 
 .upload-h {
-	text-align: center;
-	margin-bottom: 35px;
+	/*text-align: center;*/
+	margin-bottom: 25px;
 }
 
 .upload-ok {
 	position: absolute;
-	top: 55px;
+	top: 198px;
 	right: 15px;
 	color: var(--green-bg-color);
+}
+
+.upload-preview {
+	width: 85px;
+	height: 85px;
+	margin-bottom: 20px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.upload-preview img {
+	width: 85px;
+	height: 85px;
+}
+
+.upload-size {
+	position: absolute;
+	top: 110px;
+	left: 120px;
+	width: 165px;
+	height: auto;
 }
 
 
