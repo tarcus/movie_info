@@ -426,6 +426,8 @@ body {
 }
 
 .drawer-logout {
+	position: absolute;
+	bottom: 2px;
 	display: block;
 	color: var(--menu-text-light);
 	font-size: 1rem;
@@ -433,7 +435,7 @@ body {
 	padding: .75em 1em;
 	border-bottom: 1px solid var(--menu-item-border-dark);
 	border-top: 1px solid var(--menu-item-border-dark);
-	margin-top: 80px;
+	margin-top: 40px;
 }
 
 
@@ -1302,6 +1304,14 @@ h1.search {
 	border-top: 1px solid var(--border-gray);
 }
 
+.user-dropdown-email {
+	margin: 10px 0 10px 8px;
+	max-width: 170px;
+	font-size: .8rem;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
 
 
 .log-out-btn {
@@ -1311,6 +1321,7 @@ h1.search {
 	background-color: orange;
 	padding: .3rem .5rem;
 	border-radius: 2px;
+	box-shadow: 0 1px 1px rgba(0,0,0, .4);
 	cursor: pointer;
 }
 
@@ -1633,7 +1644,63 @@ h1.search {
 	color: black;
 }
 
+/*****AVATAR UPLOAD MODAL*****/
 
+.close-modal {
+	display: block;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	font-size: 2rem;
+	cursor: pointer;
+}
+
+.progress {
+	position: relative;
+	width: 280px;
+	height: 24px;
+	background-color: var(--light-gray-bg);
+	text-align: center;
+	/*border: 1px solid #757575;*/
+	box-shadow: 1px 1px 1px rgba(0,0,0, .2) inset;
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.progress-bar {
+	
+	
+	background-color: #0E8AFF;
+	text-align: center;
+	height: 24px;
+	width: 0px;
+}
+
+.progress-text {
+	position: absolute;
+	top: 3px;
+	left: 45%;
+	border-radius: 2px;
+	
+}
+
+.upload-warning {
+	font-size: 1.2rem;
+	color: #FF2A2A;
+	padding-bottom: 10px;
+}
+
+.upload-h {
+	text-align: center;
+	margin-bottom: 35px;
+}
+
+.upload-ok {
+	position: absolute;
+	top: 55px;
+	right: 15px;
+	color: var(--green-bg-color);
+}
 
 
 

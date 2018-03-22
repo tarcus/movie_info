@@ -27,7 +27,7 @@ const Drawer = (props)=> {
 					
 					{props.navElems}
 					
-					{props.user !== '' &&
+					{props.user !== null &&
 						<span className="drawer-logout" onClick={props.logOut}>Log Out</span>
 					}
 					

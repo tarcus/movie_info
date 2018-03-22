@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome'
 import classNames from 'classnames'
 import onClickOutside from "react-onclickoutside";
 import userAvatar from '../images/avatar.png'
+import AvatarUpload from './AvatarUpload'
 
 class RegLogUser extends Component {
 	constructor(props){
@@ -22,7 +23,7 @@ class RegLogUser extends Component {
 
 	
 	render(){
-		const user = this.props.userName;
+		const user = this.props.user;
 		const dropClasses = classNames({
 			'user-dropdown': true,
 			'open' : this.state.isOpen
@@ -41,17 +42,23 @@ class RegLogUser extends Component {
 				<div className="login">
 					<div onClick={this.toggleDropdown}>
 						<span className="avatar-wrap">
-							<img src={userAvatar} />
+							<img src={user.photoURL == null ? userAvatar : user.photoURL} />
 					</span>
 					<div className="user-navbar" >
-						{user} <span className={angleClasses}><FontAwesome name='angle-down' className="fa-yellow" /></span> 	
+						{user.displayName} <span className={angleClasses}><FontAwesome name='angle-down' className="fa-yellow" /></span> 	
 					</div>
 					</div>
 					
 					<div className={dropClasses}>
+						<div className="user-dropdown-email">{user.email}</div>
+						<AvatarUpload 
+						closeUser={this.handleClickOutside}
+						user={this.props.user}
+						/>
 						<div className="user-dropdown-footer">
-							
+
 							<span className="log-out-btn" onClick={this.props.logOut}>Log Out</span>
+
 						</div>
 					</div>
 				</div>

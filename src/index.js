@@ -34,6 +34,8 @@ const config = {
 
 firebase.initializeApp(config);
 
+
+
 //отслеживаем состояние юзера
 // firebase.auth().onAuthStateChanged((firebaseUser)=>{
 // 	if(firebaseUser){

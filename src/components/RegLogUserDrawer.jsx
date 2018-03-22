@@ -13,7 +13,7 @@ const RegLogUserDrawer = ({user, drawerToggle})=>{
 							<img src={userAvatar} />
 						</span>
 						<div className="user-navbar-drawer" >
-							{user}	
+							{user.displayName}	
 						</div>
 					</div>
 					
