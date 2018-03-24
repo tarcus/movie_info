@@ -18,8 +18,8 @@ const emailValid = (value) => {
 }
  
 const lt = (value) => {
-  if (value.toString().trim().length > 16) {
-    return <span className="form-errors">Name should be less than {16} characters.</span>
+  if (value.toString().trim().length > 12) {
+    return <span className="form-errors">Name should be less than {12} characters.</span>
   }
 }
 

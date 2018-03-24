@@ -1127,13 +1127,13 @@ h1.search {
 .navbar-right-section {
 	display: flex;
 	align-items: center;
-	margin-left: 35px;
+	margin-left: 30px;
 }
 
 .search-form {
 	display: flex;
 	justify-content: flex-start;
-	width: 265px;
+	width: 255px;
 	position: relative;
 }
 
@@ -1158,7 +1158,7 @@ h1.search {
 }
 
 .search-form input[type="text"]:focus {
-	width:265px;
+	width:255px;
 	outline-color: transparent;
 }
 
@@ -1187,7 +1187,6 @@ h1.search {
 	top: 24px;
 	right: 10px;
 	width: 160px;
-
 }
 
 .login .item {
@@ -1210,7 +1209,7 @@ h1.search {
 .avatar-wrap {
 	position: absolute;
 	top: -10px;
-	right: 115px;
+	right: 135px;
 	overflow: hidden;
 	border-radius: 50%;
 	width: 38px;
@@ -1229,10 +1228,11 @@ h1.search {
 	/*position: relative;*/
 	display: inline-block;
 	/*padding: 0 25px 0 0;*/
-	margin-left: 50px;
+	margin-left: 30px;
 	color: var(--nav-link-color);
 	cursor: pointer;
 	user-select: none;
+
 }
 
 
@@ -1248,10 +1248,10 @@ h1.search {
 
 .user-dropdown {
 	position: absolute;
-	width: 180px;
+	width: 200px;
 	height: 150px;
 	top: 45px;
-	left: -18px;
+	left: -36px;
 	background-color: #fff;
 	box-shadow: var(--med-card-shadow);
 	border-radius: 3px;
@@ -1269,7 +1269,7 @@ h1.search {
 	content: '';
 	display: block;
 	position: absolute;
-	left: 25%;
+	left: 22%;
 	top: -10px;
 	width: 16px;
 	height: 16px;
@@ -1533,14 +1533,14 @@ h1.search {
 	position: relative;
 	margin-top: 35px;
 	width: 360px;
-	height: 420px;
+	height: 450px;
 	background-color: #fff;
 	box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 	border-radius: 4px;
 }
 
 .login-form-wrap {
-	height: 300px;
+	height: 320px;
 }
 
 .login-form-header {
@@ -1553,7 +1553,7 @@ h1.search {
 
 .form-control {
 	width: 100%;
-	line-height: 32px;
+	line-height: 38px;
 	font-size: 1.2rem;
 	padding: 0 5px;
 	margin: 0px 0 5px;
@@ -1573,6 +1573,7 @@ h1.search {
 
 .login-form-reg a {
 	text-decoration: none;
+	color: green;
 }
 
 .form-errors {
@@ -1598,10 +1599,6 @@ h1.search {
 	margin-top: 35px
 }
 
-
-
-
-/*****REGISTER PAGE*****/
 
 
 
@@ -1640,8 +1637,13 @@ h1.search {
 	position: absolute;
 	top: 5px;
 	right: 5px;
-	padding: .2rem;
-	background-color: red;
+	padding: 0 .2rem;
+	line-height: 1.3rem;
+	border-radius: 2px;
+	font-size: 1.3rem;
+	/*background-color: red;*/
+	cursor: pointer;
+
 }
 
 .watch-outside-link {
@@ -1650,13 +1652,16 @@ h1.search {
 	/*right: 30px;*/
 	left: 5px;
 	padding: .2rem;
-	background-color: orange;
+	line-height: 1rem;
+	border-radius: 2px;
+	/*background-color: orange;*/
 	text-decoration: none;
 }
 
 
 .fa-del-btn {
-	color: black;
+	font-size: .9rem;
+	color: #fff;
 }
 
 /*****AVATAR UPLOAD MODAL*****/
@@ -1674,6 +1679,7 @@ h1.search {
 	position: relative;
 	width: 280px;
 	height: 24px;
+	margin-top: 10px;
 	background-color: var(--light-gray-bg);
 	text-align: center;
 	/*border: 1px solid #757575;*/

@@ -95,14 +95,16 @@ class WatchList extends Component {
 						<Link to={`/movies/${item.id}`}>
 							<img src={`https://image.tmdb.org/t/p/w154/${item.img}`}/>
 						</Link>
-						<span title="Remove Movie From List" 
-							className="watchlist-del-btn" 
+						<div title="Remove Movie From List" 
+							className="watchlist-del-btn translucent-bg" 
 							onClick={(e)=>{this.delMovFromList(e, item.id)}}
 						>
-							<FontAwesome name='times' className="fa-del-btn" />
-						</span>
+							{/*<FontAwesome name='times' className="fa-del-btn" />*/}
+							<span>&times;</span>
+
+						</div>
 						<a href={`${this.state.outerLink}${item.name}`} 
-						className="watch-outside-link" 
+						className="watch-outside-link translucent-bg" 
 						target="_blank"
 						title="Search Movie Outside"
 						>
@@ -127,7 +129,7 @@ class WatchList extends Component {
 					    </TabList>
 					 
 					    <TabPanel>
-					      <h2>Any content 1</h2>
+					      {/*<h2>Any content 1</h2>*/}
 					      <div className="row">{this.state.uid ? movList : guest}</div>
 					    </TabPanel>
 					    <TabPanel>

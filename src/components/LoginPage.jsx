@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {withRouter, Link} from 'react-router-dom'
+import FontAwesome from 'react-fontawesome'
 
 //const auth = firebase.auth();
 
@@ -50,7 +51,7 @@ class LoginPage extends Component {
 							</div>
 							<button className="btn-light btn-reg btn-login btn-block btn-blue" type="submit">Log in</button>
 						</form>
-						<div className="login-form-reg">Not registered? <Link to="/register">Create an account</Link></div>
+						<div className="login-form-reg">Not registered? <Link to="/register">Create an account <FontAwesome name='pencil'  /></Link></div>
 						{/*<button className="" onClick={this.logOut}>Log Out</button>*/}
 					</div>
 				
