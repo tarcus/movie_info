@@ -10,21 +10,12 @@ const RegLogUserDrawer = ({user, drawerToggle})=>{
 				<div className="login-drawer">
 					<div className="avatar-user-wrap">
 						<span className="avatar-wrap-drawer">
-							<img src={userAvatar} />
+							<img src={user.photoURL == null ? userAvatar : user.photoURL} />
 						</span>
 						<div className="user-navbar-drawer" >
 							{user.displayName}	
 						</div>
 					</div>
-					
-					
-					
-					{/*<div className={dropClasses}>
-						<div className="user-dropdown-footer">
-							<Link to="/watchlist">Watch List</Link>
-							<span className="log-out-btn" onClick={this.props.logOut}>Log Out</span>
-						</div>
-					</div>*/}
 				</div>
 			)
 				

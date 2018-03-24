@@ -34,7 +34,6 @@ class RegLogUser extends Component {
 			'open': this.state.isOpen
 		})
 
-		//const angle = this.state.isOpen ? 'angle-up' : 'angle-down'
 
 
 		if(user){
@@ -57,7 +56,7 @@ class RegLogUser extends Component {
 						/>
 						<div className="user-dropdown-footer">
 
-							<span className="log-out-btn" onClick={this.props.logOut}>Log Out</span>
+							<span className="log-out-btn btn-light" onClick={this.props.logOut}>Log Out</span>
 
 						</div>
 					</div>

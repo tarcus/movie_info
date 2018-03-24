@@ -28,12 +28,7 @@ class WatchList extends Component {
 			
 			console.log('FIREBASE: ', snap.val())
 		})
-
-		//Слушаем удаления в списке 
-		// movListRef.on('child_removed', (data)=>{
-		// 	console.log("Child Removed: ", data.val())
-		// })
-		
+	
 		
 	}
 

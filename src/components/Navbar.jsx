@@ -74,7 +74,9 @@ class Navbar extends Component {
 					<RegLogUser user={this.state.user} logOut={this.logOut}/>
 					<LangSelector />
 					<span className="navbar-toggler-search-btn" onClick={this.navbarToggle}>
+						{this.state.isOpen ? <FontAwesome name='times' className="fa-yellow" style={{fontSize: '18px'}} /> :
 						<FontAwesome name='search' className="fa-yellow" style={{fontSize: '18px'}} />
+						}
 					</span>
 					<span className="drawer-toggler-btn" onClick={this.drawerToggle}>
 						<FontAwesome name='bars' className="fa-yellow" style={{fontSize: '18px'}}  />

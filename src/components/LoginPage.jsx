@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 
 //const auth = firebase.auth();
 
@@ -35,22 +35,23 @@ class LoginPage extends Component {
 
 	render(){
 		return(
-			<div className="home row">
+			<div className="form-center row">
 				
-					<div className="login-form-wrap">
+					<div className="register-form-wrap login-form-wrap">
 						<div className="login-form-header">
-							Login, or get the hell out of here
+							<h1 className="text-center">Log in</h1>
 						</div>
 						<form  className="login-form" onSubmit={this.submitHandle}>
-							<label htmlFor="">Email
-								<input type="email" placeholder="Email" ref={(input)=>{this.emailInput=input}}/>
-							</label>
-							<label htmlFor="">Password
-								<input type="password" placeholder="Password" ref={(input)=>{this.passInput=input}}/>
-							</label>
-							<button type="submit">Log in</button>
+							<div className="form-group">
+								<input type="email" className="form-control" placeholder="Email" ref={(input)=>{this.emailInput=input}}/>
+							</div>
+							<div className="form-group">
+								<input type="password" className="form-control" placeholder="Password" ref={(input)=>{this.passInput=input}}/>
+							</div>
+							<button className="btn-light btn-reg btn-login btn-block btn-blue" type="submit">Log in</button>
 						</form>
-						<button className="" onClick={this.logOut}>Log Out</button>
+						<div className="login-form-reg">Not registered? <Link to="/register">Create an account</Link></div>
+						{/*<button className="" onClick={this.logOut}>Log Out</button>*/}
 					</div>
 				
 			</div>

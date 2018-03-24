@@ -1,5 +1,4 @@
 import React,{ Component } from 'react'
-//import FontAwesome from 'react-fontawesome'
 import classNames from 'classnames'
 import RegLogUserDrawer from './RegLogUserDrawer'
 import {NavLink} from 'react-router-dom'
@@ -31,8 +30,7 @@ const Drawer = (props)=> {
 						<span className="drawer-logout" onClick={props.logOut}>Log Out</span>
 					}
 					
-				</div>
-				
+				</div>		
 			</div>
 		)
 	

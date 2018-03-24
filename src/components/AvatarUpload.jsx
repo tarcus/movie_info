@@ -45,6 +45,10 @@ class AvatarUpload extends Component {
 
 		const file = e.target.files[0];
 
+		//get uploading file extension
+		const fileExtension = file.name.split('.')[1];
+
+
 		//Проверяем размер файла
 		if(file.size > 80000){
 	       console.log("File is too big!")
@@ -63,7 +67,8 @@ class AvatarUpload extends Component {
 		reader.readAsDataURL(file);
 
     	//Путь к файлу в firestore
-			const userImgRef = firebase.storage().ref('images/' + this.props.user.uid + '/' + file.name);
+    	//Имя файла всегда одинаковое чтобы не захламлять firestore
+			const userImgRef = firebase.storage().ref('images/' + this.props.user.uid + '/' + 'userpic.' + fileExtension);
 
 			//Uploading
 			const task = userImgRef.put(file);
@@ -97,7 +102,7 @@ class AvatarUpload extends Component {
 		const fileLimit = this.state.fileSize == true ? 'File size is too big!' : '';
 		return(
 			<div>
-				<button onClick={this.openModal}>Change Avatar</button>
+				<span className="btn-light" onClick={this.openModal}>Change Avatar</span>
 				<Modal
 		          isOpen={this.state.modalIsOpen}
 		          onAfterOpen={this.afterOpenModal}
