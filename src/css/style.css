@@ -1634,28 +1634,37 @@ h1.search {
 	font-size: .9rem;
 }
 .watchlist-del-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: absolute;
 	top: 5px;
 	right: 5px;
-	padding: 0 .2rem;
-	line-height: 1.3rem;
-	border-radius: 2px;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
 	font-size: 1.3rem;
-	/*background-color: red;*/
 	cursor: pointer;
-
+	transition: all .2s;
 }
+.watchlist-del-btn:hover {
+	background-color: red;
+}
+
 
 .watch-outside-link {
 	position: absolute;
 	top: 5px;
-	/*right: 30px;*/
 	left: 5px;
-	padding: .2rem;
+	padding: 3px 4px;
 	line-height: 1rem;
 	border-radius: 2px;
-	/*background-color: orange;*/
 	text-decoration: none;
+	transition: all .2s;
+}
+
+.watch-outside-link:hover {
+	background-color: var(--orange-bg-color);
 }
 
 

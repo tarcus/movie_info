@@ -34,9 +34,7 @@ class Movies extends Component{
 		}
 	}
 
-	//(v1)
-	//loadFiltered = (filteredOptions={})=>{
-	//(v2)	
+	
 	loadFiltered = ()=>{	
 
 		const tv = this.props.tv;
@@ -45,7 +43,7 @@ class Movies extends Component{
 			language: this.props.intl.locale
 		}}
 
-		//Получаем параметры из URL (v2)
+		//Получаем параметры из URL 
 		const paramsFromUrl = queryString.parse(location.search);
 		console.log('PARAMS FROM URL: ', paramsFromUrl)
 		const filteredOptions = {params: paramsFromUrl}
@@ -63,30 +61,12 @@ class Movies extends Component{
 				timeout: 3000,
 		}
 
-		//сливаем дефолтный конфиг и полученный из фильтра(v1)
-		// const mergedOptions = merge.all([this.state.defaultOptions, filteredOptions, lang])
-		// this.setState({defaultOptions: mergedOptions}, ()=>{
-		// 	console.log('DEF OPT: ',this.state.defaultOptions)
-		// })
+		
 
-		//сливаем дефолтный конфиг и полученный из фильтра(v2)
+		//сливаем дефолтный конфиг и полученный из фильтра
 		const mergedOptions = merge.all([defaultOptions, filteredOptions, lang])
-		// this.setState({defaultOptions: mergedOptions}, ()=>{
-		// 	console.log('DEF OPT: ',this.state.defaultOptions)
-		// })
-
-
-		//пушим строку параметров в url bar
-		//const stringified = queryString.stringify(mergedOptions.params)
-
-		//при первой загрузке не пушим параметры в url bar
-		if(filteredOptions.params !== undefined){
-			//this.props.history.push(`/${tv ? 'series' : 'movies'}?${stringified}`)
-		}
 		
-		//console.log(queryString.parse(location.search))
 
-		
 		axios(mergedOptions)
 		.then((response)=>{
 			console.log('RESPONSE: ', response.data)
@@ -110,14 +90,6 @@ class Movies extends Component{
 
 	handlePageChange = (pageNumber)=> {
 
-		//(v1)
-	    // if(pageNumber !==this.state.defaultOptions.params.page){
-
-	    // 	this.loadFiltered({params: {page: pageNumber}})
-	    // 	this.scrollPageToBegining()
-	    // }
-
-	    //(v2)
 	    //Нужно получить параметры URL и к ним добавить страницу(точнее изменить на ту что даст пагинатор)
 	    const pageNum = {page: pageNumber};
 		const paramsFromUrl = queryString.parse(location.search);
@@ -133,9 +105,6 @@ class Movies extends Component{
 
 		this.scrollPageToBegining()
 
-		//(v1)
-		//this.loadFiltered({params: {page: pageNumber}})
-
     
   	}
 
@@ -143,7 +112,7 @@ class Movies extends Component{
 		this.loadFiltered()
 	}
 
-	componentWillReceiveProps(nextProps){
+	componentWillReceiveProps(){
 		this.loadFiltered()
 	}
 
