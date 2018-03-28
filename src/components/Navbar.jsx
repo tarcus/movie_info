@@ -6,6 +6,15 @@ import {Link, NavLink} from 'react-router-dom'
 import SearchForm from './SearchForm'
 import Drawer from './Drawer'
 import RegLogUser from './RegLogUser'
+import {defineMessages, injectIntl} from 'react-intl'
+
+//i18n
+const messages = defineMessages({
+	navbar_watchlist: {
+		id: 'navbar.watchlist_menu_item',
+		defaultMessage: 'Watchlist'
+	}
+}) 
 
 
 class Navbar extends Component {
@@ -63,7 +72,7 @@ class Navbar extends Component {
 					<div className="navbar-inner-wrap">
 						<nav className="navigation">
 							{this.props.children}
-							<NavLink to="/watchlist">Watchlist</NavLink>
+							<NavLink to="/watchlist">{this.props.intl.formatMessage(messages.navbar_watchlist)}</NavLink>
 						</nav>
 						<div className="navbar-right-section">
 							<SearchForm />	
@@ -104,4 +113,4 @@ class Navbar extends Component {
 	
 }
 
-export default Navbar;
+export default injectIntl(Navbar);

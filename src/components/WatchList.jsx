@@ -3,13 +3,25 @@ import {Link, withRouter} from 'react-router-dom'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import FontAwesome from 'react-fontawesome'
-import {injectIntl} from 'react-intl'
+import {defineMessages, injectIntl} from 'react-intl'
 //import Pagination from "react-js-pagination"
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed'
 import queryString from 'query-string'
 import merge from 'deepmerge'
 //import LazyLoad from 'react-lazyload';
 
+
+//i18n
+const messages = defineMessages({
+	watchlist_remove_item: {
+		id: 'watchlist.remove_item_title',
+		defaultMessage: 'Remove from watchlist'
+	},
+	watchlist_watch_outside: {
+		id: 'watchlist.watch_outside_title',
+		defaultMessage: 'Search Movie Outside'
+	},
+}) 
 
 class WatchList extends Component {
 	constructor(props){
@@ -41,13 +53,16 @@ class WatchList extends Component {
 		const lastItem = this.state.movList.slice(-1)[0];
 		const start = lastItem ? lastItem.id + 1 : 1;
 		
-		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('id').startAt(start).limitToFirst(20);
+		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('id').startAt(start).limitToFirst(42);
 		movListRef.once('value', (snap)=>{
 			console.log('FIREBASE PAGE: ', snap.val())
 			if(snap.val()!==null){
 				const data = Object.values(snap.val())
-				//const mergedData = 
-				this.setState({movList: [...this.state.movList , ...data]})
+				//Проверяем есть ли еще
+				const hasMore = (data.length < 42) ? false : true;
+
+				
+				this.setState({movList: [...this.state.movList , ...data], hasMore: hasMore })
 			} else {
 				console.log("NO MORE")
 				this.setState({hasMore: false})
@@ -90,13 +105,8 @@ class WatchList extends Component {
  //  	}
 
 	//Этот метод тащит первую порцию при инициализации компонента
-	getPage = ()=>{	
-		//Last array element
-		//const lastItem = this.state.movList.slice(-1)[0];
-
-		//const start = lastItem ? lastItem.id + 1 : 1;
-		//console.log('LAST ITEM: ', start)
-		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('id').startAt(0).limitToFirst(20);
+	getInit = ()=>{	
+		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('id').startAt(0).limitToFirst(42);
 		movListRef.once('value', (snap)=>{
 			console.log('FIREBASE PAGE: ', snap.val())
 			if(snap.val()!==null){
@@ -105,8 +115,7 @@ class WatchList extends Component {
 			} else {
 				this.setState({movList: []})
 			}
-		})
-		
+		})	
 	}
 
 	delMovFromList = (e, movId)=>{
@@ -119,7 +128,6 @@ class WatchList extends Component {
 		const afterDel = this.state.movList.filter((item)=>{
 			return item.id !== movId
 		})
-		//Обновим стейт
 		this.setState({movList: afterDel})
 	}
 
@@ -141,13 +149,13 @@ class WatchList extends Component {
 			if(user){
 				this.setState({uid: user.uid}, ()=>{
 					this.getTotalResults()
-					this.getPage()
+					this.getInit()
 					this.getOuterLinks()
 					//this.getWatchList()
 					console.log("Get Watchlist")
 					
 					//Слушаем удаления в списке
-
+					//Без этого firebase пишет warning в консоль
 					const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid)
 					movListRef.on('child_removed', (data)=>{
 						console.log("Child Removed: ", data.val())
@@ -168,9 +176,14 @@ class WatchList extends Component {
 
 	}
 
-	
+	componentWillUnmount(){
+		//Detach firebase listeners
+		firebase.database().ref('watchlist_mov/' + this.state.uid).off('child_removed')
+
+	}
+
 	render(){
-		//console.log("WATCHLIST RENDER")
+		console.log("WATCHLIST RENDER")
 		const page = queryString.parse(location.search).moviepage || 1;
 		const guest = <div>Register or sign in, then you will be able to add movies in your watchlist. And watch them later</div>
 		const movList = this.state.movList.map((item)=>{
@@ -179,10 +192,8 @@ class WatchList extends Component {
 							{/*<LazyLoad height={228} offset={200} throttle={200} once>*/}
 								<img src={`https://image.tmdb.org/t/p/w154/${item.img}`}/>
 							{/*</LazyLoad>	*/}
-							
-
 						</Link>
-						<div title="Remove Movie From List" 
+						<div title={this.props.intl.formatMessage(messages.watchlist_remove_item)} 
 							className="watchlist-del-btn translucent-bg" 
 							onClick={(e)=>{this.delMovFromList(e, item.id)}}
 						>
@@ -191,7 +202,7 @@ class WatchList extends Component {
 						<a href={`${this.state.outerLink}${item.name}`} 
 						className="watch-outside-link translucent-bg" 
 						target="_blank"
-						title="Search Movie Outside"
+						title={this.props.intl.formatMessage(messages.watchlist_watch_outside)}
 						>
 							<FontAwesome name='eye' className="fa-del-btn" />
 						</a>
@@ -215,22 +226,6 @@ class WatchList extends Component {
 					      <div className="row">{this.state.uid ? movList : guest}</div>
 					      <div>{this.state.hasMore==false && 'NO MORE'}</div>
 					      <div><button onClick={this.getMore}>MORE</button></div>
-					     {/* <div className="pagination-wrapper">
-								<Pagination
-						          activePage={+page}
-						          itemsCountPerPage={20}
-						          totalItemsCount={this.state.totalResults}
-						          pageRangeDisplayed={5}
-						          onChange={this.handlePageChange}
-						          itemClass='page-item'
-						          linkClass='page-link'
-						          linkClassPrev='page-link-prev'
-						          linkClassNext='page-link-next'
-						          activeLinkClass='active-link'
-						          nextPageText='&rarr;'
-						          prevPageText='&larr;'
-						        />
-						  </div>*/}
 					    </TabPanel>
 					    <TabPanel>
 					      <h2>Any content 2</h2>

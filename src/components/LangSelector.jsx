@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import classNames from 'classnames'
 import ruIcon from '../images/RU_icon.png'
-import enIcon from '../images/US_icon.png'
+import enIcon from '../images/GB_icon.png'
 
 class LangSelector extends Component {
 	constructor(props){

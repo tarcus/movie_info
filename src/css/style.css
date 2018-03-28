@@ -242,36 +242,6 @@ body {
 	background-color: var(--nav-link-active-bg);
 }
 
-/*уголок сверху*/
-/*.navigation .active::after {
-	content: '';
-	display: block;
-	position: absolute;
-	left: 50%;
-	top: -12px;
-	width: 16px;
-	height: 16px;
-	transform-origin: left top;
-	transform: rotate(45deg);
-	background-color: #D7BE18;
-}*/
-
-
-/*разделитель между эл меню*/
-/*.navigation a::after {
-	content: '';
-	display: block;
-	position: absolute;
-	right: 0;
-	bottom: 10px;
-	width: 1px;
-	height: 45px;
-	background-color: #121212;
-	box-shadow: 1px 0 #2A2A2A;
-}*/
-
-
-
 .navbar-logo{
 	display: inline-block;
 	margin-right: 20px;

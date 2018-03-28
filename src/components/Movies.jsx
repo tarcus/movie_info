@@ -18,7 +18,7 @@ const messages = defineMessages({
 	},
 	movies_h1_series: {
 		id: 'movies.h1_series',
-		defaultMessage: 'Series'
+		defaultMessage: 'TV Series'
 	},
 }) 
 
@@ -62,14 +62,12 @@ class Movies extends Component{
 		}
 
 		
-
 		//сливаем дефолтный конфиг и полученный из фильтра
 		const mergedOptions = merge.all([defaultOptions, filteredOptions, lang])
 		
-
 		axios(mergedOptions)
 		.then((response)=>{
-			console.log('RESPONSE: ', response.data)
+			////console.log('RESPONSE: ', response.data)
 			this.setState({
 				movies: response.data.results, 
 				totalResults: response.data.total_results,
@@ -95,7 +93,7 @@ class Movies extends Component{
 		const paramsFromUrl = queryString.parse(location.search);
 
 		const mergedOptions = merge.all([paramsFromUrl, pageNum])
-		console.log('MERGED: ', mergedOptions)
+		//console.log('MERGED: ', mergedOptions)
 
 		//сериализуем объект в строку параметров
 		const stringified = queryString.stringify(mergedOptions)
