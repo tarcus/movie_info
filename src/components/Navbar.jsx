@@ -53,15 +53,13 @@ class Navbar extends Component {
 	}
 
 
-
 	render(){
 		const navClasses = classNames({
 			'navbar-expand': true,
 			'close' : !this.state.isOpen
 		})
 
-		return(
-			
+		return(		
 				<div className="navbar">
 					<div className="navbar-logo-wrap">
 						<span className="navbar-logo">

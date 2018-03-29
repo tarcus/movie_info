@@ -90,9 +90,9 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 					<div className="movie-page-info-item">
 						<b>Runtime:</b> {movie.runtime} min
 					</div>
-					<div className="search-outside">
+					{/*<div className="search-outside">
 						<a href={`https://solarmoviex.to/search?keyword=${movie.original_title}`} target="_blank">Search The Movie</a>
-					</div>
+					</div>*/}
 					 <AddToWatchList movie={movie}/>
 				</div>
 				<div className="actors-container">

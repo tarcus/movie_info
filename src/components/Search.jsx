@@ -11,15 +11,12 @@ import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed'
 class Search extends Component {
 	constructor(props){
 		super(props);
-	
 		this.state = {data: {results: []}}
 	}
 
-	search = (pageNum)=>{
-		
+	search = (pageNum)=>{	
 		const searchQuery = queryString.parse(location.search)
-		console.log(searchQuery)
-
+		
 		const options = {
 			url: `${baseUrl}/search/multi`,
 			timeout: 4000,
@@ -35,7 +32,6 @@ class Search extends Component {
 
 		axios(options)
 		.then((response)=>{
-			console.log('SEARCH: ', response.data)
 			this.setState({data: response.data})
 		})
 		.catch((error)=>{
@@ -48,14 +44,12 @@ class Search extends Component {
 	    	this.search(pageNumber)
 	    	this.scrollPageToBegining()
 	    }
-    
   	}
 
   	scrollPageToBegining = ()=>{
 		setTimeout(()=>{const first = document.querySelector('.search-results-container')	
 			scrollIntoViewIfNeeded(first, { duration: 300, easing: 'easeIn', offset: {top: -5}})
-		}, 350)
-		
+		}, 350)	
 	}
 
 	componentDidMount(){

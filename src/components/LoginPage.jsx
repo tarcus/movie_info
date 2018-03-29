@@ -2,32 +2,28 @@ import React, {Component} from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
 
-//const auth = firebase.auth();
-
 class LoginPage extends Component {
 	constructor(props){
 		super(props);
-
 		this.state = {};
 	}
 
 	submitHandle = (e)=>{
 		e.preventDefault()
-
 		const email = this.emailInput.value;
 		const password = this.passInput.value;
 
 		//залогинить юзера
 		firebase.auth().signInWithEmailAndPassword(email, password)
 		.then((user)=>{
-			console.log('sign in Login Page: ', user)
+			//console.log('sign in Login Page: ', user)
 			//Redirect after login
 			 this.props.history.goBack()
 		})
-
-		//Показать текущего юзера
-		console.log('Current User: ',firebase.auth().currentUser)
-
+		.catch((error)=>{
+			this.setState({fireLogInErr: error.message})
+		})
+		
 	}
 
 	logOut = ()=>{
@@ -48,11 +44,17 @@ class LoginPage extends Component {
 							</div>
 							<div className="form-group">
 								<input type="password" className="form-control" placeholder="Password" ref={(input)=>{this.passInput=input}}/>
+								<span className="form-errors">{this.state.fireLogInErr == null ? '' : this.state.fireLogInErr}</span>
 							</div>
 							<button className="btn-light btn-reg btn-login btn-block btn-blue" type="submit">Log in</button>
 						</form>
-						<div className="login-form-reg">Not registered? <Link to="/register">Create an account <FontAwesome name='pencil'  /></Link></div>
-						{/*<button className="" onClick={this.logOut}>Log Out</button>*/}
+						<div className="login-form-reg">
+							Not registered?&nbsp;  
+							<Link to="/register">
+								Create an account <FontAwesome name='pencil'  />
+							</Link>
+						</div>
+						
 					</div>
 				
 			</div>

@@ -84,6 +84,10 @@ body {
 	font-size: .5rem;
 }
 
+.flex-100 {
+	flex-basis: 100%;
+}
+
 /*****BUTTONS*****/
 .btn-light {
 	display: inline-block;
@@ -96,7 +100,6 @@ body {
 	border: 1px solid #c6c6c6;
 	margin: 0 5px;
 	cursor: pointer;
-
 }
 
 .btn-block {
@@ -119,6 +122,34 @@ body {
 .btn-blue:hover {
 	box-shadow: var(--btn-shadow);
 	background-color: var(--blue-bg-hover);
+}
+
+/*****ADD TO WATCH LIST BUTTON*****/
+.watchlist-add-btn {
+	margin-top: 20px;
+	display: inline-block;
+	padding: .5rem;
+	width: 200px;
+	border-radius: 3px;
+	border: none;
+	background-color: var(--orange-bg-color);
+}
+
+.watchlist-add-btn:hover {
+	cursor: pointer;
+	box-shadow: var(--btn-shadow);
+	background-color: var(--secondary-bg-color);
+	color: #fff;
+}
+
+.watchlist-add-btn:disabled {
+	background-color: var(--orange-bg-color);
+	color: black;
+	cursor: not-allowed
+}
+
+.watchlist-add-btn:focus {
+	outline: none;
 }
 
 .text-shad {
@@ -277,7 +308,7 @@ body {
 .drawer-header {
 	position: relative;
 	width: 100%;
-	height: 100px;
+	height: 65px;
 	background-color: #fff;
 }
 
@@ -289,9 +320,9 @@ body {
 	display: block;
 	text-decoration: none;
 	color: var(--menu-text-light);
-	font-size: 20px;
-	line-height: 1.5em;
-	padding: .75em 1em;
+	font-size: 1.2rem;
+	line-height: 1.5rem;
+	padding: .75rem 1.2rem;
 	border-bottom: 1px solid var(--menu-item-border-dark)
 }
 
@@ -351,7 +382,7 @@ body {
 /*****USER AVATAR INSIDE DRAWER*****/
 .login-drawer {
 	position: absolute;
-	top: 0;
+	top: -7px;
 	left: 0;
 	width: 160px;
 }
@@ -394,14 +425,27 @@ body {
 .drawer-logout {
 	position: absolute;
 	bottom: 2px;
+	width: 100%;
 	display: block;
 	color: var(--menu-text-light);
 	font-size: 1rem;
-	line-height: 1.5em;
-	padding: .75em 1em;
+	line-height: 1.4rem;
+	padding: .75rem 1.2rem;
 	border-bottom: 1px solid var(--menu-item-border-dark);
 	border-top: 1px solid var(--menu-item-border-dark);
 	margin-top: 40px;
+}
+
+/****FA ICONS DRAWER NAV****/
+.fa-drawer-nav {
+	display: none;
+	font-size: 16px;
+	margin-right: 15px;
+	color: var(--yellow-warm);
+}
+
+.fa-drawer-home {
+	font-size: 22px;
 }
 
 
@@ -813,7 +857,7 @@ body {
 	height: 176px;
 	margin: 4px;
 	font-size: 12px;
-	box-shadow: var(--small-card-shadow);
+	box-shadow: var(--tiny-card-shadow);
 }
 
 .actor-w92-wrap img {
@@ -1478,24 +1522,6 @@ h1.search {
 }
 
 
-/*****ADD TO WATCH LIST*****/
-
-.watchlist-add {
-	margin-top: 20px;
-	display: inline-block;
-	padding: .3rem;
-	background-color: var(--orange-bg-color);
-}
-
-.watchlist-add:hover {
-	cursor: pointer;
-	background-color: var(--secondary-bg-color);
-	color: #fff;
-}
-
-
-
-
 
 /*****LOGIN PAGE SHARE STYLES WITH REGISTER*****/
 .register-form-wrap {
@@ -1510,7 +1536,7 @@ h1.search {
 }
 
 .login-form-wrap {
-	height: 320px;
+	height: 350px;
 }
 
 .login-form-header {
@@ -1562,7 +1588,7 @@ h1.search {
 }
 
 .btn-reg:disabled {
-	background-color: #6187FB;
+	cursor: not-allowed;
 }
 
 .btn-login {
@@ -2069,6 +2095,12 @@ h1.search {
 
 	.search-form form {
 		width: 100%;
+	}
+}
+
+@media (max-width: 767px) {
+	.fa-drawer-nav {
+		display: inline-block;
 	}
 }
 

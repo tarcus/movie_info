@@ -1,7 +1,8 @@
-import React,{ Component } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import RegLogUserDrawer from './RegLogUserDrawer'
 import {NavLink} from 'react-router-dom'
+import FontAwesome from 'react-fontawesome'
 
 const Drawer = (props)=> {
 	
@@ -20,14 +21,13 @@ const Drawer = (props)=> {
 				</div>
 				
 				<div className="inner-wrap" onClick={props.drawerToggle}>
+					{props.navElems}
 					{props.user !== '' && 
-						<NavLink to="/watchlist">Watchlist</NavLink>
+						<NavLink to="/watchlist"><FontAwesome name='th-list' className="fa-drawer-nav"/>Watchlist</NavLink>
 					}
 					
-					{props.navElems}
-					
 					{props.user !== null &&
-						<span className="drawer-logout" onClick={props.logOut}>Log Out</span>
+						<span className="drawer-logout" onClick={props.logOut}><FontAwesome name='sign-out' className="fa-drawer-nav"/>Log Out</span>
 					}
 					
 				</div>		

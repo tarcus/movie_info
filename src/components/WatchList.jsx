@@ -148,7 +148,7 @@ class WatchList extends Component {
 		firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({uid: user.uid}, ()=>{
-					this.getTotalResults()
+					//this.getTotalResults()
 					this.getInit()
 					this.getOuterLinks()
 					//this.getWatchList()
@@ -184,7 +184,7 @@ class WatchList extends Component {
 
 	render(){
 		console.log("WATCHLIST RENDER")
-		const page = queryString.parse(location.search).moviepage || 1;
+		const user = this.state.uid;
 		const guest = <div>Register or sign in, then you will be able to add movies in your watchlist. And watch them later</div>
 		const movList = this.state.movList.map((item)=>{
 			return  <div className="watchlist-card" key={item.id}>
@@ -223,9 +223,18 @@ class WatchList extends Component {
 					 
 					    <TabPanel>
 					      {/*<h2>Any content 1</h2>*/}
-					      <div className="row">{this.state.uid ? movList : guest}</div>
-					      <div>{this.state.hasMore==false && 'NO MORE'}</div>
-					      <div><button onClick={this.getMore}>MORE</button></div>
+					      <div className="row">{user ? movList : guest}
+
+					      {user && this.state.movList.length>0 && <div className="flex-100 row">
+						      <button className="watchlist-add-btn" onClick={this.getMore} disabled={!this.state.hasMore}>
+						      	{this.state.hasMore ? 'LOAD MORE' : 'DONE'}
+						      </button>
+					      	</div>
+					      }
+					      	
+					      </div>
+					      
+					      
 					    </TabPanel>
 					    <TabPanel>
 					      <h2>Any content 2</h2>

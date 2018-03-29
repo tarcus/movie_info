@@ -48,7 +48,7 @@ class AddToWatchList extends Component {
 			if(user){
 				this.setState({userUid: user.uid})
 				console.log('FirebaseUser ADDTO: ', user)
-				//Нужно посмотреть есть ли у юзера текущий фильм
+				//Проверяем есть ли у юзера этот мув
 				this.checkMovie(this.props.movie.id);
 				
 			} else {
@@ -67,11 +67,13 @@ class AddToWatchList extends Component {
 		
 	}
 
-	render(){
 
+	render(){
 		return(
-			<div className="watchlist-add" onClick={this.AddToWatchList}>
-				{this.state.inWatchList ? 'inWatchList' : 'Add to watchlist'}
+			<div>
+				<button className="watchlist-add-btn" onClick={this.AddToWatchList} disabled={this.state.inWatchList}>
+					{this.state.inWatchList ? 'IN WATCHLIST' : 'ADD TO WATCHLIST'} 
+				</button>
 			</div>
 		)
 	}

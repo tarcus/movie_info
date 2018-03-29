@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-//import movieImg from '../images/cinema2.jpg';
 import '../css/style.css';
-//import 'typeface-roboto';
 import Header from './Header'
 import Footer from './Footer'
 import Navbar from './Navbar'
-import { FormattedMessage, defineMessages, injectIntl} from 'react-intl'
+import {defineMessages, injectIntl} from 'react-intl'
 import {NavLink} from 'react-router-dom'
 import Main from './Main'
+import FontAwesome from 'react-fontawesome'
 
 const messages = defineMessages({
 	nav_about: {
@@ -34,10 +33,10 @@ class App extends Component {
 		return (
 			<div>
 				<Navbar>
-					<NavLink exact to="/">{this.props.intl.formatMessage(messages.nav_home)}</NavLink>
-					<NavLink to="/movies">{this.props.intl.formatMessage(messages.nav_movies)}</NavLink>
-					<NavLink to="/series">{this.props.intl.formatMessage(messages.nav_series)}</NavLink>
-					<NavLink to="/actors">{this.props.intl.formatMessage(messages.nav_about)}</NavLink>
+					<NavLink exact to="/"><FontAwesome name='home' className="fa-drawer-nav fa-drawer-home"/>{this.props.intl.formatMessage(messages.nav_home)}</NavLink>
+					<NavLink to="/movies"><FontAwesome name='film' className="fa-drawer-nav"/>{this.props.intl.formatMessage(messages.nav_movies)}</NavLink>
+					<NavLink to="/series"><FontAwesome name='tv' className="fa-drawer-nav"/>{this.props.intl.formatMessage(messages.nav_series)}</NavLink>
+					<NavLink to="/actors"><FontAwesome name='users' className="fa-drawer-nav"/>{this.props.intl.formatMessage(messages.nav_about)}</NavLink>
 				</Navbar>
 				<Header />
 				<Main />

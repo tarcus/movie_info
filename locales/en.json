@@ -7,9 +7,10 @@
   "filter.year": "Year",
   "filter.sort_by": "Sort by",
   "filter.from_year": "From Year",
-  "footer.copyright": "2018 Max Media. All rights reserved.",
+  "footer.copyright": "Max Media. All rights reserved.",
   "movies.h1_movies": "Movies",
-  "movies.h1_series": "Series",
+  "movies.h1_series": "TV Series",
+  "navbar.watchlist_menu_item": "Watchlist",
   "watchlist.remove_item_title": "Remove from watchlist",
   "watchlist.watch_outside_title": "Search Movie Outside"
 }
