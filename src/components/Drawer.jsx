@@ -26,7 +26,7 @@ const Drawer = (props)=> {
 						<NavLink to="/watchlist"><FontAwesome name='th-list' className="fa-drawer-nav"/>Watchlist</NavLink>
 					}
 					
-					{props.user !== null &&
+					{props.user !== '' &&
 						<span className="drawer-logout" onClick={props.logOut}><FontAwesome name='sign-out' className="fa-drawer-nav"/>Log Out</span>
 					}
 					
