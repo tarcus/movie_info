@@ -1,4 +1,21 @@
 import React,{Component} from 'react'
+import {defineMessages, injectIntl} from 'react-intl'
+
+//i18n
+const messages = defineMessages({
+	addtowatchlist_in_watchlist: {
+		id: 'addtowatchlist.in_watchlist',
+		defaultMessage: 'IN WATCHLIST'
+	},
+	addtowatchlist_add_to_watchlist: {
+		id: 'addtowatchlist.add_to_watchlist',
+		defaultMessage: 'ADD TO WATCHLIST'
+	},
+	addtowatchlist_btn_title: {
+		id: 'addtowatchlist.btn_title',
+		defaultMessage: 'Please register to be able to add movies in your watchlist'
+	},
+}) 
 
 class AddToWatchList extends Component {
 	constructor(props){
@@ -28,7 +45,7 @@ class AddToWatchList extends Component {
 
 	checkMovie = (movieId)=>{
 		firebase.database().ref('watchlist_mov/' + this.state.userUid + '/' + movieId).on('value', (snap)=>{
-					console.log('SNAP: ', snap.val())
+			//console.log('SNAP: ', snap.val())
 			//если фильм уже в watchlist'e то обновим стейт
 			if(snap.val()!==null){
 				this.setState({inWatchList: true})
@@ -43,7 +60,7 @@ class AddToWatchList extends Component {
 		firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({userUid: user.uid})
-				console.log('FirebaseUser ADDTO: ', user)
+				//console.log('FirebaseUser ADDTO: ', user)
 				//Проверяем есть ли у юзера этот мув
 				this.checkMovie(this.props.movie.id);
 				
@@ -64,13 +81,13 @@ class AddToWatchList extends Component {
 
 	render(){
 		return(
-			<div>
-				<button className="watchlist-add-btn" onClick={this.AddToWatchList} disabled={this.state.inWatchList}>
-					{this.state.inWatchList ? 'IN WATCHLIST' : 'ADD TO WATCHLIST'} 
+			<div title={!this.state.userUid ? this.props.intl.formatMessage(messages.addtowatchlist_btn_title) : ''}>
+				<button className="watchlist-add-btn" onClick={this.AddToWatchList} disabled={this.state.inWatchList || !this.state.userUid}>
+					{this.state.inWatchList ? this.props.intl.formatMessage(messages.addtowatchlist_in_watchlist) : this.props.intl.formatMessage(messages.addtowatchlist_add_to_watchlist)} 
 				</button>
 			</div>
 		)
 	}
 }
 
-export default AddToWatchList;
+export default injectIntl(AddToWatchList);

@@ -21,6 +21,26 @@ const messages = defineMessages({
 		id: 'watchlist.watch_outside_title',
 		defaultMessage: 'Search Movie Outside'
 	},
+	watchlist_tab_movie_title: {
+		id: 'watchlist.tab_movie_title',
+		defaultMessage: 'Movies Watchlist'
+	},
+	watchlist_tab_tv_title: {
+		id: 'watchlist.tab_tv_title',
+		defaultMessage: 'TV Show Watchlist'
+	},
+	watchlist_btn_load_more: {
+		id: 'watchlist.btn_load_more',
+		defaultMessage: 'Load More'
+	},
+	watchlist_btn_done: {
+		id: 'watchlist.btn_done',
+		defaultMessage: 'Done'
+	},
+	watchlist_guest: {
+		id: 'watchlist.guest',
+		defaultMessage: 'Register or sign in, then you will be able to add movies in your watchlist. And watch them later.'
+	}
 }) 
 
 class WatchList extends Component {
@@ -60,11 +80,9 @@ class WatchList extends Component {
 				const data = Object.values(snap.val())
 				//Проверяем есть ли еще
 				const hasMore = (data.length < 42) ? false : true;
-
-				
+	
 				this.setState({movList: [...this.state.movList , ...data], hasMore: hasMore })
 			} else {
-				console.log("NO MORE")
 				this.setState({hasMore: false})
 			}
 		})
@@ -154,7 +172,7 @@ class WatchList extends Component {
 					//this.getWatchList()
 					console.log("Get Watchlist")
 					
-					//Слушаем удаления в списке
+					//Слушаем удаления в списке УДАЛИТЬ ПОТОМ
 					//Без этого firebase пишет warning в консоль
 					const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid)
 					movListRef.on('child_removed', (data)=>{
@@ -185,7 +203,7 @@ class WatchList extends Component {
 	render(){
 		console.log("WATCHLIST RENDER")
 		const user = this.state.uid;
-		const guest = <div>Register or sign in, then you will be able to add movies in your watchlist. And watch them later</div>
+		const guest = <div>{this.props.intl.formatMessage(messages.watchlist_guest)}</div>
 		const movList = this.state.movList.map((item)=>{
 			return  <div className="watchlist-card" key={item.id}>
 						<Link to={`/movies/${item.id}`}>
@@ -217,8 +235,8 @@ class WatchList extends Component {
 				<div className="home-col-1">
 					<Tabs onSelect={index => console.log(index)}>
 					    <TabList>
-					      <Tab>Movies Watchlist</Tab>
-					      <Tab>TV Show Watchlist</Tab>
+					      <Tab>{this.props.intl.formatMessage(messages.watchlist_tab_movie_title)}</Tab>
+					      <Tab>{this.props.intl.formatMessage(messages.watchlist_tab_tv_title)}</Tab>
 					    </TabList>
 					 
 					    <TabPanel>
@@ -227,17 +245,15 @@ class WatchList extends Component {
 
 					      {user && this.state.movList.length>0 && <div className="flex-100 row">
 						      <button className="watchlist-add-btn" onClick={this.getMore} disabled={!this.state.hasMore}>
-						      	{this.state.hasMore ? 'LOAD MORE' : 'DONE'}
+						      	{this.state.hasMore ? this.props.intl.formatMessage(messages.watchlist_btn_load_more) : this.props.intl.formatMessage(messages.watchlist_btn_done)}
 						      </button>
 					      	</div>
 					      }
 					      	
-					      </div>
-					      
-					      
+					      </div>  
 					    </TabPanel>
 					    <TabPanel>
-					      <h2>Any content 2</h2>
+					      {/*<h2>Any content 2</h2>*/}
 					    </TabPanel>
 					</Tabs>
 				</div>

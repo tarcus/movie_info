@@ -8,9 +8,7 @@ import {sliceDate} from '../utils/helpers'
 class AiringTodayTv extends Component {
 	constructor(props){
 		super(props);
-
 		this.state = {results: []}
-
 	}
 
 	getAiringToday = ()=>{
@@ -26,7 +24,7 @@ class AiringTodayTv extends Component {
 
 		axios(options)
 		.then((response)=>{
-			console.log('Airing Today: ',response.data)
+			//console.log('Airing Today: ',response.data)
 			this.setState({results: response.data.results})
 		})
 		.catch((error)=>{
@@ -62,7 +60,7 @@ class AiringTodayTv extends Component {
 		})
 		return(
 			<div className="airing-today-wrap row">
-				<h2 className="w-100">Airing Today</h2>
+				<h2 className="w-100">{this.props.heading}</h2>
 				{today}
 			</div>
 		)

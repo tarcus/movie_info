@@ -45,7 +45,6 @@ class Movies extends Component{
 
 		//Получаем параметры из URL 
 		const paramsFromUrl = queryString.parse(location.search);
-		console.log('PARAMS FROM URL: ', paramsFromUrl)
 		const filteredOptions = {params: paramsFromUrl}
 
 		const defaultOptions = {

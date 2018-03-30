@@ -43,7 +43,7 @@ class Navbar extends Component {
 		firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({user: user})
-				console.log('FirebaseUser Nav', user)
+				//console.log('FirebaseUser Nav', user)
 			} else {
 				this.setState({user: ''})
 				console.log('not logged in')

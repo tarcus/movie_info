@@ -4,9 +4,25 @@ import Img from 'react-image'
 import dummyImg_92 from '../images/dummy_92.png'
 import Spinner from './Spinner'
 import Truncate from 'react-truncate'
+import {defineMessages, injectIntl} from 'react-intl'
+
+const messages = defineMessages({
+	search_item_rating: {
+		id: 'search_item.rating',
+		defaultMessage: 'Rating'
+	},
+	search_item_popularity: {
+		id: 'search_item.popularity',
+		defaultMessage: 'Popularity'
+	},
+	search_item_readmore: {
+		id: 'search_item.readmore',
+		defaultMessage: 'Read More'
+	},
+}) 
 
 
-const SearchItem = ({data})=>{
+const SearchItem = ({intl, data})=>{
 
 	const urlPart = {
 		movie: 'movies',
@@ -41,7 +57,7 @@ const SearchItem = ({data})=>{
 			<div className="search-item-info">
 				<h4>{data.title ? data.title : data.name } {data.release_date ? `(${data.release_date})` : data.first_air_date ? `(${data.first_air_date})` : ''}</h4>
 				<div className="search-item-rating">
-					<b>{data.vote_average ? 'Rating:' : 'Popularity'}</b> {data.vote_average ? data.vote_average : popularity}	
+					<b>{data.vote_average ? intl.formatMessage(messages.search_item_rating) : intl.formatMessage(messages.search_item_popularity)}</b> {data.vote_average ? data.vote_average : popularity}	
 				</div>
 				
 				
@@ -53,12 +69,12 @@ const SearchItem = ({data})=>{
 				</div>
 				<span className="search-media-type"><b>{data.media_type}</b></span>
 				<div className="search-item-more">
-					<Link to={`/${urlPart[data.media_type]}/${data.id}`}>Read More</Link>
+					<Link to={`/${urlPart[data.media_type]}/${data.id}`}>{intl.formatMessage(messages.search_item_readmore)}</Link>
 				</div>
 			</div>
 		</div>
 	)
 }
 
-export default SearchItem;
+export default injectIntl(SearchItem);
 

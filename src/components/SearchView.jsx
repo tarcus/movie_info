@@ -1,10 +1,19 @@
 import React from 'react'
 import SearchItem from './SearchItem'
+import {defineMessages, injectIntl} from 'react-intl'
 
-const SearchView = ({data})=>{
+//i18n
+const messages = defineMessages({
+	searchview_h1: {
+		id: 'searchview.h1',
+		defaultMessage: 'Total Results'
+	}
+}) 
+
+const SearchView = ({intl, data})=>{
 	return(
 		<div className="search-view-col-1">
-			<h1 className="search">Total Results: {data.total_results}</h1>
+			<h1 className="search">{intl.formatMessage(messages.searchview_h1)}: {data.total_results}</h1>
 			{data.results.map((item)=>{
 				return <SearchItem data={item} key={item.id}/>
 			})}
@@ -12,4 +21,4 @@ const SearchView = ({data})=>{
 	)
 }
 
-export default SearchView;
+export default injectIntl(SearchView);

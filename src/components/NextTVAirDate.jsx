@@ -1,12 +1,23 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import {api_key, baseUrl} from '../options/apiOptions'
+import {defineMessages, injectIntl} from 'react-intl'
 
+//i18n
+const messages = defineMessages({
+	next_tv_air_date_season_ended: {
+		id: 'next_tv_air_date.season_ended',
+		defaultMessage: 'Season Ended'
+	},
+	next_tv_air_date_next_air: {
+		id: 'next_tv_air_date.next_air',
+		defaultMessage: 'Next Air'
+	},
+}) 
 
 class NextTVAirDate extends Component {
 	constructor(props){
 		super(props);
-
 		this.state = {nextAir: ''}
 	}
 
@@ -28,7 +39,6 @@ class NextTVAirDate extends Component {
 		axios(optionsTVInfo)
 		.then((response)=>{
 			//проверяем длинну массива серий, это количество сезонов
-			//console.log('TV: ',response.data.seasons.length-1); //это подставляем в seasonNum
 			const lastSeason = response.data.seasons.length-1;
 			//получаем инфу о сезоне
 			return axios({
@@ -51,10 +61,7 @@ class NextTVAirDate extends Component {
 			} else {
 				this.setState({nextAir: nextEpisodes[0].air_date})
 			}
-
-
-										
-			 		
+									 		
 		})
 		.catch((error)=>{
 			console.log(error)
@@ -71,10 +78,10 @@ class NextTVAirDate extends Component {
 	render(){
 		return(
 			<div className="next-air-date font-md">
-				{this.state.nextAir=='Season Ended' ? this.state.nextAir : `Next Air: ${this.state.nextAir}`}
+				{this.state.nextAir=='Season Ended' ? this.props.intl.formatMessage(messages.next_tv_air_date_season_ended) : `${this.props.intl.formatMessage(messages.next_tv_air_date_next_air)}: ${this.state.nextAir}`}
 			</div>
 		)
 	}
 }
 
-export default NextTVAirDate;
+export default injectIntl(NextTVAirDate);

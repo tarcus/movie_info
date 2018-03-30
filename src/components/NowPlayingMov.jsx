@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {api_key, baseUrl} from '../options/apiOptions'
-import {injectIntl} from 'react-intl'
+import {injectIntl, defineMessages} from 'react-intl'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import TextTruncate from 'react-text-truncate'
@@ -8,20 +8,27 @@ import NextTVAirDate from './NextTVAirDate'
 import Spinner from './Spinner'
 //import Img from 'react-image'
 
-//FOR TV SHOW....
-//TV has name  instead  title
-//page 1 instead  rand
-//tv/on_the_air instead  movie/now_playing
-
+const messages = defineMessages({
+	now_playing_mov_h2_movie: {
+		id: 'now_playing_mov.h2_movie',
+		defaultMessage: 'New Movies In Theaters'
+	},
+	now_playing_mov_h2_tv: {
+		id: 'now_playing_mov.h2_tv',
+		defaultMessage: 'TV On The Air'
+	},
+	now_playing_mov_released: {
+		id: 'now_playing_mov.released',
+		defaultMessage: 'Released'
+	},
+}) 
 
 class NowPlayingMov extends Component {
 	constructor(props){
 		super(props);
-
 		this.state = {data: [], isLoading: true }
 	}
 	
-
 	getNowPlaying = ()=>{
 			const options = {
 				timeout: 4000,
@@ -37,8 +44,6 @@ class NowPlayingMov extends Component {
 
 		axios(options)
 		.then((response)=>{
-			console.log('MAIN: ',response.data);
-			
 			this.setState({data: response.data.results, isLoading: false})})
 		.catch((error)=>{
 			this.setState({isLoading: false})
@@ -47,8 +52,7 @@ class NowPlayingMov extends Component {
 	
 	}
 
-
-	 
+ 
 	componentDidMount(){
 		this.getNowPlaying();
 	}
@@ -64,8 +68,6 @@ class NowPlayingMov extends Component {
 
 		const commonRand = getRand();
 		
-
-
 		//Чтобы не было повторов 
 		const sliceParamsForSmallImg = () =>{
 			if(commonRand[0]<=14){
@@ -77,9 +79,6 @@ class NowPlayingMov extends Component {
 		}
 
 		
-		//console.log('SLICE: ',sliceParamsForSmallImg())
-
-
 		const bigImg = this.state.data.slice(...commonRand).map((item)=>{
 				if(item.backdrop_path !==null){ 
 					return <div className="big-img" key={item.id}>
@@ -96,12 +95,11 @@ class NowPlayingMov extends Component {
 										</span>
 										<div>
 										<span className="next-episode-big font-md translucent-bg">
-											{movie ? `Released: ${item.release_date}` : <NextTVAirDate tvID={item.id}/>}
+											{movie ? `${this.props.intl.formatMessage(messages.now_playing_mov_released)}: ${item.release_date}` : <NextTVAirDate tvID={item.id}/>}
 										</span>
 										</div>
 									</div>
 									
-
 								</div>		
 						  </div>
 				}		  
@@ -128,16 +126,14 @@ class NowPlayingMov extends Component {
 								
 							</span>
 					  </div>
-			}
+			  }
 		})
-
-
 
 
 		if(this.state.isLoading){
 			return(
 				<div className="now-playing-mov">
-					<h2>{movie ? 'New Movies In Theaters' : 'TV On The Air'}</h2>
+					<h2>{movie ? this.props.intl.formatMessage(messages.now_playing_mov_h2_movie) : this.props.intl.formatMessage(messages.now_playing_mov_h2_tv)}</h2>
 					<div className="now-playing-card row-no-justify">
 						<Spinner />
 					</div>
@@ -147,24 +143,17 @@ class NowPlayingMov extends Component {
 
 		return(
 			<div className="now-playing-mov">
-				<h2>{movie ? 'New Movies In Theaters' : 'TV On The Air'}</h2>
-
-				
+				<h2>{movie ? this.props.intl.formatMessage(messages.now_playing_mov_h2_movie) : this.props.intl.formatMessage(messages.now_playing_mov_h2_tv)}</h2>			
 				<div className="now-playing-card row-no-justify">
 					{bigImg.filter((item)=>{
 							return item !==undefined
 						}).slice(0, 1)}
-
-					<div className="sm-images-wrap">
-						
+					<div className="sm-images-wrap">					
 						{smallImages.filter((item)=>{
 							return item !==undefined
 						}).slice(0, 3)}
-					</div>
-					
-				</div>
-				
-				
+					</div>	
+				</div>				
 			</div>
 		)
 	}

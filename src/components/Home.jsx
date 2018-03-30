@@ -1,36 +1,40 @@
-import React, {Component} from 'react'
+import React from 'react'
 import HorizMovies from './HorizMovies'
 import NowPlayingMov from './NowPlayingMov'
 import AiringTodayTv from './AiringTodayTv'
+import {defineMessages, injectIntl} from 'react-intl'
 
-class Home extends Component {
-	constructor(props){
-		super(props);
+const messages = defineMessages({
+	home_h1: {
+		id: 'home.h1',
+		defaultMessage: 'Worth Watching'
+	},
+	airing_today_tv_h2: {
+		id: 'airing_today_tv.h2',
+		defaultMessage: 'Airing Today'
 	}
+}) 
 
-	render(){
+const Home = (props)=>{
 		return(
 			<div className="home row">
 				<div className="home-col-1">
 					<div className="carousel-wrap">
-						<h1>Worth Watching</h1>
+						<h1>{props.intl.formatMessage(messages.home_h1)}</h1>
 						<HorizMovies />
 					</div>
 					<div className="row now-playing-wrap">
-						<NowPlayingMov 
+						<NowPlayingMov	 
 						movie={true}
 					/>
-					<NowPlayingMov 
+					<NowPlayingMov 	
 						movie={false}
 					/>
 					</div>
-					
-					<AiringTodayTv />
-					
+					<AiringTodayTv heading={props.intl.formatMessage(messages.airing_today_tv_h2)}/>
 				</div>	
 			</div>
 		)
-	}
 }
 
-export default Home;
+export default injectIntl(Home);

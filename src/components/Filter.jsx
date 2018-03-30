@@ -38,7 +38,6 @@ const messages = defineMessages({
 })
 
 
-
 class Filter extends Component {
 	constructor(props){
 		super(props);
