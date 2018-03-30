@@ -3,6 +3,18 @@ import classNames from 'classnames'
 import RegLogUserDrawer from './RegLogUserDrawer'
 import {NavLink} from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
+import {defineMessages, injectIntl} from 'react-intl'
+
+const messages = defineMessages({
+	drawer_watchlist: {
+		id: 'drawer.watchlist',
+		defaultMessage: 'Watchlist'
+	},
+	drawer_log_out: {
+		id: 'drawer.log_out',
+		defaultMessage: 'Log Out'
+	}
+}) 
 
 const Drawer = (props)=> {
 	
@@ -23,11 +35,11 @@ const Drawer = (props)=> {
 				<div className="inner-wrap" onClick={props.drawerToggle}>
 					{props.navElems}
 					{props.user !== '' && 
-						<NavLink to="/watchlist"><FontAwesome name='th-list' className="fa-drawer-nav"/>Watchlist</NavLink>
+						<NavLink to="/watchlist"><FontAwesome name='th-list' className="fa-drawer-nav"/>{props.intl.formatMessage(messages.drawer_watchlist)}</NavLink>
 					}
 					
 					{props.user !== '' &&
-						<span className="drawer-logout" onClick={props.logOut}><FontAwesome name='sign-out' className="fa-drawer-nav"/>Log Out</span>
+						<span className="drawer-logout" onClick={props.logOut}><FontAwesome name='sign-out' className="fa-drawer-nav"/>{props.intl.formatMessage(messages.drawer_log_out)}</span>
 					}
 					
 				</div>		
@@ -36,4 +48,4 @@ const Drawer = (props)=> {
 	
 }
 
-export default Drawer;
+export default injectIntl(Drawer);

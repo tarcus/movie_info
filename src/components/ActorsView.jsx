@@ -5,8 +5,27 @@ import {sliceDate} from '../utils/helpers'
 import Img from 'react-image'
 import dummyImg from '../images/dummy_185.png'
 import Spinner from './Spinner'
+import {defineMessages, injectIntl} from 'react-intl'
 
-
+//i18n
+const messages = defineMessages({
+	actorsview_birthday: {
+		id: 'actorsview.birthday',
+		defaultMessage: 'Birthday'
+	},
+	actorsview_age: {
+		id: 'actorsview.age',
+		defaultMessage: 'Age'
+	},
+	actorsview_place_of_birth: {
+		id: 'actorsview.place_of_birth',
+		defaultMessage: 'Place of Birth'
+	},
+	actorsview_filmography: {
+		id: 'actorsview.filmography',
+		defaultMessage: 'Filmography'
+	}
+}) 
 
 const ActorsView = ({actor})=>{
 	//remove items without posters
@@ -29,8 +48,6 @@ const ActorsView = ({actor})=>{
 			   </div>
 	})
 	
-	
-
 	return(
 		<div className="actors-view-container">
 			<h1>{actor.name}</h1>
@@ -39,10 +56,8 @@ const ActorsView = ({actor})=>{
 				<Img src={[`https://image.tmdb.org/t/p/w185/${actor.profile_path}`]} loader={<Spinner />} />
 				</div>
 				<div className="actor-biography-wrap">
-				
 					<div className="actor-bio-item">
-						<b>Birthday:</b> {actor.birthday}
-						
+						<b>Birthday:</b> {actor.birthday}	
 					</div>
 					<div className="actor-bio-item">
 						<b>Age:</b> {getAge(actor.birthday)}
@@ -57,10 +72,7 @@ const ActorsView = ({actor})=>{
 					</div>
 				</div>
 			</div>
-			
 
-			
-			
 			<div className="filmography-container row">
 				<h2>Filmography</h2>
 				{filmography}
@@ -69,4 +81,4 @@ const ActorsView = ({actor})=>{
 	)
 }
 
-export default ActorsView;
+export default injectIntl(ActorsView);

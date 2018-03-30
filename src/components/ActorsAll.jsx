@@ -1,10 +1,18 @@
 import React,{Component} from 'react'
 import axios from 'axios'
 import {api_key, baseUrl} from '../options/apiOptions'
-import {injectIntl} from 'react-intl'
+import {injectIntl, defineMessages} from 'react-intl'
 import ActorCard from './ActorCard'
 import Pagination from "react-js-pagination"
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed'
+
+//i18n
+const messages = defineMessages({
+	actorsall_h1: {
+		id: 'actorsall.h1',
+		defaultMessage: 'Top Rated Actors'
+	}
+}) 
 
 class ActorsAll extends Component {
 	constructor(props){
@@ -66,7 +74,7 @@ class ActorsAll extends Component {
 		return(
 			<div className="home row">
 				<div className="home-col-1">				
-						<h1 className="text-center">Top Rated Actors</h1>
+						<h1 className="text-center">{this.props.intl.formatMessage(messages.actorsall_h1)}</h1>
 					<div className="people-pop-wrap row">
 						{people}	
 					</div>

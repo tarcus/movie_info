@@ -50,7 +50,7 @@ class Trailers extends Component {
 		}
 		return(
 			<div className="trailers-wrap">
-				<h2>Trailer</h2>
+				<h2>{this.props.heading}</h2>
 				{this.state.trailers.slice(0,1).map((item)=>{
 					return <div className="trailer-video" key={item.id}>
 						<ResponsiveEmbed 

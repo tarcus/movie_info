@@ -6,9 +6,79 @@ import Trailers from './Trailers'
 import {Link} from 'react-router-dom'
 import Img from 'react-image'
 import dummyImg_92 from '../images/dummy_92.png'
+import dummyImg_342 from '../images/dummy_342.png'
+import {defineMessages, injectIntl} from 'react-intl'
+
+//i18n
+const messages = defineMessages({
+	tv_similar: {
+		id: 'tv.similar',
+		defaultMessage: 'Similar'
+	},
+	tv_rating: {
+		id: 'tvview.rating',
+		defaultMessage: 'Rating'
+	},
+	tv_director: {
+		id: 'tvview.director',
+		defaultMessage: 'Created by'
+	},
+	tv_release_date: {
+		id: 'tvview.release_date',
+		defaultMessage: 'First Air Date'
+	},
+	tv_country: {
+		id: 'tvview.country',
+		defaultMessage: 'Country'
+	},
+	tv_genre: {
+		id: 'tvview.genre',
+		defaultMessage: 'Genre'
+	},
+	tv_actors: {
+		id: 'tvview.actors',
+		defaultMessage: 'Actors'
+	},
+	tv_runtime: {
+		id: 'tvview.runtime',
+		defaultMessage: 'Runtime'
+	},
+	tv_runtime_min: {
+		id: 'tvview.runtime_min',
+		defaultMessage: 'min.'
+	},
+	tv_starring: {
+		id: 'tvview.starring',
+		defaultMessage: 'Starring'
+	},
+	tv_overview: {
+		id: 'tvview.overview',
+		defaultMessage: 'Overview'
+	},
+	tv_number_of_seasons: {
+		id: 'tvview.number_of_seasons',
+		defaultMessage: 'Number of Seasons'
+	},
+	tv_number_of_episodes: {
+		id: 'tvview.number_of_episodes',
+		defaultMessage: 'Number of Episodes'
+	},
+	tv_last_air_date: {
+		id: 'tvview.last_air_date',
+		defaultMessage: 'Last Air Date'
+	},
+	tv_status: {
+		id: 'tvview.status',
+		defaultMessage: 'Status'
+	},
+	tv_trailers_heading: {
+		id: 'tvview.trailers_heading',
+		defaultMessage: 'Trailer'
+	},
+}) 
 
 
-const TVView = ({tv, cast, isLoading, language})=>{
+const TVView = ({intl, tv, cast, isLoading, language})=>{
 	const genres = tv.genres.map((item)=>{
 				return item.name
 	})
@@ -44,7 +114,7 @@ const TVView = ({tv, cast, isLoading, language})=>{
 				<Spinner />
 				</div>
 				<div className="movie-page-col-2">
-				<h1>Similar</h1>
+				<h1>{intl.formatMessage(messages.tv_similar)}</h1>
 				
 				</div>	
 			</div>
@@ -57,14 +127,14 @@ const TVView = ({tv, cast, isLoading, language})=>{
 
 				<h1>{tv.name}</h1>
 				<div className="movie-page-poster">
-					<img src={`https://image.tmdb.org/t/p/w342/${tv.poster_path}`}/>
+					<Img src={[`https://image.tmdb.org/t/p/w342/${tv.poster_path}`, dummyImg_342]} loader={<Spinner />}/>
 				</div>
 
 				<div className="movie-page-info">
 					
 					 
 					<div className="movie-page-info-item">
-						<b>Rating:</b> {tv.vote_average}
+						<b>{intl.formatMessage(messages.tv_rating)}:</b> {tv.vote_average}
 						<ReactStars
 						  count={10}
 						  value={tv.vote_average}
@@ -74,33 +144,33 @@ const TVView = ({tv, cast, isLoading, language})=>{
 						 />
 					</div>
 					<div className="movie-page-info-item">
-						<b>Created by:</b> {createdBy.join(', ')}
+						<b>{intl.formatMessage(messages.tv_director)}:</b> {createdBy.join(', ')}
 					</div> 
 					
 					<div className="movie-page-info-item">
-						<b>Release Date:</b> {tv.first_air_date}
+						<b>{intl.formatMessage(messages.tv_release_date)}:</b> {tv.first_air_date}
 					</div>
 					<div className="movie-page-info-item">
-						<b>Country:</b> {countries.join(', ')}
+						<b>{intl.formatMessage(messages.tv_country)}:</b> {countries.join(', ')}
 					</div> 
-					<p><b>Genre:</b> {genres.join(', ')}</p>
+					<p><b>{intl.formatMessage(messages.tv_genre)}:</b> {genres.join(', ')}</p>
 					<div className="movie-page-info-item">
-						<b>Number of Seasons:</b> {tv.number_of_seasons}
+						<b>{intl.formatMessage(messages.tv_number_of_seasons)}:</b> {tv.number_of_seasons}
 					</div>
 					<div className="movie-page-info-item">
-						<b>Number of Episodes:</b> {tv.number_of_episodes}
+						<b>{intl.formatMessage(messages.tv_number_of_episodes)}:</b> {tv.number_of_episodes}
 					</div>
 					<div className="movie-page-info-item">
-						<b>Last Air Date:</b> {tv.last_air_date}
+						<b>{intl.formatMessage(messages.tv_last_air_date)}:</b> {tv.last_air_date}
 					</div>
 					<div className="movie-page-info-item">
-						<b>Status:</b> {tv.status}
+						<b>{intl.formatMessage(messages.tv_status)}:</b> {tv.status}
 					</div>
 					<div className="movie-page-info-item">
-						<b>Actors:</b> {actors.join(', ')}
+						<b>{intl.formatMessage(messages.tv_actors)}:</b> {actors.join(', ')}
 					</div> 
 					<div className="movie-page-info-item">
-						<b>Runtime:</b> {tv.episode_run_time[0]} min
+						<b>{intl.formatMessage(messages.tv_runtime)}:</b> {tv.episode_run_time[0]} {intl.formatMessage(messages.tv_runtime_min)}
 					</div>
 					<div className="search-outside">
 						<a href={`https://solarmoviex.to/search?keyword=${tv.original_name}`} target="_blank">Search The Show</a>
@@ -108,24 +178,25 @@ const TVView = ({tv, cast, isLoading, language})=>{
 					 
 				</div>
 				<div className="actors-container">
-					<h2>Starring</h2>
+					<h2>{intl.formatMessage(messages.tv_starring)}</h2>
 					{actorsImages}
 				</div>
 				<div className="movie-page-overview">
-					<h2>Overview</h2>
+					<h2>{intl.formatMessage(messages.tv_overview)}</h2>
 					<p>{tv.overview}</p>
 				</div>
 				<div className="movie-page-backdrop">	
 					<img src={tv.backdrop_path ? `https://image.tmdb.org/t/p/w780/${tv.backdrop_path}` : ""}/>
 				</div>
 				<Trailers
+					heading={intl.formatMessage(messages.tv_trailers_heading)}
 					mediaType={'tv'} 
 					movieId={tv.id}
 					language={language}
 				/>
 			</div>
 			<div className="movie-page-col-2">
-					<h1>Similar</h1>
+					<h1>{intl.formatMessage(messages.tv_similar)}</h1>
 					<Similar 
 						mediaType={'tv'}
 						movieId={tv.id}
@@ -139,4 +210,4 @@ const TVView = ({tv, cast, isLoading, language})=>{
 
 
 
-export default TVView;
+export default injectIntl(TVView);

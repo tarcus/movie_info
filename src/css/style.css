@@ -603,7 +603,8 @@ body {
 
 .single-movie-card-poster img {
 	/*max-width: 100%;*/
-	flex-basis: 185px;
+	/*flex-basis: 185px;*/
+	width: 185px;
 	height: 278px;
 }
 
@@ -614,8 +615,9 @@ body {
 }
 
 .single-movie-card-info h2 {
-	margin-top: 5px;
-	font-size: 1.3em;
+	margin-top: 7px;
+	margin-bottom: 10px;
+	font-size: 1.4rem;
 	
 }
 
@@ -794,7 +796,7 @@ body {
 }
 .movie-page-info {
 	flex: 2 1 235px;
-	padding: 15px 20px;
+	padding: 0 20px;
 }
 
 .movie-page-overview {
@@ -813,7 +815,7 @@ body {
 }
 
 .movie-page-info-item {
-	margin: 15px 0;
+	margin: 12px 0;
 }
 
 .spinner {
@@ -2136,11 +2138,11 @@ h1.search {
 	}
 
 
-	.single-movie-card-info h2 {
+	/*.single-movie-card-info h2 {
 		margin-top: 3px;
 		margin-bottom: 5px;
 		font-size: 1.2em;
-	}
+	}*/
 
 	/*SEARCH FORM*/
 	.navbar-right-section {

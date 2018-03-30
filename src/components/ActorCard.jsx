@@ -4,9 +4,26 @@ import Img from 'react-image'
 import dummyImg_92 from '../images/dummy_92.png'
 import Spinner from './Spinner'
 import Truncate from 'react-truncate'
+import {defineMessages, injectIntl} from 'react-intl'
+
+//i18n
+const messages = defineMessages({
+	actorcard_popularity: {
+		id: 'actorcard.popularity',
+		defaultMessage: 'Popularity'
+	},
+	actorcard_known_for: {
+		id: 'actorcard.known_for',
+		defaultMessage: 'Known For'
+	},
+	actorcard_read_more: {
+		id: 'actorcard.read_more',
+		defaultMessage: 'Read More'
+	}
+}) 
 
 
-const ActorCard = ({data})=>{
+const ActorCard = ({intl, data})=>{
 		const filtered = data.known_for.filter((item)=>{
 			return  item 
 		})
@@ -29,23 +46,22 @@ const ActorCard = ({data})=>{
 			<div className="actor-card-info">
 				<h4>{data.name}</h4>
 				<div className="actor-card-rating">
-					<b>Popularity: </b> {popularity}	
+					<b>{intl.formatMessage(messages.actorcard_popularity)}: </b> {popularity}	
 				</div>
 				
-				
 				<div className="actor-card-overview">
-					<span className="known-for">Known For: </span>
+					<span className="known-for">{intl.formatMessage(messages.actorcard_known_for)}: </span>
 					<Truncate lines={2} ellipsis={<span>..</span>}>
 						{knownAs} 
 					</Truncate>	
 				</div>
 				
 				<div className="actor-card-more">
-					<Link to={`/actors/${data.id}`}>Read More</Link>
+					<Link to={`/actors/${data.id}`}>{intl.formatMessage(messages.actorcard_read_more)}</Link>
 				</div>
 			</div>
 		</div>
 	)
 }
 
-export default ActorCard;
+export default injectIntl(ActorCard);

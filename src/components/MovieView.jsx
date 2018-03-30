@@ -6,12 +6,64 @@ import Trailers from './Trailers'
 import {Link} from 'react-router-dom'
 import Img from 'react-image'
 import dummyImg_92 from '../images/dummy_92.png'
+import dummyImg_342 from '../images/dummy_342.png'
 import AddToWatchList from './AddToWatchList'
+import {defineMessages, injectIntl} from 'react-intl'
+
+//i18n
+const messages = defineMessages({
+	movie_similar: {
+		id: 'movieview.similar',
+		defaultMessage: 'Similar'
+	},
+	movie_rating: {
+		id: 'movieview.rating',
+		defaultMessage: 'Rating'
+	},
+	movie_director: {
+		id: 'movieview.director',
+		defaultMessage: 'Director'
+	},
+	movie_release_date: {
+		id: 'movieview.release_date',
+		defaultMessage: 'Release Date'
+	},
+	movie_country: {
+		id: 'movieview.country',
+		defaultMessage: 'Country'
+	},
+	movie_genre: {
+		id: 'movieview.genre',
+		defaultMessage: 'Genre'
+	},
+	movie_actors: {
+		id: 'movieview.actors',
+		defaultMessage: 'Actors'
+	},
+	movie_runtime: {
+		id: 'movieview.runtime',
+		defaultMessage: 'Runtime'
+	},
+	movie_runtime_min: {
+		id: 'movieview.runtime_min',
+		defaultMessage: 'min.'
+	},
+	movie_starring: {
+		id: 'movieview.starring',
+		defaultMessage: 'Starring'
+	},
+	movie_overview: {
+		id: 'movieview.overview',
+		defaultMessage: 'Overview'
+	},
+	trailers_heading: {
+		id: 'trailers.heading',
+		defaultMessage: 'Trailer'
+	},
+}) 
 
 
-
-
-const MovieView = ({movie, cast, crew, isLoading, language})=>{
+const MovieView = ({intl, movie, cast, crew, isLoading, language})=>{
 	const genres = movie.genres.map((item)=>{
 				return item.name
 	})
@@ -44,7 +96,7 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 				<Spinner />
 				</div>
 				<div className="movie-page-col-2">
-				<h1>Similar</h1>
+				<h1>{intl.formatMessage(messages.movie_similar)}</h1>
 				
 				</div>	
 			</div>
@@ -57,14 +109,14 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 
 				<h1>{movie.title}</h1>
 				<div className="movie-page-poster">
-					<Img src={[`https://image.tmdb.org/t/p/w342/${movie.poster_path}`, dummyImg_92]} loader={<Spinner />} />
+					<Img src={[`https://image.tmdb.org/t/p/w342/${movie.poster_path}`, dummyImg_342]} loader={<Spinner />} />
 				</div>
 
 				<div className="movie-page-info">
 					
 					 
 					<div className="movie-page-info-item">
-						<b>Rating:</b> {movie.vote_average}
+						<b>{intl.formatMessage(messages.movie_rating)}:</b> {movie.vote_average}
 						<ReactStars
 						  count={10}
 						  value={movie.vote_average}
@@ -74,47 +126,45 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 						 />
 					</div>
 					<div className="movie-page-info-item">
-						<b>Director:</b> {director}
+						<b>{intl.formatMessage(messages.movie_director)}:</b> {director}
 					</div> 
 					
 					<div className="movie-page-info-item">
-						<b>Release Date:</b> {movie.release_date}
+						<b>{intl.formatMessage(messages.movie_release_date)}:</b> {movie.release_date}
 					</div>
 					<div className="movie-page-info-item">
-						<b>Country:</b> {countries.join(', ')}
+						<b>{intl.formatMessage(messages.movie_country)}:</b> {countries.join(', ')}
 					</div> 
-					<p><b>Genre:</b> {genres.join(', ')}</p>
+					<p><b>{intl.formatMessage(messages.movie_genre)}:</b> {genres.join(', ')}</p>
 					<div className="movie-page-info-item">
-						<b>Actors:</b> {actors.join(', ')}
+						<b>{intl.formatMessage(messages.movie_actors)}:</b> {actors.join(', ')}
 					</div> 
 					<div className="movie-page-info-item">
-						<b>Runtime:</b> {movie.runtime} min
+						<b>{intl.formatMessage(messages.movie_runtime)}:</b> {movie.runtime} {intl.formatMessage(messages.movie_runtime_min)}
 					</div>
-					{/*<div className="search-outside">
-						<a href={`https://solarmoviex.to/search?keyword=${movie.original_title}`} target="_blank">Search The Movie</a>
-					</div>*/}
 					 <AddToWatchList movie={movie}/>
 				</div>
 				<div className="actors-container">
-					<h2>Starring</h2>
+					<h2>{intl.formatMessage(messages.movie_starring)}</h2>
 					{actorsImages}
 				</div>
 				<div className="movie-page-overview">
-					<h2>Overview</h2>
+					<h2>{intl.formatMessage(messages.movie_overview)}</h2>
 					<p>{movie.overview}</p>
 
 				</div>
 				<div className="movie-page-backdrop">	
 					<img src={movie.backdrop_path ? `https://image.tmdb.org/t/p/w780/${movie.backdrop_path}` : ""}/>
 				</div>
-				<Trailers 
+				<Trailers
+					heading={intl.formatMessage(messages.trailers_heading)} 
 					mediaType={'movie'}
 					movieId={movie.id}
 					language={language}
 				/>
 			</div>
 			<div className="movie-page-col-2">
-					<h1>Similar</h1>
+					<h1>{intl.formatMessage(messages.movie_similar)}</h1>
 					<Similar 
 						mediaType={'movie'}
 						movieId={movie.id}
@@ -128,4 +178,4 @@ const MovieView = ({movie, cast, crew, isLoading, language})=>{
 
 
 
-export default MovieView;
+export default injectIntl(MovieView);

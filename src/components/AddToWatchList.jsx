@@ -3,12 +3,10 @@ import React,{Component} from 'react'
 class AddToWatchList extends Component {
 	constructor(props){
 		super(props);
-
 		this.state = {inWatchList: false}
 	}
 
 	AddToWatchList = ()=>{
-
 		const movie = this.props.movie;	
 		console.log('Add to watch list id: ', movie.id)
 		//ссылка на коллекцию муви
@@ -26,7 +24,6 @@ class AddToWatchList extends Component {
 			img: movie.poster_path
 		})
 	
-
 	}
 
 	checkMovie = (movieId)=>{
@@ -39,7 +36,6 @@ class AddToWatchList extends Component {
 				this.setState({inWatchList: false})
 			}
 		})
-
 		
 	}
 
@@ -57,7 +53,6 @@ class AddToWatchList extends Component {
 			}
 		})
 
-
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -66,7 +61,6 @@ class AddToWatchList extends Component {
 		}
 		
 	}
-
 
 	render(){
 		return(
