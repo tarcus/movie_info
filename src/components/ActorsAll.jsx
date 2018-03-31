@@ -34,7 +34,6 @@ class ActorsAll extends Component {
 
 		axios(options)
 		.then((response)=>{
-			console.log('POPULAR PEOPLE: ',response.data)
 			this.setState({
 				people: response.data.results, 
 				page: response.data.page, 

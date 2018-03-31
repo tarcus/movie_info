@@ -19,6 +19,7 @@
 	--small-card-shadow: 0 0 8px 0px rgba(0,0,0, 0.4);
 	--tiny-card-shadow: 0 0 4px 0px rgba(0,0,0, 0.3);
 	--med-card-shadow: 0 0 12px 0px rgba(0,0,0, 0.4);
+	--big-card-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 	--btn-shadow: 0 1px 1px rgba(0,0,0, .4);
 	--overlay-background: rgba(0,0,0, 0.7);
 	--light-gray: #e1e8ed;
@@ -173,7 +174,6 @@ body {
 	flex-wrap: nowrap;
 }
 
-
 .w-100 {
 	flex-basis: 100%;
 }
@@ -181,7 +181,6 @@ body {
 .text-center {
 	text-align: center;
 }
-
 
 .header {
 	width:100%;
@@ -195,7 +194,6 @@ body {
 }
 
 /*****NAVBAR*****/
-
 
 .navbar {
 	display: flex;
@@ -217,7 +215,6 @@ body {
 	flex-wrap: nowrap;
 }
 
-
 .navbar-expand {
 	position: absolute;
 	top: 65px;
@@ -229,7 +226,6 @@ body {
 	overflow: hidden;
 	transition: max-height .35s ease;	
 }
-
 
 .navbar-expand.close {
 	max-height: 0px;
@@ -1538,7 +1534,8 @@ h1.search {
 	width: 360px;
 	height: 450px;
 	background-color: #fff;
-	box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+	/*box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);*/
+	box-shadow: var(--big-card-shadow);
 	border-radius: 4px;
 }
 
@@ -1547,10 +1544,20 @@ h1.search {
 }
 
 .login-form-header {
-	height: 60px;
+	height: 80px;
+	margin-bottom: 25px;
+	/*border-radius: 3px 3px 0 0;*/
+	background-color: var(--blue-bg-hover);
+}
+
+.login-form-header h1 {
+	margin-top: 0;
+	padding-top: 18px;
+	color: #fff;
 }
 
 .form-group {
+	position: relative;
 	margin: 10px;
 }
 
@@ -1558,11 +1565,11 @@ h1.search {
 	width: 100%;
 	line-height: 38px;
 	font-size: 1.2rem;
-	padding: 0 5px;
+	padding: 0 34px;
 	margin: 0px 0 5px;
 	border-radius: 4px;
 	border-style: none;
-	border: 1px solid var(--border-gray);
+	border: 1px solid lightgray;
 }
 
 .login-form label {
@@ -1575,8 +1582,8 @@ h1.search {
 }
 
 .login-form-reg a {
-	text-decoration: none;
-	color: green;
+	/*text-decoration: none;*/
+	/*color: green;*/
 }
 
 .form-errors {
@@ -1602,7 +1609,13 @@ h1.search {
 	margin-top: 35px
 }
 
-
+.fa-input {
+	position: absolute;
+	top: 9px;
+	left: 8px;
+	color: #AAA;
+	font-size: 1.3rem;
+}
 
 
 /*****WATCHLIST PAGE*****/

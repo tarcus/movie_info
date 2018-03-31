@@ -7,7 +7,6 @@ import ActorsView from './ActorsView'
 class Actors extends Component {
 	constructor(props){
 		super(props)
-
 		this.state = {data: {movie_credits: {cast: []}}}
 	}
 
@@ -25,7 +24,6 @@ class Actors extends Component {
 
 		axios(options)
 		.then((response)=>{
-			console.log('MOVIES VITH ACTOR', response.data)
 			this.setState({data: response.data})
 		})
 		.catch((error)=>{

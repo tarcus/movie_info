@@ -3,78 +3,132 @@ import isEmail from 'validator/lib/isEmail'
 import Form from 'react-validation/build/form'
 import Input from 'react-validation/build/input'
 import Button from 'react-validation/build/button'
+import FontAwesome from 'react-fontawesome'
+import { defineMessages,injectIntl} from 'react-intl'
 
-//validators
-const required = (value) => {
-  if (!value.toString().trim().length) {
-    return <span className="form-errors">Required.</span>
-  }
-}
- 
-const emailValid = (value) => {
-  if (!isEmail(value)) {
-    return <span className="form-errors">Email Address not Valid.</span>
-  }
-}
- 
-const lt = (value) => {
-  if (value.toString().trim().length > 12) {
-    return <span className="form-errors">Name should be less than {12} characters.</span>
-  }
-}
+//i18n
+const messages = defineMessages({
+	register_page_h1: {
+		id: 'register_page.h1',
+		defaultMessage: 'Register'
+	},
+	register_page_sign_up_btn: {
+		id: 'register_page.sign_up_btn',
+		defaultMessage: 'Sign Up'
+	},
+	register_page_required: {
+		id: 'register_page.required',
+		defaultMessage: 'Required.'
+	},
+	register_page_email_val: {
+		id: 'register_page.email_validator',
+		defaultMessage: 'Email Address not Valid.'
+	},
+	register_page_lt_val: {
+		id: 'register_page.lt_validator',
+		defaultMessage: 'Name should be less than'
+	},
+	register_page_gt_val: {
+		id: 'register_page.gt_validator',
+		defaultMessage: 'Password should be at least'
+	},
+	register_page_val_char: {
+		id: 'register_page.characters_validator',
+		defaultMessage: 'characters.'
+	},
+	register_page_pass_val: {
+		id: 'register_page.password_validator',
+		defaultMessage: 'Passwords are not equal.'
+	},
+	register_page_name_plh: {
+		id: 'register_page.name_placeh',
+		defaultMessage: 'User Name'
+	},
+	register_page_email_plh: {
+		id: 'register_page.email_placeh',
+		defaultMessage: 'Email'
+	},
+	register_page_pass_plh: {
+		id: 'register_page.password_placeh',
+		defaultMessage: 'Password'
+	},
+	register_page_pass_conf_plh: {
+		id: 'register_page.password_confirm_placeh',
+		defaultMessage: 'Confirm Password'
+	}
+	
+}) 
 
-const gt = (value) => {
-  if (value.toString().trim().length < 6) {
-    return <span className="form-errors">Password should be at least {6} characters.</span>
-  }
-}
- 
-const password = (value, props, components) => {
-  if (value !== components['confirm'][0].value) { 
-    return <span className="form-errors">Passwords are not equal.</span>
-  }
-}
+
 
 class Register extends Component {
 	constructor(props){
 		super(props);
-
 		this.state = {};
-
 	}
+
+	//validators
+	required = (value) => {
+	  	if (!value.toString().trim().length) {
+	    	return <span className="form-errors">{this.props.intl.formatMessage(messages.register_page_required)}</span>
+	  	}
+	}
+
+	emailValid = (value) => {
+	  if (!isEmail(value)) {
+	    return <span className="form-errors">{this.props.intl.formatMessage(messages.register_page_email_val)}</span>
+	  }
+	}
+	 
+	lt = (value) => {
+	  if (value.toString().trim().length > 12) {
+	    return <span className="form-errors">{this.props.intl.formatMessage(messages.register_page_lt_val)} {12} {this.props.intl.formatMessage(messages.register_page_val_char)}</span>
+	  }
+	}
+
+	gt = (value) => {
+	  if (value.toString().trim().length < 6) {
+	    return <span className="form-errors">{this.props.intl.formatMessage(messages.register_page_gt_val)} {6} {this.props.intl.formatMessage(messages.register_page_val_char)}</span>
+	  }
+	}
+	 
+	password = (value, props, components) => {
+	  if (value !== components['confirm'][0].value) { 
+	    return <span className="form-errors">{this.props.intl.formatMessage(messages.register_page_pass_val)}</span>
+	  }
+	}
+
 
 	submitHandle = (e)=>{
 		e.preventDefault()
-
-		//данные из формы, деструктуризация объекта, который вернула функция getValues валидатора 
+		//data from form, getValues() validator's function, return object
 		const {email, password, username} = this.form.getValues();
 		
-		//зарегестрировать и сразу же залогинить юзера
+		//register and sign in user
 		firebase.auth().createUserWithEmailAndPassword(email, password)
 		.then((user)=>{
-			//Присвоим имя юзеру
+			//Assign username
 			user.updateProfile({ 
                     displayName: username  
             })
-			console.log('Register: ', user)
+			//console.log('Register: ', user)
 
-			//Верификация Email
+			//Verify Email
 				user.sendEmailVerification()
 			    .then(()=> {
-			      console.log("Verification email sent.") 
+			//      console.log("Verification email sent.") 
 			    })
 			    .catch((error)=> {
 			      console.log('Error Occured verification email') 
 			    });
-			//Редиректим юзера туда откуда он пришел
+			//Redirect
 			this.props.history.goBack()
 		})
 		.catch((error)=>{
 			this.setState({fireRegErr: error.message})
-			console.log("Register error: ", error)
+		//	console.log("Register error: ", error)
 		})
 		
-
 	}
 
 	
@@ -87,25 +141,27 @@ class Register extends Component {
 			<div className="row form-center">			
 					<div className="register-form-wrap">
 						<div className="login-form-header">
-							<h1 className="text-center">Register</h1>
+							<h1 className="text-center">{this.props.intl.formatMessage(messages.register_page_h1)}</h1>
 						</div>
 						<Form  className="login-form" onSubmit={this.submitHandle} ref={c => { this.form = c }}>
 							<div className="form-group">
-								<Input type="text" className="form-control" validations={[required, lt]} name="username" placeholder="User Name" ref={(c)=>{this.userNameInput=c}}/>	
+								<Input type="text" className="form-control" validations={[this.required, this.lt]} name="username" placeholder={this.props.intl.formatMessage(messages.register_page_name_plh)} ref={(c)=>{this.userNameInput=c}}/>
+								<FontAwesome className="fa-input" name='user'/>	
 							</div>
 							<div className="form-group">
-								<Input type="email" className="form-control" name="email" onFocus={this.removeEmailErr} validations={[required, emailValid]} placeholder="Email" ref={(c)=>{this.emailInput=c}}/>
+								<Input type="email" className="form-control" name="email" onFocus={this.removeEmailErr} validations={[this.required, this.emailValid]} placeholder={this.props.intl.formatMessage(messages.register_page_email_plh)} ref={(c)=>{this.emailInput=c}}/>
+								<FontAwesome className="fa-input" name='envelope'/>
 								<span className="form-errors">{this.state.fireRegErr == null ? '' : this.state.fireRegErr}</span>
 							</div>
 							<div className="form-group">
-								<Input type="password" className="form-control" name='password' validations={[required, password, gt]} placeholder="Password" ref={(c)=>{this.passInput=c}}/>
-								
+								<Input type="password" className="form-control" name='password' validations={[this.required, this.password, this.gt]} placeholder={this.props.intl.formatMessage(messages.register_page_pass_plh)} ref={(c)=>{this.passInput=c}}/>
+								<FontAwesome className="fa-input" name='lock'/>
 							</div>
 							<div className="form-group">
-								<Input type="password" className="form-control" name='confirm' validations={[required, password]} placeholder="Confirm Password" ref={(c)=>{this.passInputR=c}}/>
-								
+								<Input type="password" className="form-control" name='confirm' validations={[this.required, this.password]} placeholder={this.props.intl.formatMessage(messages.register_page_pass_conf_plh)} ref={(c)=>{this.passInputR=c}}/>
+								<FontAwesome className="fa-input" name='lock'/>
 							</div>
-							<Button className="btn-light btn-reg btn-block btn-blue" type="submit">Sign Up</Button>
+							<Button className="btn-light btn-reg btn-block btn-blue" type="submit">{this.props.intl.formatMessage(messages.register_page_sign_up_btn)}</Button>
 						</Form>
 					</div>
 				
@@ -115,4 +171,4 @@ class Register extends Component {
 
 }
 
-export default Register;
+export default injectIntl(Register);

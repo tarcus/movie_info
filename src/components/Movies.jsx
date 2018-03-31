@@ -19,7 +19,7 @@ const messages = defineMessages({
 	movies_h1_series: {
 		id: 'movies.h1_series',
 		defaultMessage: 'TV Series'
-	},
+	}
 }) 
 
 

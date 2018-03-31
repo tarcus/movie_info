@@ -5,6 +5,23 @@ import classNames from 'classnames'
 import onClickOutside from "react-onclickoutside";
 import userAvatar from '../images/avatar.png'
 import AvatarUpload from './AvatarUpload'
+import {defineMessages,injectIntl} from 'react-intl'
+
+//i18n
+const messages = defineMessages({
+	regloguser_register: {
+		id: 'regloguser.register',
+		defaultMessage: 'Register'
+	},
+	regloguser_login: {
+		id: 'regloguser.login',
+		defaultMessage: 'Login'
+	},
+	regloguser_log_out_btn: {
+		id: 'regloguser.log_out_btn',
+		defaultMessage: 'Log Out'
+	}
+}) 
 
 class RegLogUser extends Component {
 	constructor(props){
@@ -55,9 +72,7 @@ class RegLogUser extends Component {
 						user={this.props.user}
 						/>
 						<div className="user-dropdown-footer">
-
-							<span className="log-out-btn btn-light" onClick={this.props.logOut}>Log Out</span>
-
+							<span className="log-out-btn btn-light" onClick={this.props.logOut}>{this.props.intl.formatMessage(messages.regloguser_log_out_btn)}</span>
 						</div>
 					</div>
 				</div>
@@ -66,8 +81,8 @@ class RegLogUser extends Component {
 		} else {
 			return(
 				<div className="login">
-					<Link to="/register"><FontAwesome name='pencil-square' className="fa-yellow" /> Register</Link>
-					<Link to="/login"><FontAwesome name='sign-in' className="fa-yellow" /> Login</Link>
+					<Link to="/register"><FontAwesome name='pencil-square' className="fa-yellow" /> {this.props.intl.formatMessage(messages.regloguser_register)}</Link>
+					<Link to="/login"><FontAwesome name='sign-in' className="fa-yellow" /> {this.props.intl.formatMessage(messages.regloguser_login)}</Link>
 				</div>
 			)
 		}
@@ -76,4 +91,4 @@ class RegLogUser extends Component {
 	}
 }
 
-export default onClickOutside(RegLogUser);
+export default injectIntl(onClickOutside(RegLogUser));
