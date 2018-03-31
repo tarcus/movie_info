@@ -2,6 +2,28 @@ import React, {Component} from 'react'
 import Modal from 'react-modal';
 import FontAwesome from 'react-fontawesome'
 import userAvatar from '../images/avatar.png'
+import {defineMessages,injectIntl} from 'react-intl'
+
+//i18n
+const messages = defineMessages({
+	avatar_upload_btn: {
+		id: 'avatar_upload.btn',
+		defaultMessage: 'Change Avatar'
+	},
+	avatar_upload_h2: {
+		id: 'avatar_upload.h2',
+		defaultMessage: 'Select Profile Image'
+	},
+	avatar_upload_limit: {
+		id: 'avatar_upload.limit',
+		defaultMessage: 'File size should be less than 80kb.'
+	},
+	avatar_upload_limit_msg: {
+		id: 'avatar_upload.limit_msg',
+		defaultMessage: 'File size is too big.'
+	}
+	
+}) 
 
 
 Modal.setAppElement('#root');
@@ -84,8 +106,6 @@ class AvatarUpload extends Component {
 	                    photoURL: this.state.downloadURL  
 	            	})
 
-	            	//И закрываем окно загрузки
-	            	//this.closeModal();
 				})
 			}, 
 			(error)=>{
@@ -99,10 +119,10 @@ class AvatarUpload extends Component {
 
 	render(){
 
-		const fileLimit = this.state.fileSize == true ? 'File size is too big!' : '';
+		const fileLimit = this.state.fileSize == true ? this.props.intl.formatMessage(messages.avatar_upload_limit_msg) : '';
 		return(
 			<div>
-				<span className="btn-light" onClick={this.openModal}>Change Avatar</span>
+				<span className="btn-light" onClick={this.openModal}>{this.props.intl.formatMessage(messages.avatar_upload_btn)}</span>
 				<Modal
 		          isOpen={this.state.modalIsOpen}
 		          onAfterOpen={this.afterOpenModal}
@@ -111,9 +131,9 @@ class AvatarUpload extends Component {
 		          contentLabel="Example Modal"
 		        >
 		 
-		          <h2 className="upload-h">Select Profile Image</h2>
+		          <h2 className="upload-h">{this.props.intl.formatMessage(messages.avatar_upload_h2)}</h2>
 		          <div className="upload-preview"><img src={this.state.src==null ? userAvatar : this.state.src} /></div>
-		          <div className="upload-size">File size should be less than 80kb</div>
+		          <div className="upload-size">{this.props.intl.formatMessage(messages.avatar_upload_limit)}</div>
 		          <div className="upload-warning">{fileLimit}</div>
 		          <span className="close-modal" onClick={this.closeModal}>&times;</span>
 		          {this.state.progress==100 && <span className="upload-ok"><FontAwesome name='check' size="2x" className="fa-ok" /></span>}
@@ -131,4 +151,4 @@ class AvatarUpload extends Component {
 	}
 }
 
-export default AvatarUpload;
+export default injectIntl(AvatarUpload);

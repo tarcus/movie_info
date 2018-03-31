@@ -51,8 +51,6 @@ class RegLogUser extends Component {
 			'open': this.state.isOpen
 		})
 
-
-
 		if(user){
 			return(
 				<div className="login">
@@ -81,7 +79,8 @@ class RegLogUser extends Component {
 		} else {
 			return(
 				<div className="login">
-					<Link to="/register"><FontAwesome name='pencil-square' className="fa-yellow" /> {this.props.intl.formatMessage(messages.regloguser_register)}</Link>
+				{this.props.intl.locale=='en' && <Link to="/register"><FontAwesome name='pencil-square' className="fa-yellow" /> {this.props.intl.formatMessage(messages.regloguser_register)}</Link>}
+					
 					<Link to="/login"><FontAwesome name='sign-in' className="fa-yellow" /> {this.props.intl.formatMessage(messages.regloguser_login)}</Link>
 				</div>
 			)
