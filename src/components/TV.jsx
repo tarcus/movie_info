@@ -53,7 +53,7 @@ class TV extends Component {
 
 		
 		let reqInProgress = true;
-		console.log('ReqInProgress: ',reqInProgress)
+		//console.log('ReqInProgress: ',reqInProgress)
 		setTimeout(()=>{
 			if(reqInProgress){
 				console.log('ReqInProgress inside timer: ', reqInProgress)
@@ -66,7 +66,7 @@ class TV extends Component {
 		axios.all([getMovie(), getCredits()])
 		.then(axios.spread((mov, credits)=>{
 			reqInProgress = false;
-			console.log('TV: ', mov.data, 'TV Cast: ', credits.data)
+			//console.log('TV: ', mov.data, 'TV Cast: ', credits.data)
 			this.setState({tv: mov.data, 
 				cast: credits.data.cast, 
 				crew: credits.data.crew, 

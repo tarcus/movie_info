@@ -327,8 +327,8 @@ const sortByTVRu = [
     { value: 'popularity.asc', label: 'Популярности ▲' },
     { value: 'vote_average.desc', label: 'Рейтингу ↓' },
     { value: 'vote_average.asc', label: 'Рейтингу ↑' },
-    { value: 'first_air_date.desc', label: 'First Air desc' },
-    { value: 'first_air_date.asc', label: 'First Air asc' }             
+    { value: 'first_air_date.desc', label: 'Дата релиза ▼' },
+    { value: 'first_air_date.asc', label: 'Дата релиза ▲' }             
 ];
 
 //generate years for Year filter

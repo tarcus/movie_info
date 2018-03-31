@@ -1159,7 +1159,7 @@ h1.search {
 	background-color: var(--search-form-bg);
 	border-radius: 3px;
 	border: 1px solid var(--search-form-border-color);
-	width: 95%;
+	width: 100%;
 }
 
 
@@ -1994,9 +1994,9 @@ h1.search {
 	}
 
 	.single-movie-card-info h2 {
-	margin-top: 3px;
-	margin-bottom: 5px;
-	font-size: 1.0em;
+		margin-top: 3px;
+		margin-bottom: 5px;
+		font-size: 1.0em;
 	}
 
 	.pagination-wrapper {
@@ -2029,7 +2029,6 @@ h1.search {
 	.actors-container {
 		justify-content: space-evenly;
 	}
-
 
 	.actor-card-overview {
 		line-height: 1.1em;
@@ -2064,12 +2063,7 @@ h1.search {
 
 
 
-@media (min-width: 481px) and (max-width: 767px) {
-  
-  	.now-playing-wrap {
-		
-	}
-
+@media (min-width: 481px) and (max-width: 767px) { 
 	.single-movie-card {
 		flex-basis: 590px;
 		margin-left: 4px;
@@ -2114,39 +2108,23 @@ h1.search {
 	h1 {
 		font-size: 2.5em;	
 	}
-
-	.search-form form {
-		width: 100%;
-	}
 }
+
 
 @media (max-width: 767px) {
 	.fa-drawer-nav {
 		display: inline-block;
 	}
-
-
 }
 
+
 @media (min-width: 768px) and (max-width: 900px) {
-	/*SEARCH FORM*/
-	.navbar-right-section {
-    	width: 100%;
-	}
-
-	.search-form {
-		width: 100%;
-	}
-
-	.search-form input[type="text"]:focus {
-		width:100%;
-	}
-
 	.navigation a {
 		padding: 0 10px;
 		font-size: .9rem;
 	}
 }
+
 
 @media (min-width: 768px) and (max-width: 1023px) {
   
@@ -2159,25 +2137,19 @@ h1.search {
 		flex-basis: 360px;
 	}
 
-
-	/*.single-movie-card-info h2 {
-		margin-top: 3px;
-		margin-bottom: 5px;
-		font-size: 1.2em;
-	}*/
-
 	/*SEARCH FORM*/
 	.navbar-right-section {
+		width: 100%;
     	right: 15px;
 	}
 
-	/*.search-form {
-		width: 265px;
+	.search-form {
+		width: 95%;
 	}
 
 	.search-form input[type="text"]:focus {
-		width:245px;
-	}*/
+		width: 100%;
+	}
   
 }
 
@@ -2207,11 +2179,7 @@ h1.search {
 		flex-basis: 1024px;	
 	}
 
-	/*SEARCH FORM*/
-	/*.navbar-right-section {
-    	right: 55px;
-	}	*/
-  
+	
 }
 
 
