@@ -11,7 +11,9 @@ import {
 		 sortByTV, 
 		 sortByTVRu, 
 		 sortByMovies, 
-		 sortByMoviesRu
+		 sortByMoviesRu,
+		 countryOptions,
+		 countryOptionsRu
 		} from '../options/filterOptions'
 import {withRouter} from 'react-router-dom'
 import {sliceDate} from '../utils/helpers'
@@ -34,6 +36,14 @@ const messages = defineMessages({
 	from_year: {
 		id: 'filter.from_year',
 		defaultMessage: 'From Year'
+	},
+	country: {
+		id: 'filter.country',
+		defaultMessage: 'Country'
+	},
+	country_plh: {
+		id: 'filter.country_placeholder',
+		defaultMessage: 'Country'
 	},
 })
 
@@ -94,11 +104,10 @@ class Filter extends Component {
 		this.pushParams({sort_by: selectedOption.value})
 	}
 
-	// handleOrigLang = (e)=>{
-	// 	this.setState({with_original_language: (this.state.with_original_language !=="en") ? "en" : ""}, ()=>{
-	// 		this.props.loadFiltered({params: this.state})
-	// 	})
-	// }
+	handleOrigLang = (selectedOption)=>{
+		 this.pushParams({with_original_language: selectedOption})	
+	
+	}
 	
 	render(){
 		const tv = this.props.tv;
@@ -108,13 +117,14 @@ class Filter extends Component {
 		const genresOptionsTVLang =  loc=="ru" ? genresOptionsTVRu : genresOptionsTV;
 		const sortByTVLang = loc=="ru" ? sortByTVRu : sortByTV;
 		const sortByMoviesLang = loc=="ru" ? sortByMoviesRu : sortByMovies;
+		const countryOptionsLang = loc=="ru" ? countryOptionsRu : countryOptions;
 
 
 		return(
 			<div className="movie-filter-container">
 				<div className="movie-filter-inner-container">
-					<div className="movie-filter-item">
-						<h3>{this.props.intl.formatMessage(messages.genres)}</h3>
+					<div className="movie-filter-item filter-genre">
+						{/*<h3>{this.props.intl.formatMessage(messages.genres)}</h3>*/}
 						<Select
 				        name="genre"
 				       	placeholder={this.props.intl.formatMessage(messages.genres)}
@@ -126,20 +136,8 @@ class Filter extends Component {
 				     	/>
 					</div>
 
-					<div className="movie-filter-item">
-						<h3>{this.props.intl.formatMessage(messages.year)}</h3>
-						<Select
-				        name="year"
-				        placeholder={this.props.intl.formatMessage(messages.year)}
-				        value={tv ? params.first_air_date_year : params.year}
-				        onChange={this.handleYear}
-				        options={getYearOptions(1975)}
-				        simpleValue
-				     	/>
-					</div>
-
-					<div className="movie-filter-item">
-						<h3>{this.props.intl.formatMessage(messages.sort_by)}</h3>
+					<div className="movie-filter-item filter-genre">
+						{/*<h3>{this.props.intl.formatMessage(messages.sort_by)}</h3>*/}
 						<Select
 				        name="sort"
 				        placeholder={this.props.intl.formatMessage(messages.sort_by)}
@@ -151,8 +149,12 @@ class Filter extends Component {
 				     	/>
 					</div>
 
+					
+
+					
+
 					<div className="movie-filter-item">
-						<h3>{this.props.intl.formatMessage(messages.from_year)}</h3>
+						{/*<h3>{this.props.intl.formatMessage(messages.from_year)}</h3>*/}
 						<Select
 				        name="fromYear"
 				        placeholder={this.props.intl.formatMessage(messages.from_year)}
@@ -163,12 +165,31 @@ class Filter extends Component {
 				     	/>
 					</div>
 
-					{/*<div className="movie-filter-item">
-						<input type="checkbox"  onChange={this.handleOrigLang}/>
+					<div className="movie-filter-item">
+						{/*<h3>{this.props.intl.formatMessage(messages.year)}</h3>*/}
+						<Select
+				        name="year"
+				        placeholder={this.props.intl.formatMessage(messages.year)}
+				        value={tv ? params.first_air_date_year : params.year}
+				        onChange={this.handleYear}
+				        options={getYearOptions(1975)}
+				        simpleValue
+				     	/>
 					</div>
-					*/}
-					
-					
+
+
+					<div className="movie-filter-item">
+						{/*<h3>{this.props.intl.formatMessage(messages.country)}</h3>*/}
+						<Select
+				        name="country"
+				        placeholder={this.props.intl.formatMessage(messages.country_plh)}
+				        value={params.with_original_language}
+				        onChange={this.handleOrigLang}
+				        options={countryOptionsLang}
+				        simpleValue
+				     	/>
+					</div>
+
 				</div>
 								
 			</div>

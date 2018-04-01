@@ -32,10 +32,14 @@ class Navbar extends Component {
 		this.setState({drawerOpen: !this.state.drawerOpen})
 	}
 	
-	//USER RELATED
+	
 	logOut = ()=>{
 		firebase.auth().signOut();
 	}
+
+	handleClickOutside = (evt)=>{
+    	this.setState({drawerOpen: true})
+  	}
 
 
 	componentDidMount(){
@@ -101,6 +105,7 @@ class Navbar extends Component {
 					 drawerOpen={this.state.drawerOpen}
 					 user={this.state.user} 
 					 logOut={this.logOut}
+					 handleClickOutside={this.handleClickOutside}
 					/>
 				</div>
 				

@@ -647,7 +647,7 @@ body {
 
 /*****FILTER*****/
 .movie-filter-container {
-	flex-basis: 100%;
+	flex-basis: 1024px;
 	height: auto;
 	/*background-color: #2A2A2A;*/
 }
@@ -655,14 +655,17 @@ body {
 .movie-filter-inner-container {
 	display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
 	height: auto;
 }
 
 .movie-filter-item {
-	flex-basis: 250px;
+	flex-basis: 33.33%;
 }
 
-
+.filter-genre {
+	flex-basis: 50%;
+}
 
 /*****PAGINATION*****/
 
@@ -1493,13 +1496,13 @@ h1.search {
 
 .actor-card-rating {
 	margin: 5px 0;
-	font-size: .75rem;
+	font-size: .9rem;
 }
 
 .known-for {
 	display: block;
 	font-weight: bold;
-	font-size: .9rem;
+	font-size: .8rem;
 }
 
 .actor-card-more {
@@ -2123,6 +2126,7 @@ h1.search {
 		padding: 0 10px;
 		font-size: .9rem;
 	}
+
 }
 
 
@@ -2144,7 +2148,7 @@ h1.search {
 	}
 
 	.search-form {
-		width: 95%;
+		width: 90%;
 	}
 
 	.search-form input[type="text"]:focus {

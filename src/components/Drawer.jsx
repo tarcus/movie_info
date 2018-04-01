@@ -4,6 +4,7 @@ import RegLogUserDrawer from './RegLogUserDrawer'
 import {NavLink} from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
 import {defineMessages, injectIntl} from 'react-intl'
+import onClickOutside from 'react-onclickoutside'
 
 const messages = defineMessages({
 	drawer_watchlist: {
@@ -48,4 +49,4 @@ const Drawer = (props)=> {
 	
 }
 
-export default injectIntl(Drawer);
+export default injectIntl(onClickOutside(Drawer));

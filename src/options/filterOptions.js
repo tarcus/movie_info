@@ -258,7 +258,7 @@ const genresOptionsTVRu = [
     },
     {
       "value": 10762,
-      "label": "Kvalues"
+      "label": "Детский"
     },
     {
       "value": 9648,
@@ -344,8 +344,29 @@ function getYearOptions(startYear){
 }   
 
 
+//Orig language (Country filter)
+const countryOptions = [
+    { value: 'en', label: 'USA/GB' },
+    { value: 'ru', label: 'Russia' },
+    { value: 'de', label: 'Germany'}, 
+    { value: 'fr', label: 'France' },
+    { value: 'cn', label: 'China'}
+    
+];
+
+const countryOptionsRu = [
+    { value: 'en', label: 'США/Англия' },
+    { value: 'ru', label: 'Россия' },
+    { value: 'de', label: 'Германия'}, 
+    { value: 'fr', label: 'Франция' },
+    { value: 'cn', label: 'Китай'}
+    
+];
 
 
-
-export {genresOptionsMovie, genresOptionsMovieRu, genresOptionsTV, genresOptionsTVRu, getYearOptions, sortByTV, sortByTVRu, sortByMovies, sortByMoviesRu};
+export {genresOptionsMovie, genresOptionsMovieRu, genresOptionsTV, 
+          genresOptionsTVRu, getYearOptions, sortByTV, 
+          sortByTVRu, sortByMovies, sortByMoviesRu, countryOptions, 
+          countryOptionsRu
+};
 

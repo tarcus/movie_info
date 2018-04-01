@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import classNames from 'classnames'
 import ruIcon from '../images/RU_icon.png'
 import enIcon from '../images/GB_icon.png'
+import onClickOutside from 'react-onclickoutside'
 
 class LangSelector extends Component {
 	constructor(props){
@@ -38,6 +39,10 @@ class LangSelector extends Component {
 		location.reload()
 	}
 
+	handleClickOutside = (evt)=>{
+    	this.setState({isOpen: false})
+  	}
+
 	render(){
 
 		const dropClasses = classNames({
@@ -61,4 +66,4 @@ class LangSelector extends Component {
 	}
 }
 
-export default LangSelector;
+export default onClickOutside(LangSelector);

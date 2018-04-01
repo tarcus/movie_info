@@ -36,7 +36,6 @@ class Movies extends Component{
 
 	
 	loadFiltered = ()=>{	
-
 		const tv = this.props.tv;
 		//получаем язык 
 		const lang = {params:{
@@ -45,15 +44,20 @@ class Movies extends Component{
 
 		//Получаем параметры из URL 
 		const paramsFromUrl = queryString.parse(location.search);
+		const oL = paramsFromUrl.with_original_language;
+		//console.log('PARAMS FROM URL: ', paramsFromUrl)
 		const filteredOptions = {params: paramsFromUrl}
 
+		//If with_original_language from params !==en , set vote_count_gte to 1
+		const voteCountGte = (oL=='en' || oL===null || oL===undefined) ? 50 : 1;
+		//console.log('VOTECOUNT: ', voteCountGte)
 		const defaultOptions = {
 				url: `${baseUrl}/discover/${tv ? 'tv' : 'movie'}`,
 				params: {
 					api_key,
 					language: lang,
 					sort_by: 'popularity.desc',
-					'vote_count.gte': 50,
+					'vote_count.gte': voteCountGte,
 					with_original_language: 'en',
 					page: 1,
 				},
@@ -86,8 +90,7 @@ class Movies extends Component{
 	}
 
 	handlePageChange = (pageNumber)=> {
-
-	    //Нужно получить параметры URL и к ним добавить страницу(точнее изменить на ту что даст пагинатор)
+	    //получить параметры URL и к ним добавить страницу которую даст пагинатор
 	    const pageNum = {page: pageNumber};
 		const paramsFromUrl = queryString.parse(location.search);
 
@@ -99,10 +102,8 @@ class Movies extends Component{
 
 		//Нужно запушить измененные параметры в URL
 		this.props.history.push(`/${this.props.tv ? 'series' : 'movies'}?${stringified}`)
-
 		this.scrollPageToBegining()
 
-    
   	}
 
 	componentDidMount(){

@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
 import classNames from 'classnames'
-import onClickOutside from "react-onclickoutside";
+import onClickOutside from 'react-onclickoutside'
 import userAvatar from '../images/avatar.png'
 import AvatarUpload from './AvatarUpload'
 import {defineMessages,injectIntl} from 'react-intl'

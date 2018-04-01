@@ -27,7 +27,7 @@ const messages = defineMessages({
 	}
 }) 
 
-const ActorsView = ({actor})=>{
+const ActorsView = ({intl, actor})=>{
 	//remove items without posters
 	const filtered = actor.movie_credits.cast.filter((item)=>{
 		return item.poster_path !==null;
@@ -57,13 +57,13 @@ const ActorsView = ({actor})=>{
 				</div>
 				<div className="actor-biography-wrap">
 					<div className="actor-bio-item">
-						<b>Birthday:</b> {actor.birthday}	
+						<b>{intl.formatMessage(messages.actorsview_birthday)}:</b> {actor.birthday}	
 					</div>
 					<div className="actor-bio-item">
-						<b>Age:</b> {getAge(actor.birthday)}
+						<b>{intl.formatMessage(messages.actorsview_age)}:</b> {getAge(actor.birthday)}
 					</div>
 					<div className="actor-bio-item">
-						<b>Place of Birth:</b> {actor.place_of_birth}
+						<b>{intl.formatMessage(messages.actorsview_place_of_birth)}:</b> {actor.place_of_birth}
 					</div>
 					<div className="actor-bio">
 						<p>
@@ -74,7 +74,7 @@ const ActorsView = ({actor})=>{
 			</div>
 
 			<div className="filmography-container row">
-				<h2>Filmography</h2>
+				<h2>{intl.formatMessage(messages.actorsview_filmography)}</h2>
 				{filmography}
 			</div>
 		</div>
