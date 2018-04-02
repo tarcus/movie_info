@@ -12,16 +12,27 @@ class Trailers extends Component {
 
 	
 	getTrailers = (movieId)=>{
+		const lang = this.props.language
 		const options = {
 			url: `${baseUrl}/${this.props.mediaType}/${movieId}/videos`,
 			params: {
 				api_key,
-				language: this.props.language
+				language: lang
 			}
 		}
 
 		axios(options)
 		.then((response)=>{
+			//If there no russian trailer
+			if(lang==="ru" && response.data.results.length==0){
+				axios({...options, ...{params: {api_key, language: 'en'}}})
+				.then((response)=>{
+					this.setState({trailers: response.data.results})
+				})
+				.catch((error)=>{
+					console.log(error)
+				})
+			}
 			this.setState({trailers: response.data.results})
 		})
 		.catch((error)=>{

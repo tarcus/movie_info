@@ -5,7 +5,6 @@ import TVView from './TVView'
 import {api_key, baseUrl} from '../options/apiOptions'
 
 
-
 class TV extends Component {
 	constructor(props){
 		super(props);
@@ -53,7 +52,7 @@ class TV extends Component {
 
 		
 		let reqInProgress = true;
-		//console.log('ReqInProgress: ',reqInProgress)
+		
 		setTimeout(()=>{
 			if(reqInProgress){
 				console.log('ReqInProgress inside timer: ', reqInProgress)
@@ -85,16 +84,13 @@ class TV extends Component {
 		this.getData(this.props.match.params.id)
 	}
 
-	componentWillReceiveProps(nextProps){
-		
+	componentWillReceiveProps(nextProps){	
 		if(nextProps.match.params.id !==this.state.tvId){
 			this.getData(nextProps.match.params.id)
-		}
-		
+		}	
 	}
 
 	
-
 	render(){
 		return(
 			<div className="movie-page-container">

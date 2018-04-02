@@ -124,6 +124,7 @@ const MovieView = ({intl, movie, cast, crew, isLoading, language})=>{
 						  size={24}
 						  color2={'#E6CF34'} 
 						 />
+						 
 					</div>
 					<div className="movie-page-info-item">
 						<b>{intl.formatMessage(messages.movie_director)}:</b> {director}

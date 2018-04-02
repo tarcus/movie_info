@@ -45,6 +45,10 @@ const messages = defineMessages({
 		id: 'filter.country_placeholder',
 		defaultMessage: 'Country'
 	},
+	end_year: {
+		id: 'filter.end_year',
+		defaultMessage: 'End Year'
+	}
 })
 
 
@@ -93,7 +97,19 @@ class Filter extends Component {
 
 		}
 
-		
+	}
+
+	handleEndYear = (selectedOption)=>{
+		let dateFromYear = new Date(selectedOption, 1,0,0,0,0,0);	
+		let isoDate = dateFromYear.toISOString().slice(0,10)
+
+		//если сериал то...
+		if(this.props.tv){
+			this.pushParams({'first_air_date.lte': selectedOption==null ? "" : isoDate})	
+		} else {
+			this.pushParams({'primary_release_date.lte': selectedOption==null ? "" : isoDate})	
+
+		}
 	}
 
 	handleGenre = (selectedOption)=>{
@@ -164,6 +180,20 @@ class Filter extends Component {
 				        simpleValue
 				     	/>
 					</div>
+					<div className="movie-filter-item">
+						{/*<h3>{this.props.intl.formatMessage(messages.from_year)}</h3>*/}
+						<Select
+				        name="endYear"
+				        placeholder={this.props.intl.formatMessage(messages.end_year)}
+				        value={ tv ? sliceDate(params['first_air_date.lte']) : sliceDate(params['primary_release_date.lte'])}
+				        onChange={this.handleEndYear}
+				        options={getYearOptions(1970)}
+				        simpleValue
+				     	/>
+					</div>
+
+
+
 
 					<div className="movie-filter-item">
 						{/*<h3>{this.props.intl.formatMessage(messages.year)}</h3>*/}

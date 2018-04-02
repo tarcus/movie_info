@@ -37,6 +37,7 @@ const MoviesSingleItem = ({intl, data})=>{
 					  value={data.vote_average}
 					  edit={false}
 					  size={24}
+					  half={false}
 					  color2={'#E6CF34'} 
 					 />
 					</div>	

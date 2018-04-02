@@ -24,7 +24,7 @@ class Actors extends Component {
 
 		axios(options)
 		.then((response)=>{
-			console.log("Actor: ", response.data)
+			//console.log("Actor: ", response.data)
 			this.setState({data: response.data})
 		})
 		.catch((error)=>{

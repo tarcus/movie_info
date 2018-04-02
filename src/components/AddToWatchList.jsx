@@ -24,25 +24,69 @@ class AddToWatchList extends Component {
 	}
 
 	AddToWatchList = ()=>{
-		const movie = this.props.movie;	
-		console.log('Add to watch list id: ', movie.id)
-		//ссылка на коллекцию муви
-		const watchListMovRef = firebase.database().ref('watchlist_mov')
+		//Получаем значение счетчика
+		firebase.database().ref('watchlist_mov_count/' + this.state.userUid + '/counter').once('value', (snap)=>{
 
-		//Ссылка на  муви коллекцию текущего юзера
-		//получаем uid юзера
-		const userUid = firebase.auth().currentUser.uid
-		const usersMovRef = watchListMovRef.child(userUid)
+			const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.userUid)
+			
+			
+			//Ссылка на  муви коллекцию текущего юзера
+			const usersMovRef = firebase.database().ref('watchlist_mov/' + this.state.userUid)
+			const movie = this.props.movie;
 
-		//id текущего фильма будет нашим key
-		usersMovRef.child(movie.id).set({
-			id: movie.id,
-			name: movie.title,
-			img: movie.poster_path
-		})
-	
+			if(snap.val()!==null && snap.val()<5){	
+				//increment counter when add to watchlist
+				//const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.userUid)
+				console.log('COUNTER: ', snap.val())
+				let counter = snap.val()
+				usersMovCountRef.child('counter').set(++counter)
+
+				//add movie to watchlist
+				//id текущего фильма будет key
+				usersMovRef.child(movie.id).set({
+					id: movie.id,
+					name: movie.title,
+					img: movie.poster_path
+				})
+
+			} else if(snap.val()==null) {
+				//initial
+				//const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.userUid)
+				usersMovCountRef.child('counter').set(1)
+
+				//add movie to watchlist when it is first 
+				usersMovRef.child(movie.id).set({
+					id: movie.id,
+					name: movie.title,
+					img: movie.poster_path
+				})
+
+			} else {
+				//limit exceed
+				this.setState({limitExceed: true})
+			}
+		})	
 	}
 
+	//AddToWatchList = ()=>{
+		// const movie = this.props.movie;	
+		// //ссылка на коллекцию муви
+		// const watchListMovRef = firebase.database().ref('watchlist_mov')
+		// //Ссылка на  муви коллекцию текущего юзера
+		// const userUid = firebase.auth().currentUser.uid
+		// const usersMovRef = watchListMovRef.child(userUid)
+		// //id текущего фильма будет нашим key
+		// usersMovRef.child(movie.id).set({
+		// 	id: movie.id,
+		// 	name: movie.title,
+		// 	img: movie.poster_path
+		// })
+		
+		//this.watchlistCounter()
+
+	//}
+
+	
 	checkMovie = (movieId)=>{
 		firebase.database().ref('watchlist_mov/' + this.state.userUid + '/' + movieId).on('value', (snap)=>{
 			//console.log('SNAP: ', snap.val())
@@ -62,10 +106,9 @@ class AddToWatchList extends Component {
 				this.setState({userUid: user.uid})
 				//console.log('FirebaseUser ADDTO: ', user)
 				//Проверяем есть ли у юзера этот мув
-				this.checkMovie(this.props.movie.id);
-				
+				this.checkMovie(this.props.movie.id);	
 			} else {
-				this.setState({userUid: null})
+				this.setState({userUid: null, inWatchList: false})
 				console.log('not logged in AddToWatch')
 			}
 		})
@@ -75,8 +118,7 @@ class AddToWatchList extends Component {
 	componentWillReceiveProps(nextProps){
 		if(nextProps.movie.id !==this.props.movie.id){
 			this.checkMovie(nextProps.movie.id)
-		}
-		
+		}	
 	}
 
 	render(){

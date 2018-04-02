@@ -25,8 +25,7 @@ const messages = defineMessages({
 
 class Movies extends Component{
 	constructor(props){
-		super(props);
-
+		super(props)
 		this.state = {
 			movies: [],
 		 	totalResults: '',
@@ -45,7 +44,6 @@ class Movies extends Component{
 		//Получаем параметры из URL 
 		const paramsFromUrl = queryString.parse(location.search);
 		const oL = paramsFromUrl.with_original_language;
-		//console.log('PARAMS FROM URL: ', paramsFromUrl)
 		const filteredOptions = {params: paramsFromUrl}
 
 		//If with_original_language from params !==en , set vote_count_gte to 1
@@ -70,7 +68,6 @@ class Movies extends Component{
 		
 		axios(mergedOptions)
 		.then((response)=>{
-			////console.log('RESPONSE: ', response.data)
 			this.setState({
 				movies: response.data.results, 
 				totalResults: response.data.total_results,
@@ -113,8 +110,6 @@ class Movies extends Component{
 	componentWillReceiveProps(){
 		this.loadFiltered()
 	}
-
-	
 
 	render(){
 		const tv = this.props.tv;

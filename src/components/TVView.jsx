@@ -80,7 +80,7 @@ const messages = defineMessages({
 
 const TVView = ({intl, tv, cast, isLoading, language})=>{
 	const genres = tv.genres.map((item)=>{
-				return item.name
+		return item.name
 	})
 
 	const countries = tv.origin_country.map((country)=>{
@@ -96,6 +96,18 @@ const TVView = ({intl, tv, cast, isLoading, language})=>{
 		return item.name
 	})
 	
+	const tvStatusRu = ()=>{
+		switch(tv.status){
+			case 'Returning Series':
+			return 'Продолжение следует'
+			break;
+			case 'Ended':
+			return 'Завершён'
+			break;
+			case 'Canceled':
+			return 'Отменён'
+		}
+	}
 
 	const actorsImages = cast.slice(0,7).map((actor)=>{
 		return <div className="actor-w92-wrap" key={actor.id + Math.random()}>
@@ -164,7 +176,7 @@ const TVView = ({intl, tv, cast, isLoading, language})=>{
 						<b>{intl.formatMessage(messages.tv_last_air_date)}:</b> {tv.last_air_date}
 					</div>
 					<div className="movie-page-info-item">
-						<b>{intl.formatMessage(messages.tv_status)}:</b> {tv.status}
+						<b>{intl.formatMessage(messages.tv_status)}:</b> {language=='ru' ? tvStatusRu() : tv.status}
 					</div>
 					<div className="movie-page-info-item">
 						<b>{intl.formatMessage(messages.tv_actors)}:</b> {actors.join(', ')}
