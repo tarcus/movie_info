@@ -95,33 +95,6 @@ class WatchList extends Component {
 	}
 
 
-	//Это можно потом удалить
-	// handlePageChange = (pageNumber)=> { 
-	//     const pageNum = {moviepage: pageNumber};
-	// 	//const paramsFromUrl = queryString.parse(location.search);
-
-	// 	const lastItem = this.state.movList.slice(-1)[0];
-	// 	const start = lastItem ? lastItem.id + 1 : 1;
-	// 	console.log("LAST: ", start)
-	// 	const lastItemObj = {last: start}
-
-	// 	const mergedOptions = merge.all([pageNum, lastItemObj])
-	// 	//console.log('MERGED: ', mergedOptions)
-
-	// 	//сериализуем объект в строку параметров
-	// 	const stringified = queryString.stringify(mergedOptions)
-	// 	//Подготавливаем pageLast
-	// 	const page = {[pageNumber]: start}
-	// 	const pageMerged = merge.all([this.state.pageLast, page])
-	// 	console.log('PAGE MERGED: ', pageMerged)
-
-	// 	this.setState({pageLast: pageMerged}, ()=>{console.log("PAGELAST STATE: ", this.state)})
-
-	// 	//Нужно запушить измененные параметры в URL
-	// 	this.props.history.push(`/watchlist?${stringified}`)
-	// 	this.scrollPageToBegining()
- //  	}
-
 	//Этот метод тащит первую порцию при инициализации компонента
 	getInit = ()=>{	
 		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('id').startAt(0).limitToFirst(42);
@@ -137,7 +110,7 @@ class WatchList extends Component {
 	}
 
 	delMovFromList = (e, movId)=>{
-		//удаляем мув из списка по id
+		//удаляем фильм из списка по id
 		firebase.database().ref('watchlist_mov/' + this.state.uid + '/' + movId).remove()
 		console.log('Del FROM WATCH: ', movId)
 
@@ -147,6 +120,16 @@ class WatchList extends Component {
 			return item.id !== movId
 		})
 		this.setState({movList: afterDel})
+
+
+		//COUNTER
+		//Получаем значение счетчика и декрементируем его
+		firebase.database().ref('watchlist_mov_count/' + this.state.uid + '/counter').once('value', (snap)=>{
+			const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.uid)
+				//console.log('COUNTER: ', snap.val())
+				let counter = snap.val()
+				usersMovCountRef.child('counter').set(--counter)
+		})	
 	}
 
 	getOuterLinks = ()=>{

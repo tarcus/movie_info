@@ -10,6 +10,7 @@
   "addtowatchlist.in_watchlist": "В Избранном",
   "addtowatchlist.add_to_watchlist": "Добавить в избранное",
   "addtowatchlist.btn_title": "Зарегистрируйтесь, чтобы иметь возможность добавлять фильмы в свой список просмотра.",
+  "addtowatchlist.limit_error": "Вы привысили ограничение на размер избранного!",
   "navbar_about.nav": "Актёры",
   "navbar_movies.nav": "Фильмы",
   "navbar_series.nav": "Сериалы",

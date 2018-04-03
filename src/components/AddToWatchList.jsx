@@ -15,6 +15,10 @@ const messages = defineMessages({
 		id: 'addtowatchlist.btn_title',
 		defaultMessage: 'Please register to be able to add movies in your watchlist'
 	},
+	addtowatchlist_limit_error: {
+		id: 'addtowatchlist.limit_error',
+		defaultMessage: 'You have exceeded the watchlist size limit!'
+	},
 }) 
 
 class AddToWatchList extends Component {
@@ -122,11 +126,13 @@ class AddToWatchList extends Component {
 	}
 
 	render(){
+		const exceedErr = this.props.intl.formatMessage(messages.addtowatchlist_limit_error)
 		return(
 			<div title={!this.state.userUid ? this.props.intl.formatMessage(messages.addtowatchlist_btn_title) : ''}>
-				<button className="watchlist-add-btn" onClick={this.AddToWatchList} disabled={this.state.inWatchList || !this.state.userUid}>
+				<button className="watchlist-add-btn" onClick={this.AddToWatchList} disabled={this.state.inWatchList || !this.state.userUid || this.state.limitExceed}>
 					{this.state.inWatchList ? this.props.intl.formatMessage(messages.addtowatchlist_in_watchlist) : this.props.intl.formatMessage(messages.addtowatchlist_add_to_watchlist)} 
 				</button>
+				<div className="exceed-err">{this.state.limitExceed ? exceedErr : ''}</div>
 			</div>
 		)
 	}

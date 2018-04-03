@@ -73,7 +73,7 @@ class AvatarUpload extends Component {
 
 		//Проверяем размер файла
 		if(file.size > 80000){
-	       console.log("File is too big!")
+	       //console.log("File is too big!")
 	       this.setState({fileSize: true })
 	       
     	} else {
@@ -99,7 +99,7 @@ class AvatarUpload extends Component {
 			task.on('state_changed', (snap)=>{
 				//Индикация прогресса
 				let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-				console.log('Progress: ', percentage, "Snap: ", snap)
+				//console.log('Progress: ', percentage, "Snap: ", snap)
 				this.setState({progress: percentage, downloadURL: snap.downloadURL}, ()=>{
 					//обновляем профиль юзера с новой ссылкой на изображение
 					this.props.user.updateProfile({ 

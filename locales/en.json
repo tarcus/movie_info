@@ -10,6 +10,7 @@
   "addtowatchlist.in_watchlist": "IN WATCHLIST",
   "addtowatchlist.add_to_watchlist": "ADD TO WATCHLIST",
   "addtowatchlist.btn_title": "Please register to be able to add movies in your watchlist",
+  "addtowatchlist.limit_error": "You have exceeded the watchlist size limit!",
   "navbar_about.nav": "Actors",
   "navbar_movies.nav": "Movies",
   "navbar_series.nav": "Series",

@@ -149,6 +149,13 @@ body {
 	outline: none;
 }
 
+.exceed-err {
+	font-size: .8rem;
+	max-width: 200px;
+	margin-top: 10px;
+	color: red;
+}
+
 .text-shad {
 	text-shadow: 1px 1px 0 #000;
 }
@@ -773,7 +780,7 @@ body {
 }
 .movie-page-poster img {
 	max-width: 100%;
-	box-shadow: var(--tiny-card-shadow);
+	box-shadow: var(--small-card-shadow);
 }
 .movie-page-info {
 	flex: 2 1 235px;
@@ -935,7 +942,7 @@ body {
 
 .actor-img-wrap img {
 	max-width: 100%;
-	box-shadow: var(--tiny-card-shadow);
+	box-shadow: var(--small-card-shadow);
 }
 
 .actor-biography-wrap {
