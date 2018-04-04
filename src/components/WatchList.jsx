@@ -64,24 +64,59 @@ class WatchList extends Component {
 			} else {
 				this.setState({totalResults: 0})
 			}
-			
 		})	
-	
+	}
+
+	getSessionMovId = ()=>{
+		//get session_mov_id from localstorage
+		const sessionMovId = localStorage.getItem('session_mov_id');
+		//ref to session_mov_id in the firebase
+		const sessionMovIdRef = firebase.database().ref('session_mov_id/'  + this.state.uid)	
+		//if there no session_mov_id, create it
+		if(!sessionMovId){
+			const genId = Math.random().toString(34).slice(-8);
+			//Set smid to localStorage
+			localStorage.setItem('session_mov_id', genId)
+			//Set smid in db
+			sessionMovIdRef.child('smid').set(genId)
+		} else {
+			//Set smid in db
+			sessionMovIdRef.child('smid').set(sessionMovId)
+		}
+			
+	}
+
+	compareSmids = ()=>{
+		//get session_mov_id from localstorage
+		const sessionMovId = localStorage.getItem('session_mov_id');
+		//ref to session_mov_id in the firebase
+		firebase.database().ref('session_mov_id/'  + this.state.uid + '/smid').once('value', (snap)=>{
+			//console.log('SMID: ', snap.val())
+			console.log('SMIDS COMPARE: ', sessionMovId===snap.val())
+			return sessionMovId===snap.val()
+		})
 	}
 
 	getMore = ()=>{
 		const lastItem = this.state.movList.slice(-1)[0];
 		const start = lastItem ? lastItem.id + 1 : 1;
 		
-		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('id').startAt(start).limitToFirst(42);
+		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('sid').startAt(start).limitToFirst(42);
 		movListRef.once('value', (snap)=>{
-			console.log('FIREBASE PAGE: ', snap.val())
+			//console.log('LOAD MORE: ', snap.val())
 			if(snap.val()!==null){
-				const data = Object.values(snap.val())
+				//const data = Object.values(snap.val())
+				const dataOrdered = [];
+				snap.forEach((item)=>{
+					dataOrdered.push(item.val())
+				})
 				//Проверяем есть ли еще
-				const hasMore = (data.length < 42) ? false : true;
+				const hasMore = (dataOrdered.length < 42) ? false : true;
 	
-				this.setState({movList: [...this.state.movList , ...data], hasMore: hasMore })
+				this.setState({movList: [...this.state.movList , ...dataOrdered], hasMore: hasMore }, ()=>{
+					//update localStorage
+					localStorage.setItem('watchlist_mov' ,JSON.stringify(this.state.movList))
+				})
 			} else {
 				this.setState({hasMore: false})
 			}
@@ -97,20 +132,36 @@ class WatchList extends Component {
 
 	//Этот метод тащит первую порцию при инициализации компонента
 	getInit = ()=>{	
-		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('id').startAt(0).limitToFirst(42);
+		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('sid').startAt(0).limitToFirst(42);
 		movListRef.once('value', (snap)=>{
-			console.log('FIREBASE PAGE: ', snap.val())
+			//console.log('FIREBASE PAGE: ', snap.val())
 			if(snap.val()!==null){
-				const data = Object.values(snap.val())
-				this.setState({movList: data})
+				//const data = Object.values(snap.val())
+				const dataOrdered = [];
+				snap.forEach((item)=>{
+					dataOrdered.push(item.val())
+				})
+				console.log('DATA ORDERED: ', dataOrdered)
+				this.setState({movList: dataOrdered}, ()=>{
+					//save to localStorage
+					localStorage.setItem('watchlist_mov' ,JSON.stringify(this.state.movList))
+					//console.log('LOCAL MOVLIST: ', JSON.parse(localStorage.getItem('watchlist_mov')))
+				})
 			} else {
 				this.setState({movList: []})
 			}
 		})	
 	}
 
+	getInitFromLocal = ()=>{
+		//Loading data from localStorage
+		const movFromLocal = JSON.parse(localStorage.getItem('watchlist_mov'))
+		this.setState({movList: movFromLocal})
+		console.log('DATA FROM LOCALSTORAGE')
+	}
+
 	delMovFromList = (e, movId)=>{
-		//удаляем фильм из списка по id
+		//remove movie from list by id
 		firebase.database().ref('watchlist_mov/' + this.state.uid + '/' + movId).remove()
 		console.log('Del FROM WATCH: ', movId)
 
@@ -119,7 +170,10 @@ class WatchList extends Component {
 		const afterDel = this.state.movList.filter((item)=>{
 			return item.id !== movId
 		})
-		this.setState({movList: afterDel})
+		this.setState({movList: afterDel}, ()=>{
+			//update localStorage
+			localStorage.setItem('watchlist_mov' ,JSON.stringify(this.state.movList))
+		})
 
 
 		//COUNTER
@@ -129,7 +183,11 @@ class WatchList extends Component {
 				//console.log('COUNTER: ', snap.val())
 				let counter = snap.val()
 				usersMovCountRef.child('counter').set(--counter)
-		})	
+		})
+
+		//set smid to db
+		this.getSessionMovId()
+
 	}
 
 	getOuterLinks = ()=>{
@@ -143,30 +201,34 @@ class WatchList extends Component {
 		})	
 	}
 
-	
+
 	componentDidMount(){
 		//получаем юзера
 		firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({uid: user.uid}, ()=>{
-					//this.getTotalResults()
-					this.getInit()
-					this.getOuterLinks()
-					//this.getWatchList()
-					console.log("Get Watchlist")
-					
-					//Слушаем удаления в списке УДАЛИТЬ ПОТОМ
-					//Без этого firebase пишет warning в консоль
-					const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid)
-					movListRef.on('child_removed', (data)=>{
-						console.log("Child Removed: ", data.val())
-						//this.getPage();
+					//get session_mov_id from localstorage
+					const sessionMovId = localStorage.getItem('session_mov_id');
+					//ref to session_mov_id in the firebase
+					firebase.database().ref('session_mov_id/'  + this.state.uid + '/smid').once('value', (snap)=>{
+						
+						//console.log('SMIDS COMPARE: ', sessionMovId===snap.val())
+						if(sessionMovId===snap.val()){
+							this.getInitFromLocal()
+						} else {
+							this.getInit()
+						}
+						
 					})
-
-					//И добавления
-					// movListRef.on('child_added', (data)=>{
-					// 	console.log("Child Added: ", data.val())
-						//this.getWatchList();
+					//this.getInit()
+					this.getOuterLinks()
+					
+					//Слушаем удаления в списке УДАЛИТЬ ПОТОМ, ОН БОЛЬШЕ НЕ НУЖЕН
+					//Без этого firebase пишет warning в консоль
+					// const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid)
+					// movListRef.on('child_removed', (data)=>{
+					// 	console.log("Child Removed: ", data.val())
+					// 	//this.getPage();
 					// })
 
 				})

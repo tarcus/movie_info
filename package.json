@@ -59,9 +59,7 @@
     "react-truncate": "^2.3.0",
     "react-validation": "^3.0.7",
     "react-visibility-sensor": "^3.11.0",
-    "roboto-npm-webfont": "^1.0.1",
     "scroll-into-view-if-needed": "^1.4.0",
-    "typeface-roboto": "0.0.50",
     "validator": "^9.4.1"
   }
 }

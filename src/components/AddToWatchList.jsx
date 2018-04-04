@@ -27,68 +27,97 @@ class AddToWatchList extends Component {
 		this.state = {inWatchList: false}
 	}
 
-	AddToWatchList = ()=>{
-		//Получаем значение счетчика
-		firebase.database().ref('watchlist_mov_count/' + this.state.userUid + '/counter').once('value', (snap)=>{
 
-			const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.userUid)
+	getSessionMovId = ()=>{
+		//get session_mov_id from localstorage
+		const sessionMovId = localStorage.getItem('session_mov_id');
+
+		//ref to session_mov_id in the firebase
+		const sessionMovIdRef = firebase.database().ref('session_mov_id/'  + this.state.userUid)
+		
+		//if there no session_mov_id, create it
+		if(!sessionMovId){
+			const genId = Math.random().toString(34).slice(-8);
+			//Set smid to localStorage
+			localStorage.setItem('session_mov_id', genId)
+
+			//Set smid in db
+			sessionMovIdRef.child('smid').set(genId)
+		} else {
+			//Set smid in db
+			sessionMovIdRef.child('smid').set(sessionMovId)
+		}
 			
-			
-			//Ссылка на  муви коллекцию текущего юзера
-			const usersMovRef = firebase.database().ref('watchlist_mov/' + this.state.userUid)
-			const movie = this.props.movie;
-
-			if(snap.val()!==null && snap.val()<5){	
-				//increment counter when add to watchlist
-				//const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.userUid)
-				console.log('COUNTER: ', snap.val())
-				let counter = snap.val()
-				usersMovCountRef.child('counter').set(++counter)
-
-				//add movie to watchlist
-				//id текущего фильма будет key
-				usersMovRef.child(movie.id).set({
-					id: movie.id,
-					name: movie.title,
-					img: movie.poster_path
-				})
-
-			} else if(snap.val()==null) {
-				//initial
-				//const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.userUid)
-				usersMovCountRef.child('counter').set(1)
-
-				//add movie to watchlist when it is first 
-				usersMovRef.child(movie.id).set({
-					id: movie.id,
-					name: movie.title,
-					img: movie.poster_path
-				})
-
-			} else {
-				//limit exceed
-				this.setState({limitExceed: true})
-			}
-		})	
 	}
 
-	//AddToWatchList = ()=>{
-		// const movie = this.props.movie;	
-		// //ссылка на коллекцию муви
-		// const watchListMovRef = firebase.database().ref('watchlist_mov')
-		// //Ссылка на  муви коллекцию текущего юзера
-		// const userUid = firebase.auth().currentUser.uid
-		// const usersMovRef = watchListMovRef.child(userUid)
-		// //id текущего фильма будет нашим key
-		// usersMovRef.child(movie.id).set({
-		// 	id: movie.id,
-		// 	name: movie.title,
-		// 	img: movie.poster_path
-		// })
-		
-		//this.watchlistCounter()
+	AddToWatchList = ()=>{
+		//Получаем значение счетчика добавленных элементов (для сортировки по добавлению в список)
+		firebase.database().ref('watchlist_mov_sort_count/'  + this.state.userUid + '/sid').once('value', (res)=>{
+			let sid = res.val();
+			//console.log("SID: ", sid)
 
-	//}
+			//Получаем значение счетчика лимита
+			firebase.database().ref('watchlist_mov_count/' + this.state.userUid + '/counter').once('value', (snap)=>{
+				const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.userUid)
+
+				//ссылка на sid
+				const usersMovSortRef = firebase.database().ref('watchlist_mov_sort_count/'  + this.state.userUid)
+				
+				//Ссылка на  муви коллекцию текущего юзера
+				const usersMovRef = firebase.database().ref('watchlist_mov/' + this.state.userUid)
+				const movie = this.props.movie;
+
+				if(snap.val()!==null && snap.val()<15){	
+					//increment counter when add to watchlist
+					//const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.userUid)
+					console.log('COUNTER: ', snap.val())
+					let counter = snap.val()
+					usersMovCountRef.child('counter').set(++counter)
+					//set smid
+					this.getSessionMovId()
+
+					//инкрементируем sid
+					usersMovSortRef.child('sid').set(++sid)
+					.then(()=>{
+						//add movie to watchlist
+						//id текущего фильма будет key
+						usersMovRef.child(movie.id).set({
+							id: movie.id,
+							name: movie.title,
+							img: movie.poster_path,
+							sid: sid
+						})
+					})
+					
+					
+
+				} else if(snap.val()==null) {
+					//initial
+					usersMovCountRef.child('counter').set(1)
+					usersMovSortRef.child('sid').set(1)
+
+					//set smid
+					this.getSessionMovId()
+					
+					//add movie to watchlist when it's first 
+					usersMovRef.child(movie.id).set({
+						id: movie.id,
+						name: movie.title,
+						img: movie.poster_path,
+						sid: 1
+					})
+				} else {
+					//limit exceed
+					this.setState({limitExceed: true})
+				}
+			})	
+
+
+
+		})
+
+			
+	}
 
 	
 	checkMovie = (movieId)=>{
