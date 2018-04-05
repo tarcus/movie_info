@@ -8,6 +8,7 @@ import Img from 'react-image'
 import dummyImg_92 from '../images/dummy_92.png'
 import dummyImg_342 from '../images/dummy_342.png'
 import {defineMessages, injectIntl} from 'react-intl'
+import AddToWatchListTv from './AddToWatchListTv'
 
 //i18n
 const messages = defineMessages({
@@ -184,10 +185,7 @@ const TVView = ({intl, tv, cast, isLoading, language})=>{
 					<div className="movie-page-info-item">
 						<b>{intl.formatMessage(messages.tv_runtime)}:</b> {tv.episode_run_time[0]} {intl.formatMessage(messages.tv_runtime_min)}
 					</div>
-					<div className="search-outside">
-						<a href={`https://solarmoviex.to/search?keyword=${tv.original_name}`} target="_blank">Search The Show</a>
-					</div>
-					 
+					<AddToWatchListTv tv={tv}/>	 
 				</div>
 				<div className="actors-container">
 					<h2>{intl.formatMessage(messages.tv_starring)}</h2>

@@ -138,7 +138,6 @@ class AddToWatchList extends Component {
 				console.log('not logged in AddToWatch')
 			}
 		})
-
 	}
 
 	componentWillReceiveProps(nextProps){

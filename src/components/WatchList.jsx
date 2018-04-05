@@ -4,12 +4,10 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import FontAwesome from 'react-fontawesome'
 import {defineMessages, injectIntl} from 'react-intl'
-//import Pagination from "react-js-pagination"
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed'
 import queryString from 'query-string'
 import merge from 'deepmerge'
 //import LazyLoad from 'react-lazyload';
-
 
 //i18n
 const messages = defineMessages({
@@ -49,7 +47,6 @@ class WatchList extends Component {
 		this.state = {movList: [], tvList: [], outerLink: '', hasMore: true}
 	}
 
-	
 	scrollPageToBegining = ()=>{
 		setTimeout(()=>{const topEl = document.querySelector('.react-tabs__tab-list')	
 			scrollIntoViewIfNeeded(topEl, { duration: 500, easing: 'ease', offset: {top: -5}})
@@ -74,17 +71,7 @@ class WatchList extends Component {
 		}		
 	}
 
-	// compareSmids = ()=>{
-	// 	//get session_mov_id from localstorage
-	// 	const sessionMovId = localStorage.getItem('session_mov_id');
-	// 	//ref to session_mov_id in the firebase
-	// 	firebase.database().ref('session_mov_id/'  + this.state.uid + '/smid').once('value', (snap)=>{
-	// 		//console.log('SMID: ', snap.val())
-	// 		console.log('SMIDS COMPARE: ', sessionMovId===snap.val())
-	// 		return sessionMovId===snap.val()
-	// 	})
-	// }
-
+	
 	getMore = ()=>{
 		const lastItem = this.state.movList.slice(-1)[0];
 		const start = lastItem ? lastItem.sid + 1 : 1;
@@ -92,12 +79,11 @@ class WatchList extends Component {
 		movListRef.once('value', (snap)=>{
 			//console.log('LOAD MORE: ', snap.val())
 			if(snap.val()!==null){
-				//const data = Object.values(snap.val())
 				const dataOrdered = [];
 				snap.forEach((item)=>{
 					dataOrdered.push(item.val())
 				})
-				//Проверяем есть ли еще
+				//check for more items
 				const hasMore = (dataOrdered.length < 42) ? false : true;
 				
 				this.setState({movList: [...this.state.movList , ...dataOrdered], hasMore: hasMore }, ()=>{
@@ -115,9 +101,7 @@ class WatchList extends Component {
 	getInit = ()=>{	
 		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('sid').startAt(0).limitToFirst(42);
 		movListRef.once('value', (snap)=>{
-			//console.log('FIREBASE PAGE: ', snap.val())
 			if(snap.val()!==null){
-				//const data = Object.values(snap.val())
 				const dataOrdered = [];
 				snap.forEach((item)=>{
 					dataOrdered.push(item.val())
@@ -126,7 +110,11 @@ class WatchList extends Component {
 				this.setState({movList: dataOrdered}, ()=>{
 					//save to localStorage
 					localStorage.setItem('watchlist_mov_' + this.state.uid, JSON.stringify(this.state.movList))
-					//console.log('LOCAL MOVLIST: ', JSON.parse(localStorage.getItem('watchlist_mov')))
+					
+					//update smid in db to prevent multiple data fetching from firebase
+					const sessionMovId = localStorage.getItem('session_mov_id');
+					const sessionMovIdRef = firebase.database().ref('session_mov_id/'  + this.state.uid)
+					sessionMovIdRef.child('smid').set(sessionMovId)
 				})
 			} else {
 				this.setState({movList: []})
@@ -149,7 +137,7 @@ class WatchList extends Component {
 	delMovFromList = (e, movId)=>{
 		//remove movie from list by id
 		firebase.database().ref('watchlist_mov/' + this.state.uid + '/' + movId).remove()
-		console.log('DEL FROM WATCHLIST: ', movId)
+		//console.log('DEL FROM WATCHLIST: ', movId)
 
 		//И чтобы не тянуть из бд очередной раз все 
 		//удалим из стейта этот элемент массива
