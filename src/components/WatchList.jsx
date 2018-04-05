@@ -46,25 +46,14 @@ const messages = defineMessages({
 class WatchList extends Component {
 	constructor(props){
 		super(props);
-		//TotalResults сделай с ним что-то позже
-		this.state = {movList: [], tvList: [], outerLink: '', totalResults: '',  hasMore: true}
+		this.state = {movList: [], tvList: [], outerLink: '', hasMore: true}
 	}
 
 	
-	//Этот метод потом убрать
-	getTotalResults = ()=>{
-		//запрос ниже вернет всю коллекцию текущего пользователя
-		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid)
-		movListRef.once('value')
-		.then((snap)=>{
-			if(snap.val()!==null){
-				const data = Object.values(snap.val())
-				console.log('TOTAL RESULTS: ', data.length)
-				this.setState({totalResults: data.length})
-			} else {
-				this.setState({totalResults: 0})
-			}
-		})	
+	scrollPageToBegining = ()=>{
+		setTimeout(()=>{const topEl = document.querySelector('.react-tabs__tab-list')	
+			scrollIntoViewIfNeeded(topEl, { duration: 500, easing: 'ease', offset: {top: -5}})
+		}, 350)	
 	}
 
 	getSessionMovId = ()=>{
@@ -82,25 +71,23 @@ class WatchList extends Component {
 		} else {
 			//Set smid in db
 			sessionMovIdRef.child('smid').set(sessionMovId)
-		}
-			
+		}		
 	}
 
-	compareSmids = ()=>{
-		//get session_mov_id from localstorage
-		const sessionMovId = localStorage.getItem('session_mov_id');
-		//ref to session_mov_id in the firebase
-		firebase.database().ref('session_mov_id/'  + this.state.uid + '/smid').once('value', (snap)=>{
-			//console.log('SMID: ', snap.val())
-			console.log('SMIDS COMPARE: ', sessionMovId===snap.val())
-			return sessionMovId===snap.val()
-		})
-	}
+	// compareSmids = ()=>{
+	// 	//get session_mov_id from localstorage
+	// 	const sessionMovId = localStorage.getItem('session_mov_id');
+	// 	//ref to session_mov_id in the firebase
+	// 	firebase.database().ref('session_mov_id/'  + this.state.uid + '/smid').once('value', (snap)=>{
+	// 		//console.log('SMID: ', snap.val())
+	// 		console.log('SMIDS COMPARE: ', sessionMovId===snap.val())
+	// 		return sessionMovId===snap.val()
+	// 	})
+	// }
 
 	getMore = ()=>{
 		const lastItem = this.state.movList.slice(-1)[0];
-		const start = lastItem ? lastItem.id + 1 : 1;
-		
+		const start = lastItem ? lastItem.sid + 1 : 1;
 		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('sid').startAt(start).limitToFirst(42);
 		movListRef.once('value', (snap)=>{
 			//console.log('LOAD MORE: ', snap.val())
@@ -112,10 +99,10 @@ class WatchList extends Component {
 				})
 				//Проверяем есть ли еще
 				const hasMore = (dataOrdered.length < 42) ? false : true;
-	
+				
 				this.setState({movList: [...this.state.movList , ...dataOrdered], hasMore: hasMore }, ()=>{
 					//update localStorage
-					localStorage.setItem('watchlist_mov' ,JSON.stringify(this.state.movList))
+					localStorage.setItem('watchlist_mov_' + this.state.uid, JSON.stringify(this.state.movList))
 				})
 			} else {
 				this.setState({hasMore: false})
@@ -123,14 +110,8 @@ class WatchList extends Component {
 		})
 	}
 
-	scrollPageToBegining = ()=>{
-		setTimeout(()=>{const topEl = document.querySelector('.react-tabs__tab-list')	
-			scrollIntoViewIfNeeded(topEl, { duration: 500, easing: 'ease', offset: {top: -5}})
-		}, 350)	
-	}
-
-
-	//Этот метод тащит первую порцию при инициализации компонента
+	
+	//get first portion of content
 	getInit = ()=>{	
 		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('sid').startAt(0).limitToFirst(42);
 		movListRef.once('value', (snap)=>{
@@ -144,7 +125,7 @@ class WatchList extends Component {
 				console.log('DATA ORDERED: ', dataOrdered)
 				this.setState({movList: dataOrdered}, ()=>{
 					//save to localStorage
-					localStorage.setItem('watchlist_mov' ,JSON.stringify(this.state.movList))
+					localStorage.setItem('watchlist_mov_' + this.state.uid, JSON.stringify(this.state.movList))
 					//console.log('LOCAL MOVLIST: ', JSON.parse(localStorage.getItem('watchlist_mov')))
 				})
 			} else {
@@ -155,15 +136,20 @@ class WatchList extends Component {
 
 	getInitFromLocal = ()=>{
 		//Loading data from localStorage
-		const movFromLocal = JSON.parse(localStorage.getItem('watchlist_mov'))
-		this.setState({movList: movFromLocal})
-		console.log('DATA FROM LOCALSTORAGE')
+		const movFromLocal = JSON.parse(localStorage.getItem('watchlist_mov_' + this.state.uid))
+
+		if(movFromLocal!==null){
+			this.setState({movList: movFromLocal})
+			console.log('DATA FROM LOCALSTORAGE')
+		} else {
+			this.setState({movList: []})
+		}
 	}
 
 	delMovFromList = (e, movId)=>{
 		//remove movie from list by id
 		firebase.database().ref('watchlist_mov/' + this.state.uid + '/' + movId).remove()
-		console.log('Del FROM WATCH: ', movId)
+		console.log('DEL FROM WATCHLIST: ', movId)
 
 		//И чтобы не тянуть из бд очередной раз все 
 		//удалим из стейта этот элемент массива
@@ -172,22 +158,18 @@ class WatchList extends Component {
 		})
 		this.setState({movList: afterDel}, ()=>{
 			//update localStorage
-			localStorage.setItem('watchlist_mov' ,JSON.stringify(this.state.movList))
+			localStorage.setItem('watchlist_mov_' + this.state.uid, JSON.stringify(this.state.movList))
 		})
 
-
-		//COUNTER
-		//Получаем значение счетчика и декрементируем его
+		//Get counter value and decrement it
 		firebase.database().ref('watchlist_mov_count/' + this.state.uid + '/counter').once('value', (snap)=>{
 			const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.uid)
 				//console.log('COUNTER: ', snap.val())
 				let counter = snap.val()
 				usersMovCountRef.child('counter').set(--counter)
 		})
-
 		//set smid to db
 		this.getSessionMovId()
-
 	}
 
 	getOuterLinks = ()=>{
@@ -201,7 +183,6 @@ class WatchList extends Component {
 		})	
 	}
 
-
 	componentDidMount(){
 		//получаем юзера
 		firebase.auth().onAuthStateChanged((user)=>{
@@ -210,27 +191,15 @@ class WatchList extends Component {
 					//get session_mov_id from localstorage
 					const sessionMovId = localStorage.getItem('session_mov_id');
 					//ref to session_mov_id in the firebase
-					firebase.database().ref('session_mov_id/'  + this.state.uid + '/smid').once('value', (snap)=>{
-						
-						//console.log('SMIDS COMPARE: ', sessionMovId===snap.val())
-						if(sessionMovId===snap.val()){
+					firebase.database().ref('session_mov_id/'  + this.state.uid + '/smid').once('value', (snap)=>{	
+						const movFromLocal = JSON.parse(localStorage.getItem('watchlist_mov_' + this.state.uid))
+						if(sessionMovId===snap.val() && movFromLocal!==null && movFromLocal.length!==0){
 							this.getInitFromLocal()
 						} else {
 							this.getInit()
-						}
-						
+						}	
 					})
-					//this.getInit()
 					this.getOuterLinks()
-					
-					//Слушаем удаления в списке УДАЛИТЬ ПОТОМ, ОН БОЛЬШЕ НЕ НУЖЕН
-					//Без этого firebase пишет warning в консоль
-					// const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid)
-					// movListRef.on('child_removed', (data)=>{
-					// 	console.log("Child Removed: ", data.val())
-					// 	//this.getPage();
-					// })
-
 				})
 			} else {
 				this.setState({uid: ''})
@@ -242,11 +211,10 @@ class WatchList extends Component {
 	componentWillUnmount(){
 		//Detach firebase listeners
 		firebase.database().ref('watchlist_mov/' + this.state.uid).off('child_removed')
-
 	}
 
 	render(){
-		console.log("WATCHLIST RENDER")
+		//console.log("WATCHLIST RENDER")
 		const user = this.state.uid;
 		const guest = <div>{this.props.intl.formatMessage(messages.watchlist_guest)}</div>
 		const movList = this.state.movList.map((item)=>{
@@ -289,7 +257,7 @@ class WatchList extends Component {
 					      <div className="row">{user ? movList : guest}
 
 					      {user && this.state.movList.length>0 && <div className="flex-100 row">
-						      <button className="watchlist-add-btn" onClick={this.getMore} disabled={!this.state.hasMore}>
+						      <button className="watchlist-add-btn watchlist-more-btn" onClick={this.getMore} disabled={!this.state.hasMore}>
 						      	{this.state.hasMore ? this.props.intl.formatMessage(messages.watchlist_btn_load_more) : this.props.intl.formatMessage(messages.watchlist_btn_done)}
 						      </button>
 					      	</div>

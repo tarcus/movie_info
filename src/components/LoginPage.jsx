@@ -34,11 +34,11 @@ class LoginPage extends Component {
 		const email = this.emailInput.value;
 		const password = this.passInput.value;
 
-		//залогинить юзера
+		//user log in
 		firebase.auth().signInWithEmailAndPassword(email, password)
 		.then((user)=>{
 			//Redirect after login
-			 this.props.history.goBack()
+			 this.props.history.push('/')
 		})
 		.catch((error)=>{
 			this.setState({fireLogInErr: error.message})
@@ -68,7 +68,7 @@ class LoginPage extends Component {
 								<span className="form-errors">{this.state.fireLogInErr == null ? '' : this.state.fireLogInErr}</span>
 								<FontAwesome className="fa-input" name='lock'/>
 							</div>
-							<button className="btn-light btn-reg btn-login btn-block btn-blue" type="submit">{this.props.intl.formatMessage(messages.login_page_submit_btn)}</button>
+							<button className="btn-light btn-reg btn-login btn-block btn-indigo" type="submit">{this.props.intl.formatMessage(messages.login_page_submit_btn)}</button>
 						</form>
 						<div className="login-form-reg">
 							{this.props.intl.formatMessage(messages.login_page_not_registered)}&nbsp;  

@@ -119,14 +119,13 @@ class Register extends Component {
 			//      console.log("Verification email sent.") 
 			    })
 			    .catch((error)=> {
-			      console.log('Error Occured verification email') 
+			      console.log('Error Occured, verification email') 
 			    });
 			//Redirect
-			this.props.history.goBack()
+			this.props.history.push('/')
 		})
 		.catch((error)=>{
 			this.setState({fireRegErr: error.message})
-		//	console.log("Register error: ", error)
 		})
 		
 	}
@@ -161,7 +160,7 @@ class Register extends Component {
 								<Input type="password" className="form-control" name='confirm' validations={[this.required, this.password]} placeholder={this.props.intl.formatMessage(messages.register_page_pass_conf_plh)} ref={(c)=>{this.passInputR=c}}/>
 								<FontAwesome className="fa-input" name='lock'/>
 							</div>
-							<Button className="btn-light btn-reg btn-block btn-blue" type="submit">{this.props.intl.formatMessage(messages.register_page_sign_up_btn)}</Button>
+							<Button className="btn-light btn-reg btn-block btn-indigo" type="submit">{this.props.intl.formatMessage(messages.register_page_sign_up_btn)}</Button>
 						</Form>
 					</div>
 				

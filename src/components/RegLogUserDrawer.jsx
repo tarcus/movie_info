@@ -30,12 +30,10 @@ const RegLogUserDrawer = ({user, drawerToggle})=>{
 							<Link className="drawer-login-link" 
 							to="/login"
 							onClick={drawerToggle}
-							><FontAwesome name='sign-in' className="fa-yellow" /> Login
+							>Login <FontAwesome name='sign-in' className="fa-drawer-nav" />
 							</Link>	
 						</div>
-					</div>
-					{/*<Link to="/register"><FontAwesome name='pencil-square' className="fa-yellow" /> Register</Link>*/}
-					
+					</div>	
 				</div>
 			)
 		}

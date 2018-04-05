@@ -67,9 +67,8 @@ class AddToWatchList extends Component {
 				const usersMovRef = firebase.database().ref('watchlist_mov/' + this.state.userUid)
 				const movie = this.props.movie;
 
-				if(snap.val()!==null && snap.val()<15){	
+				if(snap.val()!==null && snap.val()<126){	
 					//increment counter when add to watchlist
-					//const usersMovCountRef = firebase.database().ref('watchlist_mov_count/' + this.state.userUid)
 					console.log('COUNTER: ', snap.val())
 					let counter = snap.val()
 					usersMovCountRef.child('counter').set(++counter)
@@ -80,7 +79,6 @@ class AddToWatchList extends Component {
 					usersMovSortRef.child('sid').set(++sid)
 					.then(()=>{
 						//add movie to watchlist
-						//id текущего фильма будет key
 						usersMovRef.child(movie.id).set({
 							id: movie.id,
 							name: movie.title,
@@ -89,8 +87,6 @@ class AddToWatchList extends Component {
 						})
 					})
 					
-					
-
 				} else if(snap.val()==null) {
 					//initial
 					usersMovCountRef.child('counter').set(1)
@@ -112,11 +108,8 @@ class AddToWatchList extends Component {
 				}
 			})	
 
-
-
 		})
-
-			
+		
 	}
 
 	
@@ -138,7 +131,7 @@ class AddToWatchList extends Component {
 			if(user){
 				this.setState({userUid: user.uid})
 				//console.log('FirebaseUser ADDTO: ', user)
-				//Проверяем есть ли у юзера этот мув
+				//check whether user has this movie or not
 				this.checkMovie(this.props.movie.id);	
 			} else {
 				this.setState({userUid: null, inWatchList: false})
