@@ -54,8 +54,7 @@ class AddToWatchListTv extends Component {
 		//Получаем значение счетчика добавленных элементов (для сортировки по добавлению в список)
 		firebase.database().ref('watchlist_tv_sort_count/'  + this.state.userUid + '/sid').once('value', (res)=>{
 			let sid = res.val();
-			//console.log("SID: ", sid)
-
+			
 			//Получаем значение счетчика лимита
 			firebase.database().ref('watchlist_tv_count/' + this.state.userUid + '/counter').once('value', (snap)=>{
 				const usersTvCountRef = firebase.database().ref('watchlist_tv_count/' + this.state.userUid)
@@ -67,7 +66,7 @@ class AddToWatchListTv extends Component {
 				const usersTvRef = firebase.database().ref('watchlist_tv/' + this.state.userUid)
 				const tv = this.props.tv;
 
-				if(snap.val()!==null && snap.val()<126){	
+				if(snap.val()!==null && snap.val()<84){	
 					//increment counter when add to watchlist
 					//console.log('COUNTER: ', snap.val())
 					let counter = snap.val()
@@ -115,22 +114,19 @@ class AddToWatchListTv extends Component {
 	
 	checkTv = (TvId)=>{
 		firebase.database().ref('watchlist_tv/' + this.state.userUid + '/' + TvId).on('value', (snap)=>{
-			//console.log('SNAP: ', snap.val())
 			//если фильм уже в watchlist'e то обновим стейт
 			if(snap.val()!==null){
 				this.setState({inWatchList: true})
 			} else {
 				this.setState({inWatchList: false})
 			}
-		})
-		
+		})	
 	}
 
 	componentDidMount(){
 		firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({userUid: user.uid})
-				//console.log('FirebaseUser ADDTO: ', user)
 				//check whether user has this tv or not
 				this.checkTv(this.props.tv.id);	
 			} else {

@@ -15,6 +15,9 @@ const RegLogUserDrawer = ({user, drawerToggle})=>{
 						<div className="user-navbar-drawer" >
 							{user.displayName}	
 						</div>
+						<div className="avatar-mail-drawer">
+							{user.email}
+						</div>
 					</div>
 				</div>
 			)

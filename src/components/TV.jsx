@@ -55,7 +55,7 @@ class TV extends Component {
 		
 		setTimeout(()=>{
 			if(reqInProgress){
-				console.log('ReqInProgress inside timer: ', reqInProgress)
+				//console.log('ReqInProgress inside timer: ', reqInProgress)
 				this.setState({isLoading: true});
 			}
 			
