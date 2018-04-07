@@ -3,6 +3,7 @@ import HorizMovies from './HorizMovies'
 import NowPlayingMov from './NowPlayingMov'
 import AiringTodayTv from './AiringTodayTv'
 import {defineMessages, injectIntl} from 'react-intl'
+import UpcomingMov from './UpcomingMov'
 
 const messages = defineMessages({
 	home_h1: {
@@ -32,6 +33,7 @@ const Home = (props)=>{
 					/>
 					</div>
 					<AiringTodayTv heading={props.intl.formatMessage(messages.airing_today_tv_h2)}/>
+					<UpcomingMov heading='Upcoming' />
 				</div>	
 			</div>
 		)

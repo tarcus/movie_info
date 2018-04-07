@@ -1,5 +1,6 @@
 import React from 'react';
 import {defineMessages, injectIntl} from 'react-intl'
+//import FontAwesome from 'react-fontawesome'
 
 const year = new Date().getFullYear();
 
@@ -12,10 +13,11 @@ const messages = defineMessages({
 
 const Footer = (props)=>{
 	return(
-		<div className="footer">
-			<p>
+		<div className="footer row">
+			<div>
 				Copyright &copy; {year} {props.intl.formatMessage(messages.footer_copyright)}	
-			</p>
+			</div>
+			{/*<div className="footer-mail"> <a href="mailto:someone@example.com"><FontAwesome name='envelope'  /> watch_this@gmail.com</a></div>*/}
 		</div>
 	)
 }

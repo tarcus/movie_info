@@ -11,6 +11,10 @@
   "addtowatchlist.add_to_watchlist": "ADD TO WATCHLIST",
   "addtowatchlist.btn_title": "Please register to be able to add movies in your watchlist",
   "addtowatchlist.limit_error": "You have exceeded the watchlist size limit!",
+  "addtowatchlisttv.in_watchlist": "IN WATCHLIST",
+  "addtowatchlisttv.add_to_watchlist": "ADD TO WATCHLIST",
+  "addtowatchlisttv.btn_title": "Please register to be able to add movies and TV Shows in your watchlist",
+  "addtowatchlisttv.limit_error": "You have exceeded the watchlist size limit!",
   "navbar_about.nav": "Actors",
   "navbar_movies.nav": "Movies",
   "navbar_series.nav": "Series",
@@ -100,5 +104,6 @@
   "watchlist.tab_tv_title": "TV Show Watchlist",
   "watchlist.btn_load_more": "Load More",
   "watchlist.btn_done": "Done",
-  "watchlist.guest": "Register or sign in, then you will be able to add movies in your watchlist. And watch them later."
+  "watchlist.guest": "Register or sign in, then you will be able to add movies in your watchlist. And watch them later.",
+  "watchlist.watch_outside_title_tv": "Search TV Show Outside"
 }

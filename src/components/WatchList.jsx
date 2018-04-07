@@ -366,7 +366,7 @@ class WatchList extends Component {
 
 		return(
 			<div className="home row">
-				<div className="home-col-1">
+				<div className="watchlist-col">
 					<Tabs onSelect={index => this.tvTabSelect(index)}>
 					    <TabList>
 					      <Tab>{this.props.intl.formatMessage(messages.watchlist_tab_movie_title)}</Tab>

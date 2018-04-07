@@ -36,6 +36,7 @@ class Movies extends Component{
 	
 	loadFiltered = ()=>{	
 		const tv = this.props.tv;
+		const mediaType = tv ? 5 : 50;
 		//получаем язык 
 		const lang = {params:{
 			language: this.props.intl.locale
@@ -47,8 +48,8 @@ class Movies extends Component{
 		const filteredOptions = {params: paramsFromUrl}
 
 		//If with_original_language from params !==en , set vote_count_gte to 1
-		const voteCountGte = (oL=='en' || oL===null || oL===undefined) ? 50 : 1;
-		//console.log('VOTECOUNT: ', voteCountGte)
+		const voteCountGte = (oL=='en' || oL===null || oL===undefined) ? mediaType : 1;
+		//console.log('VOTE: ', voteCountGte)
 		const defaultOptions = {
 				url: `${baseUrl}/discover/${tv ? 'tv' : 'movie'}`,
 				params: {

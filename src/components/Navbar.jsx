@@ -7,6 +7,7 @@ import SearchForm from './SearchForm'
 import Drawer from './Drawer'
 import RegLogUser from './RegLogUser'
 import {defineMessages, injectIntl} from 'react-intl'
+import logoImg from '../images/logo2.png'
 
 //i18n
 const messages = defineMessages({
@@ -67,7 +68,7 @@ class Navbar extends Component {
 				<div className="navbar">
 					<div className="navbar-logo-wrap">
 						<span className="navbar-logo">
-							<Link to="/"></Link>
+							<Link to="/"><img src={logoImg} alt="logo"/></Link>
 						</span>
 					</div>
 					

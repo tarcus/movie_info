@@ -350,8 +350,10 @@ const countryOptions = [
     { value: 'ru', label: 'Russia' },
     { value: 'de', label: 'Germany'}, 
     { value: 'fr', label: 'France' },
-    { value: 'cn', label: 'China'}
-    
+    { value: 'it', label: 'Italy' },
+    { value: 'cn', label: 'China'},
+    { value: 'ja', label: 'Japan'},
+    { value: 'ko', label: 'Korea'}   
 ];
 
 const countryOptionsRu = [
@@ -359,8 +361,10 @@ const countryOptionsRu = [
     { value: 'ru', label: 'Россия' },
     { value: 'de', label: 'Германия'}, 
     { value: 'fr', label: 'Франция' },
-    { value: 'cn', label: 'Китай'}
-    
+    { value: 'it', label: 'Италия' },
+    { value: 'cn', label: 'Китай'},
+    { value: 'ja', label: 'Япония'},
+    { value: 'ko', label: 'Корея'}   
 ];
 
 

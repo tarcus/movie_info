@@ -26,11 +26,6 @@ module.exports = merge(common, {
 devServer: {
     //contentBase: path.resolve(__dirname,'/dist/'),
     historyApiFallback: true,
-    // historyApiFallback: {
-    //          rewrites: [
-    //              { from: /^\/movies/, to: '/index.html' },
-    //          ],
-    //         index: '/index.html',
-    //     },
+    
   }
 })

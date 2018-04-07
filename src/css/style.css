@@ -295,15 +295,23 @@ body {
 
 .navbar-logo{
 	display: inline-block;
-	margin-right: 20px;
+	margin-right: 10px;
+}
+
+.navbar-logo-wrap {
+	margin-left: 20px;
+}
+
+.navbar-logo-wrap img {
+	height: 32px;
 }
 
 .navbar-logo a {
-	display: inline-block;
-	background-image: url('../images/imdb-logo.png');
+	/*display: inline-block;
+	background-image: url('../images/logo3y.png');
 	background-size: cover;
-	width: 70px;
-	height: 65px;	
+	width: 102px;
+	height: 40px;	*/
 }
 
 
@@ -516,19 +524,28 @@ body {
 /*****FOOTER*****/
 .footer {
 	
-	line-height:60px;
+	/*line-height:60px;*/
+	/*display: flex;
+	flex-wrap: wrap;*/
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
 	height: 60px;
 	margin-top: 60px;
 	color: var(--nav-link-color);
 	background-color: var(--secondary-bg-color);
 }
 
-.footer p {
-	text-align: center;
+.footer a {
+	text-decoration: none;
+	color: var(--nav-link-color);
+	margin-left: 10px;
 }
 
-.plot {
 
+
+.footer-mail {
+	/*flex-basis: 100%;*/
 }
 
 .mov-heading {
@@ -543,10 +560,6 @@ body {
 .small-info-item{
 	margin-bottom: 20px;
 }
-.imdb-rating {
-
-}
-
 
 /*****Horiz Movies*****/
 
@@ -563,10 +576,8 @@ body {
 	max-width: 100%;
 }
 
-/***Ебучая карусель ***/
+/***Slick***/
 .inner-slider-movie {
-	
-	
 	margin-top: 20px;
 }
 
@@ -575,8 +586,6 @@ body {
 	justify-content: center;	
 	
 }
-
-
 
 .horiz-mov-item-carousel-inner {
 	display: flex;
@@ -589,8 +598,7 @@ body {
 	width: 92px;
 	height: 138px;
 	margin-top: 4px;
-	box-shadow: var(--small-card-shadow);
-	
+	box-shadow: var(--small-card-shadow);	
 }
 
 .horiz-mov-heading{
@@ -606,7 +614,6 @@ body {
 	flex-basis: 100%;
 	text-align: center;
 }
-
 
 .movies-view-container {
 	min-height: 80vh;
@@ -883,7 +890,7 @@ body {
 }
 
 /*w154*/
-.actor-w154-wrap {
+/*.actor-w154-wrap {
 	width: 162px;
 	height: 270px;
 	margin: 4px;
@@ -901,14 +908,14 @@ body {
 .actor-w154-name {
 	text-align: center;
 	margin-top: 6px;
-}
+}*/
 
 /*****TRAILERS*****/
 .trailers-wrap {
 	display: flex;
 	flex-wrap: wrap;
 	flex-basis: 100%;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .trailers-wrap h2 {
@@ -919,18 +926,17 @@ body {
 	flex-basis: 100%;
 }
 
-.search-outside a {
+/*.search-outside a {
 	text-decoration: none;
 	padding: .5em .75em;
 	color: #fff;
-	/*border: 1px solid var(--secondary-bg-color);*/
 	background-color: var(--orange-bg-color);
 }
 
 .search-outside a:hover {
 	background-color: var(--secondary-bg-color);
 	color: #fff;
-}
+}*/
 
 /*****ACTORS*****/
 
@@ -1270,7 +1276,7 @@ h1.search {
 .user-dropdown {
 	position: absolute;
 	width: 200px;
-	height: 150px;
+	height: 110px;
 	top: 45px;
 	left: -36px;
 	background-color: #fff;
@@ -1440,7 +1446,7 @@ h1.search {
 .airing-today-wrap {
 	margin-top: 15px;
 	/*height: 700px;*/
-	justify-content: space-between;
+	/*justify-content: space-between;*/
 }
 
 .airing-today-wrap h2 {
@@ -1694,6 +1700,10 @@ h1.search {
 	color: #fff;
 }
 
+.watchlist-col {
+	flex-basis: 100%;
+}
+
 /*****AVATAR UPLOAD MODAL*****/
 
 .close-modal {
@@ -1790,6 +1800,10 @@ h1.search {
 	padding: .5rem .75rem;
 	}
 
+	.next-air-date {
+		font-size: .65rem;
+	}
+
 }
 
 @media (min-width: 320px) and (max-width: 375px){
@@ -1804,7 +1818,7 @@ h1.search {
 		display: block;	
 	}
 
-	.footer p {
+	.footer {
 		font-size: .8rem;
 	}
 
@@ -1812,6 +1826,12 @@ h1.search {
 		width: 95%;
 	}
 
+}
+
+@media (min-width: 360px) and (max-width: 375px) {
+	.filmography-item {
+		margin-bottom: 20px;
+	}
 }
 
 
@@ -1824,6 +1844,7 @@ h1.search {
 	.filmography-container {
 		justify-content: space-evenly;
 	}
+
 
 	.actor-biography-wrap {
 		min-width: 310px;
@@ -1905,7 +1926,12 @@ h1.search {
 		display: flex;
 		justify-content: center;
 		flex-basis: 100%;
-		height: 65px;
+		margin: 12px 0 0 0;
+		/*height: 65px;*/
+	}
+
+	.navbar-logo {
+		margin: 0;
 	}
 
 	/*SEARCH FORM DROPDOWN*/
@@ -2099,7 +2125,7 @@ h1.search {
 	}
 
 	.drawer-toggler-btn {
-	    left: 100px;
+	    left: 170px;
 	}
 
 	/*SEARCH FORM*/
@@ -2205,6 +2231,18 @@ h1.search {
 
 	.home-col-1 {
 		flex-basis: 1024px;	
+	}
+
+	.watchlist-col {
+		flex-basis: 1024px;
+	}
+
+	.filmography-item {
+		margin: 5px;
+	}
+
+	.actors-view-container {
+		width: 975px;
 	}
 }
 

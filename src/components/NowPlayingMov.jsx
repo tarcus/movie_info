@@ -36,7 +36,7 @@ class NowPlayingMov extends Component {
 				params: {
 					language: this.props.intl.locale,
 					api_key,
-					//region: 'US',
+					//region: 'RU',
 					page:  this.props.movie ? Math.floor((Math.random() * 3) + 1) : 1 //генерит от 1-3
 				}
 			}

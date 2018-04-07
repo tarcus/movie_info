@@ -46,7 +46,7 @@ class Similar extends Component {
 		const urlPart = this.props.mediaType=='tv' ? 'series' : 'movies' ;
 		return(
 			<div className="similar-wrap">
-				{this.state.data.slice(0, 6).map((item)=>{
+				{this.state.data.slice(0, 8).map((item)=>{
 					return <div className="similar-item" key={item.id}>
 						<Link to={`/${urlPart}/${item.id}`}>
 							<img src={`https://image.tmdb.org/t/p/w154/${item.poster_path}`}/>
