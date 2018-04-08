@@ -154,7 +154,7 @@ class WatchList extends Component {
 				snap.forEach((item)=>{
 					dataOrdered.push(item.val())
 				})
-				console.log('DATA ORDERED: ', dataOrdered)
+				//console.log('DATA ORDERED: ', dataOrdered)
 				this.setState({movList: dataOrdered}, ()=>{
 					//save to localStorage
 					localStorage.setItem('watchlist_mov_' + this.state.uid, JSON.stringify(this.state.movList))
@@ -178,7 +178,7 @@ class WatchList extends Component {
 				snap.forEach((item)=>{
 					dataOrdered.push(item.val())
 				})
-				console.log('DATA ORDERED TV: ', dataOrdered)
+				//console.log('DATA ORDERED TV: ', dataOrdered)
 				this.setState({tvList: dataOrdered}, ()=>{
 					//save to localStorage
 					localStorage.setItem('watchlist_tv_' + this.state.uid, JSON.stringify(this.state.tvList))
@@ -197,19 +197,15 @@ class WatchList extends Component {
 	getInitFromLocal = ()=>{
 		//Loading data from localStorage
 		const movFromLocal = JSON.parse(localStorage.getItem('watchlist_mov_' + this.state.uid))
-		//if(movFromLocal!==null){
 			this.setState({movList: movFromLocal})
-			console.log('DATA FROM LOCALSTORAGE')
-		//} else {
-		//	this.setState({movList: []})
-		//}
+			//console.log('DATA FROM LOCALSTORAGE')	
 	}
 
 	getInitFromLocalTv = ()=>{
 		//Loading data from localStorage
 		const tvFromLocal = JSON.parse(localStorage.getItem('watchlist_tv_' + this.state.uid))
 			this.setState({tvList: tvFromLocal})
-			console.log('DATA FROM LOCALSTORAGE TV')
+			//console.log('DATA FROM LOCALSTORAGE TV')
 	}
 
 	delTvFromList = (e, tvId)=>{
@@ -287,7 +283,7 @@ class WatchList extends Component {
 
 	tvTabSelect = (tabNum)=>{
 		if(tabNum===1){
-			console.log('TVTABFIRE')
+			//console.log('TVTABFIRE')
 			//get session_mov_id from localstorage
 			 const sessionTvId = localStorage.getItem('session_tv_id')
 			// //ref to session_mov_id in the firebase

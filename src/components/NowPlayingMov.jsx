@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import TextTruncate from 'react-text-truncate'
 import NextTVAirDate from './NextTVAirDate'
 import Spinner from './Spinner'
+import {genKey} from '../utils/helpers'
 //import Img from 'react-image'
 
 const messages = defineMessages({
@@ -81,7 +82,7 @@ class NowPlayingMov extends Component {
 		
 		const bigImg = this.state.data.slice(...commonRand).map((item)=>{
 				if(item.backdrop_path !==null){ 
-					return <div className="big-img" key={item.id}>
+					return <div className="big-img" key={genKey()}>
 								<img src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`} />
 								<div className="inside-wrap">
 									<div className="poster-inside">
@@ -107,7 +108,7 @@ class NowPlayingMov extends Component {
 
 		const smallImages = this.state.data.slice(...sliceParamsForSmallImg()).map((item)=>{
 			  if(item.backdrop_path !==null){ 
-			  	return <div className="small-img" key={item.id}>
+			  	return <div className="small-img" key={genKey()}>
 				  			<Link to={movie ? `/movies/${item.id}` : `/series/${item.id}`}>
 								<img src={`https://image.tmdb.org/t/p/w185/${item.backdrop_path}`} />
 							</Link>

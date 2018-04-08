@@ -36,19 +36,6 @@ firebase.initializeApp(config);
 
 
 
-//отслеживаем состояние юзера
-// firebase.auth().onAuthStateChanged((firebaseUser)=>{
-// 	if(firebaseUser){
-// 		console.log('FirebaseUser index.js', firebaseUser)
-// 	} else {
-// 		console.log('not logged in')
-// 	}
-// })
-
-
-
-
-
 ReactDOM.render(
 	<IntlProvider locale={locale} messages={localeData}>
 		<BrowserRouter>

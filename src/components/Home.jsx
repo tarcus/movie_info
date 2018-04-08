@@ -13,6 +13,10 @@ const messages = defineMessages({
 	airing_today_tv_h2: {
 		id: 'airing_today_tv.h2',
 		defaultMessage: 'Airing Today'
+	},
+	upcoming_mov_h2: {
+		id: 'upcoming_mov.h2',
+		defaultMessage: 'Upcoming Movies'
 	}
 }) 
 
@@ -33,7 +37,7 @@ const Home = (props)=>{
 					/>
 					</div>
 					<AiringTodayTv heading={props.intl.formatMessage(messages.airing_today_tv_h2)}/>
-					<UpcomingMov heading='Upcoming' />
+					<UpcomingMov heading={props.intl.formatMessage(messages.upcoming_mov_h2)} />
 				</div>	
 			</div>
 		)

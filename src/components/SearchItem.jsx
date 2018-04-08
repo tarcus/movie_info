@@ -30,7 +30,6 @@ const SearchItem = ({intl, data})=>{
 		person: 'actors'
 	}
 
-	//Movies for the person
 	if(data.media_type=='person'){
 		//если в массиве один из элементов null то все идет по пизде, отфильтруем сперва
 		const filtered = data.known_for.filter((item)=>{
@@ -38,8 +37,7 @@ const SearchItem = ({intl, data})=>{
 		})
 		var knownAs = filtered.map((item, i, arr)=>{
 		return <p key={item.id}>{`${item.title} ${arr.length>(i+1) ? ", " : "." }`} </p>
-		})
-		
+		})	
 	}
 	
 

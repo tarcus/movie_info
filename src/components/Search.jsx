@@ -65,6 +65,7 @@ class Search extends Component {
 			<div className="search-results-container row">
 				<SearchView data={this.state.data}/>
 				<div className="pagination-wrapper">
+					{this.state.data.results.length>0 && 
 							<Pagination
 					          activePage={this.state.data.page}
 					          itemsCountPerPage={20}
@@ -79,6 +80,7 @@ class Search extends Component {
 					          nextPageText='&rarr;'
 					          prevPageText='&larr;'
 					        />
+					}        
 				</div>
 			</div>
 		)

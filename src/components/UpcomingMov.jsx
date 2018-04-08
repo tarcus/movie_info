@@ -12,37 +12,40 @@ class UpcomingMov extends Component {
 	}
 
 	getUpcoming = ()=>{
+		const lang = this.props.intl.locale
 		const options = {	
 			timeout: 3000,
 			url: `${baseUrl}/movie/upcoming`,
 			params: {
 				api_key,
-				language: this.props.intl.locale,
-				//region: 'US',
+				language: lang,
+				//region: 'RU',
 				page: 1	
 			}
 		}
+		
+		const reqF = ()=>{
+			return axios(options)
+		}
 
-		axios(options)
-		.then((response)=>{
-			//Make second request
-			const res = [...response.data.results]
-			axios({...options, ...{params: {api_key, language: this.props.intl.locale, page: 3}}})
-			.then((response)=>{
-				const combined = [...res, ...response.data.results]
-				console.log('RES: ', combined)
-				this.setState({results: combined})
-			})
-			.catch((error)=>{
-				console.log(error)
-			})
-			//console.log('Airing Today: ',response.data)
-			
-		})
+		const reqS = ()=>{
+			return axios({...options, ...{params: {api_key, language: lang, page: 2}}})
+		}
+
+		const reqT = ()=>{
+			return axios({...options, ...{params: {api_key, language: lang, page: 3}}})
+		}
+
+		axios.all([reqF(), reqS(), reqT()])
+		.then(axios.spread((resF, resS, resT)=>{
+			//console.log(resF.data, resS.data, resT.data)
+			const combined = [...resF.data.results, ...resS.data.results, ...resT.data.results]
+			this.setState({results: combined})
+
+		}))
 		.catch((error)=>{
 			console.log(error)
 		})	
-
 	}
 
 	
@@ -51,13 +54,20 @@ class UpcomingMov extends Component {
 	}
 
 	render(){
+		const data = this.state.results;
+		//API sometimes return duplicates, filter 
+		const removeDuplicates = data.filter((item, i, arr)=>{
+		    return arr.map(mapObj => mapObj.id).indexOf(item.id) === i
+		})
+		//console.log('REMOVE DUPL: ', removeDuplicates)
+		
 		//сортируем по original language
-		const sorted = this.state.results.filter((item)=>{
+		const sorted = removeDuplicates.filter((item)=>{
 			return item.vote_average > 4.5
 		})
 
-		const today = sorted.slice(0, 25).map((item)=>{
-			return <div className="filmography-item" key={genKey()}>
+		const fresh = sorted.slice(0, 30).map((item)=>{
+			return <div className="filmography-item" key={item.id}>
 				<Link to={`/movies/${item.id}`}>
 					<img src={`https://image.tmdb.org/t/p/w185/${item.poster_path}`}/>
 				</Link>
@@ -73,7 +83,7 @@ class UpcomingMov extends Component {
 		return(
 			<div className="airing-today-wrap row">
 				<h2 className="w-100">{this.props.heading}</h2>
-				{today}
+				{fresh}
 			</div>
 		)
 	}
