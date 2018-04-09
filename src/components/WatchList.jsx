@@ -5,9 +5,6 @@ import 'react-tabs/style/react-tabs.css';
 import FontAwesome from 'react-fontawesome'
 import {defineMessages, injectIntl} from 'react-intl'
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed'
-//эти два ниже не нужны
-import queryString from 'query-string'
-import merge from 'deepmerge'
 //import LazyLoad from 'react-lazyload';
 
 //i18n
@@ -56,6 +53,36 @@ class WatchList extends Component {
 		setTimeout(()=>{const topEl = document.querySelector('.react-tabs__tab-list')	
 			scrollIntoViewIfNeeded(topEl, { duration: 500, easing: 'ease', offset: {top: -5}})
 		}, 350)	
+	}
+
+	getTotalMovItems = ()=>{
+		firebase.database().ref('watchlist_mov_count/' + this.state.uid + '/counter').once('value')
+		.then((snap)=>{
+			//Load recently added
+			if(this.state.movList.length < snap.val()){
+				this.getMore()
+				//console.log("NEED LOAD MORE")
+			}
+			//console.log('TOTAL MOV: ', snap.val())
+		})
+		.catch((error)=>{
+			console.log('DB Error: ', error)
+		})	
+	}
+
+	getTotalTvItems = ()=>{
+		firebase.database().ref('watchlist_tv_count/' + this.state.uid + '/counter').once('value')
+		.then((snap)=>{
+			//Load recently added
+			if(this.state.tvList.length < snap.val()){
+				this.getMoreTv()
+				//console.log("NEED LOAD MORE TV")
+			}
+			//console.log('TOTAL TV: ', snap.val())
+		})
+		.catch((error)=>{
+			console.log('DB Error: ', error)
+		})	
 	}
 
 	getOuterLinks = ()=>{
@@ -197,15 +224,19 @@ class WatchList extends Component {
 	getInitFromLocal = ()=>{
 		//Loading data from localStorage
 		const movFromLocal = JSON.parse(localStorage.getItem('watchlist_mov_' + this.state.uid))
-			this.setState({movList: movFromLocal})
+			this.setState({movList: movFromLocal}, ()=>{
+				//Load more if there is more
+				this.getTotalMovItems()
+			})
 			//console.log('DATA FROM LOCALSTORAGE')	
 	}
 
 	getInitFromLocalTv = ()=>{
 		//Loading data from localStorage
 		const tvFromLocal = JSON.parse(localStorage.getItem('watchlist_tv_' + this.state.uid))
-			this.setState({tvList: tvFromLocal})
-			//console.log('DATA FROM LOCALSTORAGE TV')
+			this.setState({tvList: tvFromLocal}, ()=>{
+				this.getTotalTvItems()
+			})
 	}
 
 	delTvFromList = (e, tvId)=>{
@@ -264,6 +295,7 @@ class WatchList extends Component {
 				this.setState({uid: user.uid}, ()=>{
 					//get session_mov_id from localstorage
 					const sessionMovId = localStorage.getItem('session_mov_id');
+					
 					//ref to session_mov_id in the firebase
 					firebase.database().ref('session_mov_id/'  + this.state.uid + '/smid').once('value', (snap)=>{	
 						const movFromLocal = JSON.parse(localStorage.getItem('watchlist_mov_' + this.state.uid))

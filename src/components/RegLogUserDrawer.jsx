@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
 import userAvatar from '../images/avatar.png'
 
-const RegLogUserDrawer = ({user, drawerToggle})=>{
+const RegLogUserDrawer = ({user, drawerToggle, loginTr})=>{
 	
 		if(user){
 			return(
@@ -33,7 +33,7 @@ const RegLogUserDrawer = ({user, drawerToggle})=>{
 							<Link className="drawer-login-link" 
 							to="/login"
 							onClick={drawerToggle}
-							>Login <FontAwesome name='sign-in' className="fa-drawer-nav" />
+							>{loginTr} <FontAwesome name='sign-in' className="fa-drawer-nav" />
 							</Link>	
 						</div>
 					</div>	

@@ -79,6 +79,8 @@ class Search extends Component {
 					          activeLinkClass='active-link'
 					          nextPageText='&rarr;'
 					          prevPageText='&larr;'
+					          linkClassFirst='page-link-first'
+					  		  linkClassLast='page-link-last'
 					        />
 					}        
 				</div>

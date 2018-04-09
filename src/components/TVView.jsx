@@ -153,7 +153,7 @@ const TVView = ({intl, tv, cast, isLoading, language})=>{
 						  value={tv.vote_average}
 						  edit={false}
 						  size={24}
-						  color2={'#E6CF34'} 
+						  color2={'#FFCC00'} 
 						 />
 					</div>
 					<div className="movie-page-info-item">

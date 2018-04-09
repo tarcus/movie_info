@@ -53,7 +53,8 @@ const ActorsView = ({intl, actor})=>{
 			<h1>{actor.name}</h1>
 			<div className="actor-info-wrap">
 				<div className="actor-img-wrap">
-				<Img src={[`https://image.tmdb.org/t/p/w185/${actor.profile_path}`]} loader={<Spinner />} />
+				{actor.profile_path && <Img src={[`https://image.tmdb.org/t/p/w185/${actor.profile_path}`]} loader={<Spinner />} />}
+				
 				</div>
 				<div className="actor-biography-wrap">
 					<div className="actor-bio-item">

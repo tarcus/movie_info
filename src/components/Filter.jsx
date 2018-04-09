@@ -149,6 +149,7 @@ class Filter extends Component {
 				        options={tv ? genresOptionsTVLang : genresOptionsMovieLang}
 						multi
 						simpleValue
+						searchable={false}
 				     	/>
 					</div>
 
@@ -161,13 +162,9 @@ class Filter extends Component {
 				        onChange={this.handleSort}
 				        options={tv ? sortByTVLang : sortByMoviesLang}
 				        clearable={false}
-
+						searchable={false}
 				     	/>
 					</div>
-
-					
-
-					
 
 					<div className="movie-filter-item">
 						{/*<h3>{this.props.intl.formatMessage(messages.from_year)}</h3>*/}
@@ -178,6 +175,7 @@ class Filter extends Component {
 				        onChange={this.handleFromYear}
 				        options={getYearOptions(1970)}
 				        simpleValue
+				        searchable={false}
 				     	/>
 					</div>
 					<div className="movie-filter-item">
@@ -189,11 +187,9 @@ class Filter extends Component {
 				        onChange={this.handleEndYear}
 				        options={getYearOptions(1970)}
 				        simpleValue
+				        searchable={false}
 				     	/>
 					</div>
-
-
-
 
 					<div className="movie-filter-item">
 						{/*<h3>{this.props.intl.formatMessage(messages.year)}</h3>*/}
@@ -204,9 +200,9 @@ class Filter extends Component {
 				        onChange={this.handleYear}
 				        options={getYearOptions(1975)}
 				        simpleValue
+				        searchable={false}
 				     	/>
 					</div>
-
 
 					<div className="movie-filter-item">
 						{/*<h3>{this.props.intl.formatMessage(messages.country)}</h3>*/}
@@ -216,12 +212,11 @@ class Filter extends Component {
 				        value={params.with_original_language}
 				        onChange={this.handleOrigLang}
 				        options={countryOptionsLang}
+						searchable={false}
 				        simpleValue
 				     	/>
 					</div>
-
-				</div>
-								
+				</div>					
 			</div>
 		)
 	}

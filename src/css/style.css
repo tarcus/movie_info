@@ -694,6 +694,18 @@ body {
 	flex-basis: 100%;
 }
 
+/*.page-link-next {
+	display: none;
+}*/
+
+/*first last links*/
+.page-link-first {
+	display: none;
+} 
+
+.page-link-last {
+	display: none;
+}
 
 /*****MOVIE PAGE*****/
 
@@ -1176,7 +1188,7 @@ h1.search {
 	background-color: #fff;
 	box-shadow: var(--big-card-shadow);
 	border-radius: 3px;
-	transition: all .6s;
+	transition: all .3s;
 	visibility: hidden;
   	opacity: 0;
 }
@@ -1471,6 +1483,10 @@ h1.search {
 	border: 1px solid lightgray;
 }
 
+.form-control input:focus {
+	outline: red;
+}
+
 .login-form label {
 	flex-basis: 100%;
 }
@@ -1663,16 +1679,16 @@ h1.search {
 
 @media screen and (max-width: 320px) {
 	.single-movie-card-info {
-    font-size: 14px;
+    	font-size: 14px;
 	}
 
 	.actor-w92-wrap {
 		margin: 0;
 	}
 
-	.page-link {
-	padding: .5rem .75rem;
-	}
+	/*.page-link {
+		padding: .5rem .75rem;
+	}*/
 
 	.next-air-date {
 		font-size: .65rem;
@@ -1763,6 +1779,7 @@ h1.search {
 	.single-movie-card-poster img {
 		max-width: 100%;
 		height: auto;
+		min-height: 180px;
 	}
 
 	/*FILTER*/
@@ -2058,7 +2075,7 @@ h1.search {
 	}
 
 	.search-form {
-		width: 90%;
+		width: 100%;
 	}
 
 	.search-form input[type="text"]:focus {

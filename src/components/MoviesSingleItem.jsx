@@ -38,7 +38,7 @@ const MoviesSingleItem = ({intl, data})=>{
 					  edit={false}
 					  size={24}
 					  half={false}
-					  color2={'#E6CF34'} 
+					  color2={'#FFCC00'} 
 					 />
 					</div>	
 				</div>

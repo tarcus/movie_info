@@ -40,11 +40,11 @@ module.exports = merge(common, {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
         		fallback: 'style-loader',
-          		use: 'css-loader',
+          		//use: 'css-loader',
               //Minify css, comment css above
-              // use: [
-              //     { loader: 'css-loader', options: { minimize: true } }
-              // ],
+              use: [
+                  { loader: 'css-loader', options: { minimize: true } }
+              ],
               //Без publicPath не работали изображения в css background-image ...
               publicPath: "../../"
         }),

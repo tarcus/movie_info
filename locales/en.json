@@ -25,6 +25,7 @@
   "avatar_upload.limit_msg": "File size is too big.",
   "drawer.watchlist": "Watchlist",
   "drawer.log_out": "Log Out",
+  "drawer.login": "Login",
   "filter.genres": "Genres",
   "filter.year": "Year",
   "filter.sort_by": "Sort by",

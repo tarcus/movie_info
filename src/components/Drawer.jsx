@@ -14,6 +14,10 @@ const messages = defineMessages({
 	drawer_log_out: {
 		id: 'drawer.log_out',
 		defaultMessage: 'Log Out'
+	},
+	drawer_login: {
+		id: 'drawer.login',
+		defaultMessage: 'Login'
 	}
 }) 
 
@@ -27,7 +31,7 @@ const Drawer = (props)=> {
 		return(
 			<div className={drawerClasses}>
 				<div className="drawer-header">
-					<RegLogUserDrawer user={props.user} drawerToggle={props.drawerToggle} />
+					<RegLogUserDrawer user={props.user} drawerToggle={props.drawerToggle} loginTr={props.intl.formatMessage(messages.drawer_login)} />
 					<span className="drawer-close-btn" onClick={props.drawerToggle}>
 						&times;
 					</span>

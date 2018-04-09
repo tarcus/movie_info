@@ -44,14 +44,14 @@ class Navbar extends Component {
 
 
 	componentDidMount(){
-		//отслеживаем состояние юзера
+		//listening user's state changes
 		firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({user: user})
 				//console.log('FirebaseUser Nav', user)
 			} else {
 				this.setState({user: ''})
-				console.log('not logged in')
+				//console.log('not logged in')
 			}
 		})
 

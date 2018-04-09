@@ -122,7 +122,7 @@ const MovieView = ({intl, movie, cast, crew, isLoading, language})=>{
 						  value={movie.vote_average}
 						  edit={false}
 						  size={24}
-						  color2={'#E6CF34'} 
+						  color2={'#FFCC00'} 
 						 />
 						 
 					</div>
