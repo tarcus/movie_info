@@ -6,6 +6,8 @@ import FontAwesome from 'react-fontawesome'
 import {defineMessages, injectIntl} from 'react-intl'
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed'
 //import LazyLoad from 'react-lazyload';
+import FlipMove from 'react-flip-move';
+import {genKey} from '../utils/helpers'
 
 //i18n
 const messages = defineMessages({
@@ -290,7 +292,7 @@ class WatchList extends Component {
 
 	componentDidMount(){
 		//получаем юзера
-		firebase.auth().onAuthStateChanged((user)=>{
+		this.fireUser = firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({uid: user.uid}, ()=>{
 					//get session_mov_id from localstorage
@@ -315,7 +317,6 @@ class WatchList extends Component {
 
 	tvTabSelect = (tabNum)=>{
 		if(tabNum===1){
-			//console.log('TVTABFIRE')
 			//get session_mov_id from localstorage
 			 const sessionTvId = localStorage.getItem('session_tv_id')
 			// //ref to session_mov_id in the firebase
@@ -333,13 +334,18 @@ class WatchList extends Component {
 
 	componentWillUnmount(){
 		//Detach firebase listeners
-		firebase.database().ref('watchlist_mov/' + this.state.uid).off('child_removed')
+		this.fireUser();
+		//firebase.database().ref('watchlist_mov/' + this.state.uid).off('child_removed')
 	}
 
 	render(){
 		//console.log("WATCHLIST RENDER")
 		const user = this.state.uid;
-		const guest = <div>{this.props.intl.formatMessage(messages.watchlist_guest)}</div>
+		//const guestArr = [{message: 'Fuck me'}];
+		const guest = <div key={genKey()}>{this.props.intl.formatMessage(messages.watchlist_guest)}</div>
+		// const guest = guestArr.map((item)=>{
+		// 	return <span key={genKey()}>{item.message}</span>
+		// })
 		const movList = this.state.movList.map((item)=>{
 			return  <div className="watchlist-card" key={item.id}>
 						<Link to={`/movies/${item.id}`}>
@@ -403,28 +409,36 @@ class WatchList extends Component {
 					 
 					    <TabPanel>
 					      {/*<h2>Any content 1</h2>*/}
-					      <div className="row">{user ? movList : guest}
+					      <div className="row react-flip-relat">
+					      	<FlipMove typeName={null}>
+					         
+								  {user ? movList : guest}
 
-					      {user && this.state.movList.length>0 && <div className="flex-100 row">
-						      <button className="watchlist-add-btn watchlist-more-btn" onClick={this.getMore} disabled={!this.state.hasMore}>
-						      	{this.state.hasMore ? this.props.intl.formatMessage(messages.watchlist_btn_load_more) : this.props.intl.formatMessage(messages.watchlist_btn_done)}
-						      </button>
-					      	</div>
-					      }
-					      	
+							      {(user && this.state.movList.length>0) ? <div className="flex-100 row">
+								      <button className="watchlist-add-btn watchlist-more-btn" onClick={this.getMore} disabled={!this.state.hasMore}>
+								      	{this.state.hasMore ? this.props.intl.formatMessage(messages.watchlist_btn_load_more) : this.props.intl.formatMessage(messages.watchlist_btn_done)}
+								      </button>
+							      	</div> 
+							      	: <span></span>
+							      }
+					      	</FlipMove>
 					      </div>  
 					    </TabPanel>
 					    <TabPanel>
 					      {/*<h2>Any content 2</h2>*/}
 
-					      <div className="row">{user ? tvList : guest}
+					      <div className="row react-flip-relat">
+					      	<FlipMove typeName={null}>
+							      {user ? tvList : guest}
 
-					      {user && this.state.tvList.length>0 && <div className="flex-100 row">
-						      <button className="watchlist-add-btn watchlist-more-btn" onClick={this.getMoreTv} disabled={!this.state.hasMoreTv}>
-						      	{this.state.hasMoreTv ? this.props.intl.formatMessage(messages.watchlist_btn_load_more) : this.props.intl.formatMessage(messages.watchlist_btn_done)}
-						      </button>
-					      	</div>
-					      }
+							      {(user && this.state.tvList.length>0) ? <div className="flex-100 row">
+								      <button className="watchlist-add-btn watchlist-more-btn" onClick={this.getMoreTv} disabled={!this.state.hasMoreTv}>
+								      	{this.state.hasMoreTv ? this.props.intl.formatMessage(messages.watchlist_btn_load_more) : this.props.intl.formatMessage(messages.watchlist_btn_done)}
+								      </button>
+							      	</div>
+							      	: <span></span>
+							      }
+					      	</FlipMove>
 					      </div>
 					    </TabPanel>
 					</Tabs>

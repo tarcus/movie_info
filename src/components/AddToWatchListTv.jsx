@@ -113,7 +113,8 @@ class AddToWatchListTv extends Component {
 
 	
 	checkTv = (TvId)=>{
-		firebase.database().ref('watchlist_tv/' + this.state.userUid + '/' + TvId).on('value', (snap)=>{
+		this.checkTvListener = firebase.database().ref('watchlist_tv/' + this.state.userUid + '/' + TvId)
+		this.checkTvListener.on('value', (snap)=>{
 			//если фильм уже в watchlist'e то обновим стейт
 			if(snap.val()!==null){
 				this.setState({inWatchList: true})
@@ -124,7 +125,7 @@ class AddToWatchListTv extends Component {
 	}
 
 	componentDidMount(){
-		firebase.auth().onAuthStateChanged((user)=>{
+		this.fireBaseUsr = firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({userUid: user.uid})
 				//check whether user has this tv or not
@@ -140,6 +141,12 @@ class AddToWatchListTv extends Component {
 		if(nextProps.tv.id !==this.props.tv.id){
 			this.checkTv(nextProps.tv.id)
 		}	
+	}
+
+	componentWillUnmount(){
+		//detach firebase listeners
+		this.fireBaseUsr();
+		this.checkTvListener.off();
 	}
 
 	render(){

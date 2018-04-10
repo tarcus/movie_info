@@ -69,7 +69,7 @@ class AddToWatchList extends Component {
 
 				if(snap.val()!==null && snap.val()<126){	
 					//increment counter when add to watchlist
-					console.log('COUNTER: ', snap.val())
+					//console.log('COUNTER: ', snap.val())
 					let counter = snap.val()
 					usersMovCountRef.child('counter').set(++counter)
 					//set smid
@@ -114,7 +114,8 @@ class AddToWatchList extends Component {
 
 	
 	checkMovie = (movieId)=>{
-		firebase.database().ref('watchlist_mov/' + this.state.userUid + '/' + movieId).on('value', (snap)=>{
+		this.checkMovListener = firebase.database().ref('watchlist_mov/' + this.state.userUid + '/' + movieId)
+		this.checkMovListener.on('value', (snap)=>{
 			//console.log('SNAP: ', snap.val())
 			//если фильм уже в watchlist'e то обновим стейт
 			if(snap.val()!==null){
@@ -127,7 +128,7 @@ class AddToWatchList extends Component {
 	}
 
 	componentDidMount(){
-		firebase.auth().onAuthStateChanged((user)=>{
+		this.fireBaseListener = firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({userUid: user.uid})
 				//console.log('FirebaseUser ADDTO: ', user)
@@ -135,7 +136,7 @@ class AddToWatchList extends Component {
 				this.checkMovie(this.props.movie.id);	
 			} else {
 				this.setState({userUid: null, inWatchList: false})
-				console.log('not logged in AddToWatch')
+				//console.log('not logged in AddToWatch')
 			}
 		})
 	}
@@ -144,6 +145,12 @@ class AddToWatchList extends Component {
 		if(nextProps.movie.id !==this.props.movie.id){
 			this.checkMovie(nextProps.movie.id)
 		}	
+	}
+
+	componentWillUnmount(){
+		//detach firebase listeners
+		this.fireBaseListener();
+		this.checkMovListener.off();	
 	}
 
 	render(){

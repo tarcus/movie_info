@@ -1675,6 +1675,11 @@ h1.search {
 }
 
 
+.react-flip-relat {
+	position: relative;
+}
+
+
 /*****Media Queries*****/
 
 @media screen and (max-width: 320px) {
