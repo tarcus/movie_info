@@ -64,6 +64,8 @@ class WatchList extends Component {
 			if(this.state.movList.length < snap.val()){
 				this.getMore()
 				//console.log("NEED LOAD MORE")
+			} else {
+				this.listenWatchlistMovCount()
 			}
 			//console.log('TOTAL MOV: ', snap.val())
 		})
@@ -79,6 +81,8 @@ class WatchList extends Component {
 			if(this.state.tvList.length < snap.val()){
 				this.getMoreTv()
 				//console.log("NEED LOAD MORE TV")
+			} else {
+				this.listenWatchlistTvCount()
 			}
 			//console.log('TOTAL TV: ', snap.val())
 		})
@@ -128,23 +132,41 @@ class WatchList extends Component {
 		}		
 	}
 	
+	hasMore = ()=>{
+		firebase.database().ref('watchlist_mov_count/' + this.state.uid + '/counter').once('value', (snap)=>{			
+			console.log('MOVLISTDB: ', snap.val(), 'MOVLISTSTATE: ', this.state.movList.length)
+			if(snap.val() > this.state.movList.length){
+				console.log('HAS MORE: ', true )
+				this.setState({hasMore: true})			
+			} else {
+				console.log('HAS MORE: ', false)
+				this.setState({hasMore: false})
+			}
+		
+		}) 
+	}
+
 	getMore = ()=>{
 		const lastItem = this.state.movList.slice(-1)[0];
 		const start = lastItem ? lastItem.sid + 1 : 1;
-		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('sid').startAt(start).limitToFirst(42);
+		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('sid').startAt(start)//.limitToFirst(42);
 		movListRef.once('value', (snap)=>{
-			//console.log('LOAD MORE: ', snap.val())
+			console.log('LOAD MORE: ', snap.val())
 			if(snap.val()!==null){
 				const dataOrdered = [];
 				snap.forEach((item)=>{
 					dataOrdered.push(item.val())
 				})
 				//check for more items
-				const hasMore = (dataOrdered.length < 42) ? false : true;
+				//const hasMore = (dataOrdered.length < 42) ? false : true;
 				
-				this.setState({movList: [...this.state.movList , ...dataOrdered], hasMore: hasMore }, ()=>{
+				this.setState({movList: [...this.state.movList , ...dataOrdered]}, ()=>{
 					//update localStorage
 					localStorage.setItem('watchlist_mov_' + this.state.uid, JSON.stringify(this.state.movList))
+
+					this.listenWatchlistMovCount()
+					//upd button
+					//this.hasMore()
 				})
 			} else {
 				this.setState({hasMore: false})
@@ -155,7 +177,7 @@ class WatchList extends Component {
 	getMoreTv = ()=>{
 		const lastItem = this.state.tvList.slice(-1)[0];
 		const start = lastItem ? lastItem.sid + 1 : 1;
-		const tvListRef = firebase.database().ref('watchlist_tv/' + this.state.uid).orderByChild('sid').startAt(start).limitToFirst(42);
+		const tvListRef = firebase.database().ref('watchlist_tv/' + this.state.uid).orderByChild('sid').startAt(start)//.limitToFirst(42);
 		tvListRef.once('value', (snap)=>{
 			//console.log('LOAD MORE: ', snap.val())
 			if(snap.val()!==null){
@@ -163,9 +185,11 @@ class WatchList extends Component {
 				snap.forEach((item)=>{
 					dataOrdered.push(item.val())
 				})
-				const hasMore = (dataOrdered.length < 42) ? false : true;
-				this.setState({tvList: [...this.state.tvList , ...dataOrdered], hasMoreTv: hasMore }, ()=>{
+				//const hasMore = (dataOrdered.length < 42) ? false : true;
+				this.setState({tvList: [...this.state.tvList , ...dataOrdered]}, ()=>{
 					localStorage.setItem('watchlist_tv_' + this.state.uid, JSON.stringify(this.state.tvList))
+
+					this.listenWatchlistTvCount()
 				})
 			} else {
 				this.setState({hasMoreTv: false})
@@ -176,7 +200,7 @@ class WatchList extends Component {
 	
 	//get first portion of content
 	getInit = ()=>{	
-		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('sid').startAt(0).limitToFirst(42);
+		const movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('sid').startAt(0)//.limitToFirst(42);
 		movListRef.once('value', (snap)=>{
 			if(snap.val()!==null){
 				const dataOrdered = [];
@@ -192,6 +216,10 @@ class WatchList extends Component {
 					const sessionMovId = localStorage.getItem('session_mov_id');
 					const sessionMovIdRef = firebase.database().ref('session_mov_id/'  + this.state.uid)
 					sessionMovIdRef.child('smid').set(sessionMovId)
+
+					this.listenWatchlistMovCount()
+					//upd button
+					//this.hasMore()
 				})
 			} else {
 				this.setState({movList: []})
@@ -200,7 +228,7 @@ class WatchList extends Component {
 	}
 
 	getInitTv = ()=>{	
-		const tvListRef = firebase.database().ref('watchlist_tv/' + this.state.uid).orderByChild('sid').startAt(0).limitToFirst(42);
+		const tvListRef = firebase.database().ref('watchlist_tv/' + this.state.uid).orderByChild('sid').startAt(0)//.limitToFirst(42);
 		tvListRef.once('value', (snap)=>{
 			if(snap.val()!==null){
 				const dataOrdered = [];
@@ -216,6 +244,8 @@ class WatchList extends Component {
 					const sessionTvId = localStorage.getItem('session_tv_id');
 					const sessionTvIdRef = firebase.database().ref('session_tv_id/'  + this.state.uid)
 					sessionTvIdRef.child('smid').set(sessionTvId)
+
+					this.listenWatchlistTvCount()
 				})
 			} else {
 				this.setState({tvList: []})
@@ -229,8 +259,11 @@ class WatchList extends Component {
 			this.setState({movList: movFromLocal}, ()=>{
 				//Load more if there is more
 				this.getTotalMovItems()
+				//this.getMore()
+				//upd button
+				//this.hasMore()
 			})
-			//console.log('DATA FROM LOCALSTORAGE')	
+			console.log('DATA FROM LOCALSTORAGE')	
 	}
 
 	getInitFromLocalTv = ()=>{
@@ -264,7 +297,7 @@ class WatchList extends Component {
 
 	delMovFromList = (e, movId)=>{
 		//remove movie from list by id
-		firebase.database().ref('watchlist_mov/' + this.state.uid + '/' + movId).remove()
+		firebase.database().ref('watchlist_mov/' + this.state.uid + '/' + movId).remove((data)=>{ console.log("RM", data)})
 		//console.log('DEL FROM WATCHLIST: ', movId)
 
 		//И чтобы не тянуть из бд очередной раз все 
@@ -288,13 +321,87 @@ class WatchList extends Component {
 		this.getSessionMovId()
 	}
 
-	
+	//remove items from state and localstorage in another tab
+	delMovFromLocal = (movId)=>{
+		const afterDel = this.state.movList.filter((item)=>{
+			return item.id !== movId
+		})
+		this.setState({movList: afterDel}, ()=>{
+			//update localStorage
+			localStorage.setItem('watchlist_mov_' + this.state.uid, JSON.stringify(this.state.movList))
+		})
+	}
 
+	delTvFromLocal = (tvId)=>{
+		const afterDel = this.state.tvList.filter((item)=>{
+			return item.id !== tvId
+		})
+		this.setState({tvList: afterDel}, ()=>{
+			//update localStorage
+			localStorage.setItem('watchlist_tv_' + this.state.uid, JSON.stringify(this.state.tvList))
+		})
+	}
+
+
+	listenWatchlistMovCount = ()=>{
+		//last child added listening 
+		this.movListRef = firebase.database().ref('watchlist_mov/' + this.state.uid).orderByChild('sid').limitToLast(1);
+		this.movListRef.on('child_added', (data)=>{
+			console.log('CHILD ADDED: ', data.val())
+			//проверяем есть ли в стейте такой элемент, если есть то ничего не делаем
+			const addedItem = data.val()
+			const checkState = this.state.movList.filter((item)=>{
+				return item.id == addedItem.id
+			})
+			console.log('CHECK STATE: ', checkState)
+
+			if(checkState.length == 0) {
+				const newData = [...this.state.movList, ...[addedItem]]
+				//console.log('NEW DATA: ', newData )
+				this.setState({movList: newData}, ()=>{
+					//update localStorage
+					localStorage.setItem('watchlist_mov_' + this.state.uid, JSON.stringify(this.state.movList))
+					//update loadmore button
+					//this.hasMore()
+				})
+			} 	
+		})
+	}
+
+	listenWatchlistTvCount = ()=>{
+		this.tvListRef = firebase.database().ref('watchlist_tv/' + this.state.uid).orderByChild('sid').limitToLast(1);
+		this.tvListRef.on('child_added', (data)=>{
+			console.log('TV CHILD ADDED: ', data.val())
+			//проверяем есть ли в стейте такой элемент, если есть то ничего не делаем
+			const addedItem = data.val()
+			const checkState = this.state.tvList.filter((item)=>{
+				return item.id == addedItem.id
+			})
+			console.log('CHECK STATE TV: ', checkState)
+			if(checkState.length == 0) {
+				const newData = [...this.state.tvList, ...[addedItem]]
+				//console.log('NEW DATA: ', newData )
+				this.setState({tvList: newData}, ()=>{
+					//update localStorage
+					localStorage.setItem('watchlist_tv_' + this.state.uid, JSON.stringify(this.state.tvList))
+				})
+			} 	
+		})
+	}
+
+	
 	componentDidMount(){
 		//получаем юзера
 		this.fireUser = firebase.auth().onAuthStateChanged((user)=>{
 			if(user){
 				this.setState({uid: user.uid}, ()=>{
+					//listen child remove event
+					this.movListRemRef = firebase.database().ref('watchlist_mov/' + this.state.uid)
+					this.movListRemRef.on('child_removed', (data)=>{
+						//Удаляем из стейта и лок хранилища
+						this.delMovFromLocal(data.val().id)
+							console.log("Child Removed: ", data.val())
+					})
 					//get session_mov_id from localstorage
 					const sessionMovId = localStorage.getItem('session_mov_id');
 					
@@ -302,7 +409,7 @@ class WatchList extends Component {
 					firebase.database().ref('session_mov_id/'  + this.state.uid + '/smid').once('value', (snap)=>{	
 						const movFromLocal = JSON.parse(localStorage.getItem('watchlist_mov_' + this.state.uid))
 						if(sessionMovId===snap.val() && movFromLocal!==null && movFromLocal.length!==0){
-							this.getInitFromLocal()
+							this.getInitFromLocal()	
 						} else {
 							this.getInit()
 						}	
@@ -317,6 +424,14 @@ class WatchList extends Component {
 
 	tvTabSelect = (tabNum)=>{
 		if(tabNum===1){
+			 //listen child remove event
+			 this.tvListRemRef = firebase.database().ref('watchlist_tv/' + this.state.uid)
+			 this.tvListRemRef.on('child_removed', (data)=>{
+				//Удаляем из стейта и лок хранилища
+				this.delTvFromLocal(data.val().id)
+					console.log("TV Child Removed: ", data.val())
+			 })
+
 			//get session_mov_id from localstorage
 			 const sessionTvId = localStorage.getItem('session_tv_id')
 			// //ref to session_mov_id in the firebase
@@ -335,17 +450,27 @@ class WatchList extends Component {
 	componentWillUnmount(){
 		//Detach firebase listeners
 		this.fireUser();
+		
+		if(this.tvListRef){
+			this.tvListRef.off()
+		}
+		if(this.movListRef){
+			this.movListRef.off()
+		}
+		if(this.movListRemRef){
+			this.movListRemRef.off()
+		}
+		if(this.tvListRemRef){
+			this.tvListRemRef.off()
+		}
+		
+		
 		//firebase.database().ref('watchlist_mov/' + this.state.uid).off('child_removed')
 	}
 
 	render(){
-		//console.log("WATCHLIST RENDER")
 		const user = this.state.uid;
-		//const guestArr = [{message: 'Fuck me'}];
 		const guest = <div key={genKey()}>{this.props.intl.formatMessage(messages.watchlist_guest)}</div>
-		// const guest = guestArr.map((item)=>{
-		// 	return <span key={genKey()}>{item.message}</span>
-		// })
 		const movList = this.state.movList.map((item)=>{
 			return  <div className="watchlist-card" key={item.id}>
 						<Link to={`/movies/${item.id}`}>
@@ -414,13 +539,13 @@ class WatchList extends Component {
 					         
 								  {user ? movList : guest}
 
-							      {(user && this.state.movList.length>0) ? <div className="flex-100 row">
+							      {/*(user && this.state.movList.length>0) ? <div className="flex-100 row">
 								      <button className="watchlist-add-btn watchlist-more-btn" onClick={this.getMore} disabled={!this.state.hasMore}>
 								      	{this.state.hasMore ? this.props.intl.formatMessage(messages.watchlist_btn_load_more) : this.props.intl.formatMessage(messages.watchlist_btn_done)}
 								      </button>
 							      	</div> 
 							      	: <span></span>
-							      }
+							      */}
 					      	</FlipMove>
 					      </div>  
 					    </TabPanel>
@@ -431,13 +556,13 @@ class WatchList extends Component {
 					      	<FlipMove typeName={null}>
 							      {user ? tvList : guest}
 
-							      {(user && this.state.tvList.length>0) ? <div className="flex-100 row">
+							      {/*(user && this.state.tvList.length>0) ? <div className="flex-100 row">
 								      <button className="watchlist-add-btn watchlist-more-btn" onClick={this.getMoreTv} disabled={!this.state.hasMoreTv}>
 								      	{this.state.hasMoreTv ? this.props.intl.formatMessage(messages.watchlist_btn_load_more) : this.props.intl.formatMessage(messages.watchlist_btn_done)}
 								      </button>
 							      	</div>
 							      	: <span></span>
-							      }
+							      */}
 					      	</FlipMove>
 					      </div>
 					    </TabPanel>
